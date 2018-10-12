@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceMainBusinessDetailMonthDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.FinanceMainBusinessDetialMonth" >
+    <id column="fid" property="fid"/>
+    <result column="frow_num" property="frow_num"  />
+    <result column="fproject" property="fproject"/>
+    <result column="sales_volume" property="sales_volume"/>
+    <result column="selling_unit_price" property="selling_unit_price"/>
+    <result column="selling_amont" property="selling_amont"/>
+    <result column="cost_unit" property="cost_unit"/>
+    <result column="cost_amont" property="cost_amont"/>
+    <result column="sale_profit_unit" property="sale_profit_unit"/>
+    <result column="sale_profit_count" property="sale_profit_count"/>
+    <result column="sale_profit_ratio" property="sale_profit_ratio"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+    <result column="fstrong" property="fstrong"  />
+  </resultMap>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_main_business_list_m (
+    frow_num,fproject,sales_volume,selling_unit_price,selling_amont,
+    cost_unit,cost_amont,sale_profit_unit,sale_profit_count,sale_profit_ratio,
+    fhead_id,frow_index,fstrong
+    )
+    values
+      (
+      #{item.frow_num},#{item.fproject},#{item.sales_volume},#{item.selling_unit_price},#{item.selling_amont},
+      #{item.cost_unit},#{item.cost_amont},#{item.sale_profit_unit},#{item.sale_profit_count},#{item.sale_profit_ratio},
+      #{item.fhead_id},#{item.frow_index},#{item.fstrong}
+      )
+    </foreach>
+    SELECT 1 FROM dual
+  </insert>
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessDetialMonth">
+    delete from t_finance_main_business_list_m WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessDetialMonth" >
+    select * from t_finance_main_business_list_m where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+      and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+</mapper>

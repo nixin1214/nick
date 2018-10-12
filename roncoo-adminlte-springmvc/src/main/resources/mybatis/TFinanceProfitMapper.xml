@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceProfitMapper">
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceProfit">
+    <id column="FID" jdbcType="DECIMAL" property="fid" />
+    <result column="FPROJECT" jdbcType="VARCHAR" property="fproject" />
+    <result column="FROW_NUM" jdbcType="DECIMAL" property="frowNum" />
+    <result column="LAST_YEAR_ACTUAL" jdbcType="DECIMAL" property="lastYearActual" />
+    <result column="LAST_YEAR_TOTAL" jdbcType="DECIMAL" property="lastYearTotal" />
+    <result column="THIS_YEAR_BUDGET" jdbcType="DECIMAL" property="thisYearBudget" />
+    <result column="THIS_YEAR_BUDGET_TOTAL" jdbcType="DECIMAL" property="thisYearBudgetTotal" />
+    <result column="THIS_YEAR_ACTUAL" jdbcType="DECIMAL" property="thisYearActual" />
+    <result column="THIS_YEAR_ACTUAL_TOTAL" jdbcType="DECIMAL" property="thisYearActualTotal" />
+    <result column="FHEAD_ID" jdbcType="DECIMAL" property="fheadId" />
+    <result column="FROW_INDEX" jdbcType="DECIMAL" property="frowIndex" />
+    <result column="FSTRONG" jdbcType="DECIMAL" property="fstrong" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" separator="," close=")">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FID, FPROJECT, FROW_NUM, LAST_YEAR_ACTUAL, LAST_YEAR_TOTAL, THIS_YEAR_BUDGET, THIS_YEAR_BUDGET_TOTAL, 
+    THIS_YEAR_ACTUAL, THIS_YEAR_ACTUAL_TOTAL, FHEAD_ID, FROW_INDEX, FSTRONG
+  </sql>
+  <select id="selectByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfitExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FINANCE_PROFIT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_FINANCE_PROFIT
+    where FID = #{fid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from T_FINANCE_PROFIT
+    where FID = #{fid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfitExample">
+    delete from T_FINANCE_PROFIT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfit">
+    insert into T_FINANCE_PROFIT (FID, FPROJECT, FROW_NUM, 
+      LAST_YEAR_ACTUAL, LAST_YEAR_TOTAL, THIS_YEAR_BUDGET, 
+      THIS_YEAR_BUDGET_TOTAL, THIS_YEAR_ACTUAL, THIS_YEAR_ACTUAL_TOTAL, 
+      FHEAD_ID, FROW_INDEX, FSTRONG
+      )
+    values (#{fid,jdbcType=DECIMAL}, #{fproject,jdbcType=VARCHAR}, #{frowNum,jdbcType=DECIMAL}, 
+      #{lastYearActual,jdbcType=DECIMAL}, #{lastYearTotal,jdbcType=DECIMAL}, #{thisYearBudget,jdbcType=DECIMAL}, 
+      #{thisYearBudgetTotal,jdbcType=DECIMAL}, #{thisYearActual,jdbcType=DECIMAL}, #{thisYearActualTotal,jdbcType=DECIMAL}, 
+      #{fheadId,jdbcType=DECIMAL}, #{frowIndex,jdbcType=DECIMAL}, #{fstrong,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfit">
+    insert into T_FINANCE_PROFIT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="fproject != null">
+        FPROJECT,
+      </if>
+      <if test="frowNum != null">
+        FROW_NUM,
+      </if>
+      <if test="lastYearActual != null">
+        LAST_YEAR_ACTUAL,
+      </if>
+      <if test="lastYearTotal != null">
+        LAST_YEAR_TOTAL,
+      </if>
+      <if test="thisYearBudget != null">
+        THIS_YEAR_BUDGET,
+      </if>
+      <if test="thisYearBudgetTotal != null">
+        THIS_YEAR_BUDGET_TOTAL,
+      </if>
+      <if test="thisYearActual != null">
+        THIS_YEAR_ACTUAL,
+      </if>
+      <if test="thisYearActualTotal != null">
+        THIS_YEAR_ACTUAL_TOTAL,
+      </if>
+      <if test="fheadId != null">
+        FHEAD_ID,
+      </if>
+      <if test="frowIndex != null">
+        FROW_INDEX,
+      </if>
+      <if test="fstrong != null">
+        FSTRONG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=DECIMAL},
+      </if>
+      <if test="fproject != null">
+        #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum != null">
+        #{frowNum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastYearActual != null">
+        #{lastYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="lastYearTotal != null">
+        #{lastYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearBudget != null">
+        #{thisYearBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearBudgetTotal != null">
+        #{thisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearActual != null">
+        #{thisYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearActualTotal != null">
+        #{thisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null">
+        #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null">
+        #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="fstrong != null">
+        #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfitExample" resultType="java.lang.Long">
+    select count(*) from T_FINANCE_PROFIT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_FINANCE_PROFIT
+    <set>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fproject != null">
+        FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frowNum != null">
+        FROW_NUM = #{record.frowNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastYearActual != null">
+        LAST_YEAR_ACTUAL = #{record.lastYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastYearTotal != null">
+        LAST_YEAR_TOTAL = #{record.lastYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisYearBudget != null">
+        THIS_YEAR_BUDGET = #{record.thisYearBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisYearBudgetTotal != null">
+        THIS_YEAR_BUDGET_TOTAL = #{record.thisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisYearActual != null">
+        THIS_YEAR_ACTUAL = #{record.thisYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisYearActualTotal != null">
+        THIS_YEAR_ACTUAL_TOTAL = #{record.thisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fheadId != null">
+        FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frowIndex != null">
+        FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fstrong != null">
+        FSTRONG = #{record.fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_FINANCE_PROFIT
+    set FID = #{record.fid,jdbcType=DECIMAL},
+      FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      FROW_NUM = #{record.frowNum,jdbcType=DECIMAL},
+      LAST_YEAR_ACTUAL = #{record.lastYearActual,jdbcType=DECIMAL},
+      LAST_YEAR_TOTAL = #{record.lastYearTotal,jdbcType=DECIMAL},
+      THIS_YEAR_BUDGET = #{record.thisYearBudget,jdbcType=DECIMAL},
+      THIS_YEAR_BUDGET_TOTAL = #{record.thisYearBudgetTotal,jdbcType=DECIMAL},
+      THIS_YEAR_ACTUAL = #{record.thisYearActual,jdbcType=DECIMAL},
+      THIS_YEAR_ACTUAL_TOTAL = #{record.thisYearActualTotal,jdbcType=DECIMAL},
+      FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      FSTRONG = #{record.fstrong,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfit">
+    update T_FINANCE_PROFIT
+    <set>
+      <if test="fproject != null">
+        FPROJECT = #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum != null">
+        FROW_NUM = #{frowNum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastYearActual != null">
+        LAST_YEAR_ACTUAL = #{lastYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="lastYearTotal != null">
+        LAST_YEAR_TOTAL = #{lastYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearBudget != null">
+        THIS_YEAR_BUDGET = #{thisYearBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearBudgetTotal != null">
+        THIS_YEAR_BUDGET_TOTAL = #{thisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearActual != null">
+        THIS_YEAR_ACTUAL = #{thisYearActual,jdbcType=DECIMAL},
+      </if>
+      <if test="thisYearActualTotal != null">
+        THIS_YEAR_ACTUAL_TOTAL = #{thisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null">
+        FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null">
+        FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="fstrong != null">
+        FSTRONG = #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceProfit">
+    update T_FINANCE_PROFIT
+    set FPROJECT = #{fproject,jdbcType=VARCHAR},
+      FROW_NUM = #{frowNum,jdbcType=DECIMAL},
+      LAST_YEAR_ACTUAL = #{lastYearActual,jdbcType=DECIMAL},
+      LAST_YEAR_TOTAL = #{lastYearTotal,jdbcType=DECIMAL},
+      THIS_YEAR_BUDGET = #{thisYearBudget,jdbcType=DECIMAL},
+      THIS_YEAR_BUDGET_TOTAL = #{thisYearBudgetTotal,jdbcType=DECIMAL},
+      THIS_YEAR_ACTUAL = #{thisYearActual,jdbcType=DECIMAL},
+      THIS_YEAR_ACTUAL_TOTAL = #{thisYearActualTotal,jdbcType=DECIMAL},
+      FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      FSTRONG = #{fstrong,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+
+</mapper>

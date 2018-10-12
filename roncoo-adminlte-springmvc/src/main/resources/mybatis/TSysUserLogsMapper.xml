@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TSysUserLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TSysUserLogs" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fuser_id" property="fuserId" jdbcType="BIGINT" />
+    <result column="fuser_name" property="fuserName" jdbcType="VARCHAR" />
+    <result column="fuser_account" property="fuserAccount" jdbcType="VARCHAR" />
+    <result column="foperation_type" property="foperationType" jdbcType="VARCHAR" />
+    <result column="fuser_org_id" property="fuserOrgId" jdbcType="BIGINT" />
+    <result column="fuser_org_name" property="fuserOrgName" jdbcType="VARCHAR" />
+    <result column="fresource" property="fresource" jdbcType="VARCHAR" />
+    <result column="fcreatime" property="fcreatime" jdbcType="TIMESTAMP" />
+    <result column="fremark" property="fremark" jdbcType="VARCHAR" />
+    <result column="fsource" property="fsource" jdbcType="VARCHAR" />
+    <result column="fmac_address" property="fmacAddress" jdbcType="VARCHAR" />
+    <result column="fip_address" property="fipAddress" jdbcType="VARCHAR" />
+    <result column="fstatus" property="fstatus" jdbcType="VARCHAR" />
+    <result column="ferror_code" property="ferrorCode" jdbcType="VARCHAR" />
+    <result column="ferror_msg" property="ferrorMsg" jdbcType="VARCHAR" />
+    <association property="company" column="fuser_org_name" javaType="com.roncoo.adminlte.bean.entity.RcCompany" select="selectCompany">
+      <id property="id" column="id" jdbcType="BIGINT" javaType="long"></id>
+      <result property="fnumber" column="fnumber" jdbcType="VARCHAR" javaType="string"/>
+      <result property="fname" column="fname" jdbcType="VARCHAR" javaType="string"/>
+      <result property="ftype" column="ftype" jdbcType="VARCHAR" javaType="string"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fuser_id, fuser_name, fuser_account, foperation_type, fuser_org_id, fuser_org_name, 
+    fresource, fcreatime, fremark, fsource, fmac_address, fip_address, fstatus, ferror_code, 
+    ferror_msg
+  </sql>
+  <select id="selectCompany" resultType="com.roncoo.adminlte.bean.entity.RcCompany" parameterType="string">
+    select id, fname "fname", fnumber "fnumber", ftype "ftype" from rc_company where fnumber=#{fuser_org_name}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sys_user_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_user_logs
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sys_user_logs
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogsExample" >
+    delete from t_sys_user_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogs" >
+    insert into t_sys_user_logs (fid, fuser_id, fuser_name, 
+      fuser_account, foperation_type, fuser_org_id, 
+      fuser_org_name, fresource, fcreatime, 
+      fremark, fsource, fmac_address, 
+      fip_address, fstatus, ferror_code, 
+      ferror_msg)
+    values (#{fid,jdbcType=BIGINT}, #{fuserId,jdbcType=BIGINT}, #{fuserName,jdbcType=VARCHAR}, 
+      #{fuserAccount,jdbcType=VARCHAR}, #{foperationType,jdbcType=VARCHAR}, #{fuserOrgId,jdbcType=BIGINT}, 
+      #{fuserOrgName,jdbcType=VARCHAR}, #{fresource,jdbcType=VARCHAR}, #{fcreatime,jdbcType=TIMESTAMP}, 
+      #{fremark,jdbcType=VARCHAR}, #{fsource,jdbcType=VARCHAR}, #{fmacAddress,jdbcType=VARCHAR}, 
+      #{fipAddress,jdbcType=VARCHAR}, #{fstatus,jdbcType=VARCHAR}, #{ferrorCode,jdbcType=VARCHAR}, 
+      #{ferrorMsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogs" >
+    insert into t_sys_user_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fuserId != null" >
+        fuser_id,
+      </if>
+      <if test="fuserName != null" >
+        fuser_name,
+      </if>
+      <if test="fuserAccount != null" >
+        fuser_account,
+      </if>
+      <if test="foperationType != null" >
+        foperation_type,
+      </if>
+      <if test="fuserOrgId != null" >
+        fuser_org_id,
+      </if>
+      <if test="fuserOrgName != null" >
+        fuser_org_name,
+      </if>
+      <if test="fresource != null" >
+        fresource,
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime,
+      </if>
+      <if test="fremark != null" >
+        fremark,
+      </if>
+      <if test="fsource != null" >
+        fsource,
+      </if>
+      <if test="fmacAddress != null" >
+        fmac_address,
+      </if>
+      <if test="fipAddress != null" >
+        fip_address,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="ferrorCode != null" >
+        ferror_code,
+      </if>
+      <if test="ferrorMsg != null" >
+        ferror_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fuserId != null" >
+        #{fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserName != null" >
+        #{fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserAccount != null" >
+        #{fuserAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="foperationType != null" >
+        #{foperationType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserOrgId != null" >
+        #{fuserOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserOrgName != null" >
+        #{fuserOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fresource != null" >
+        #{fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fremark != null" >
+        #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fsource != null" >
+        #{fsource,jdbcType=VARCHAR},
+      </if>
+      <if test="fmacAddress != null" >
+        #{fmacAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fipAddress != null" >
+        #{fipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ferrorCode != null" >
+        #{ferrorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ferrorMsg != null" >
+        #{ferrorMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogsExample" resultType="java.lang.Integer" >
+    select count(*) from t_sys_user_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sys_user_logs
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fuserId != null" >
+        fuser_id = #{record.fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fuserName != null" >
+        fuser_name = #{record.fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuserAccount != null" >
+        fuser_account = #{record.fuserAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foperationType != null" >
+        foperation_type = #{record.foperationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuserOrgId != null" >
+        fuser_org_id = #{record.fuserOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fuserOrgName != null" >
+        fuser_org_name = #{record.fuserOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fresource != null" >
+        fresource = #{record.fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcreatime != null" >
+        fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fremark != null" >
+        fremark = #{record.fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsource != null" >
+        fsource = #{record.fsource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmacAddress != null" >
+        fmac_address = #{record.fmacAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fipAddress != null" >
+        fip_address = #{record.fipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ferrorCode != null" >
+        ferror_code = #{record.ferrorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ferrorMsg != null" >
+        ferror_msg = #{record.ferrorMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sys_user_logs
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fuser_id = #{record.fuserId,jdbcType=BIGINT},
+      fuser_name = #{record.fuserName,jdbcType=VARCHAR},
+      fuser_account = #{record.fuserAccount,jdbcType=VARCHAR},
+      foperation_type = #{record.foperationType,jdbcType=VARCHAR},
+      fuser_org_id = #{record.fuserOrgId,jdbcType=BIGINT},
+      fuser_org_name = #{record.fuserOrgName,jdbcType=VARCHAR},
+      fresource = #{record.fresource,jdbcType=VARCHAR},
+      fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      fremark = #{record.fremark,jdbcType=VARCHAR},
+      fsource = #{record.fsource,jdbcType=VARCHAR},
+      fmac_address = #{record.fmacAddress,jdbcType=VARCHAR},
+      fip_address = #{record.fipAddress,jdbcType=VARCHAR},
+      fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      ferror_code = #{record.ferrorCode,jdbcType=VARCHAR},
+      ferror_msg = #{record.ferrorMsg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogs" >
+    update t_sys_user_logs
+    <set >
+      <if test="fuserId != null" >
+        fuser_id = #{fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserName != null" >
+        fuser_name = #{fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserAccount != null" >
+        fuser_account = #{fuserAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="foperationType != null" >
+        foperation_type = #{foperationType,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserOrgId != null" >
+        fuser_org_id = #{fuserOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserOrgName != null" >
+        fuser_org_name = #{fuserOrgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fresource != null" >
+        fresource = #{fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fremark != null" >
+        fremark = #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fsource != null" >
+        fsource = #{fsource,jdbcType=VARCHAR},
+      </if>
+      <if test="fmacAddress != null" >
+        fmac_address = #{fmacAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fipAddress != null" >
+        fip_address = #{fipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ferrorCode != null" >
+        ferror_code = #{ferrorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ferrorMsg != null" >
+        ferror_msg = #{ferrorMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TSysUserLogs" >
+    update t_sys_user_logs
+    set fuser_id = #{fuserId,jdbcType=BIGINT},
+      fuser_name = #{fuserName,jdbcType=VARCHAR},
+      fuser_account = #{fuserAccount,jdbcType=VARCHAR},
+      foperation_type = #{foperationType,jdbcType=VARCHAR},
+      fuser_org_id = #{fuserOrgId,jdbcType=BIGINT},
+      fuser_org_name = #{fuserOrgName,jdbcType=VARCHAR},
+      fresource = #{fresource,jdbcType=VARCHAR},
+      fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      fremark = #{fremark,jdbcType=VARCHAR},
+      fsource = #{fsource,jdbcType=VARCHAR},
+      fmac_address = #{fmacAddress,jdbcType=VARCHAR},
+      fip_address = #{fipAddress,jdbcType=VARCHAR},
+      fstatus = #{fstatus,jdbcType=VARCHAR},
+      ferror_code = #{ferrorCode,jdbcType=VARCHAR},
+      ferror_msg = #{ferrorMsg,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

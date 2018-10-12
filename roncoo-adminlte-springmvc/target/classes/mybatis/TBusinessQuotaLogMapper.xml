@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TBusinessQuotaLogMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TBusinessQuotaLog" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fquota_id" property="fquotaId" jdbcType="BIGINT" />
+    <result column="fquota_name" property="fquotaName" jdbcType="VARCHAR" />
+    <result column="fquota_name_en" property="fquotaNameEn" jdbcType="VARCHAR" />
+    <result column="fquota_old_value" property="fquotaOldValue" jdbcType="DECIMAL" />
+    <result column="fquota_new_value" property="fquotaNewValue" jdbcType="DECIMAL" />
+    <result column="fuser_id" property="fuserId" jdbcType="BIGINT" />
+    <result column="fuser_no" property="fuserNo" jdbcType="VARCHAR" />
+    <result column="fuser_name" property="fuserName" jdbcType="VARCHAR" />
+    <result column="forg_id" property="forgId" jdbcType="BIGINT" />
+    <result column="fcreatime" property="fcreatime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fquota_id, fquota_name, fquota_name_en, fquota_old_value, fquota_new_value, 
+    fuser_id, fuser_no, fuser_name, forg_id, fcreatime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_business_quota_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_business_quota_log
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_business_quota_log
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLogExample" >
+    delete from t_business_quota_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLog" >
+    insert into t_business_quota_log (fid, fquota_id, fquota_name, 
+      fquota_name_en, fquota_old_value, fquota_new_value, 
+      fuser_id, fuser_no, fuser_name, 
+      forg_id, fcreatime)
+    values (#{fid,jdbcType=BIGINT}, #{fquotaId,jdbcType=BIGINT}, #{fquotaName,jdbcType=VARCHAR}, 
+      #{fquotaNameEn,jdbcType=VARCHAR}, #{fquotaOldValue,jdbcType=DECIMAL}, #{fquotaNewValue,jdbcType=DECIMAL}, 
+      #{fuserId,jdbcType=BIGINT}, #{fuserNo,jdbcType=VARCHAR}, #{fuserName,jdbcType=VARCHAR}, 
+      #{forgId,jdbcType=BIGINT}, #{fcreatime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLog" >
+    insert into t_business_quota_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fquotaId != null" >
+        fquota_id,
+      </if>
+      <if test="fquotaName != null" >
+        fquota_name,
+      </if>
+      <if test="fquotaNameEn != null" >
+        fquota_name_en,
+      </if>
+      <if test="fquotaOldValue != null" >
+        fquota_old_value,
+      </if>
+      <if test="fquotaNewValue != null" >
+        fquota_new_value,
+      </if>
+      <if test="fuserId != null" >
+        fuser_id,
+      </if>
+      <if test="fuserNo != null" >
+        fuser_no,
+      </if>
+      <if test="fuserName != null" >
+        fuser_name,
+      </if>
+      <if test="forgId != null" >
+        forg_id,
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fquotaId != null" >
+        #{fquotaId,jdbcType=BIGINT},
+      </if>
+      <if test="fquotaName != null" >
+        #{fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaNameEn != null" >
+        #{fquotaNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaOldValue != null" >
+        #{fquotaOldValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fquotaNewValue != null" >
+        #{fquotaNewValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fuserId != null" >
+        #{fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserNo != null" >
+        #{fuserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserName != null" >
+        #{fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="forgId != null" >
+        #{forgId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_business_quota_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_business_quota_log
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fquotaId != null" >
+        fquota_id = #{record.fquotaId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fquotaName != null" >
+        fquota_name = #{record.fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fquotaNameEn != null" >
+        fquota_name_en = #{record.fquotaNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fquotaOldValue != null" >
+        fquota_old_value = #{record.fquotaOldValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fquotaNewValue != null" >
+        fquota_new_value = #{record.fquotaNewValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fuserId != null" >
+        fuser_id = #{record.fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fuserNo != null" >
+        fuser_no = #{record.fuserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuserName != null" >
+        fuser_name = #{record.fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forgId != null" >
+        forg_id = #{record.forgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreatime != null" >
+        fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_business_quota_log
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fquota_id = #{record.fquotaId,jdbcType=BIGINT},
+      fquota_name = #{record.fquotaName,jdbcType=VARCHAR},
+      fquota_name_en = #{record.fquotaNameEn,jdbcType=VARCHAR},
+      fquota_old_value = #{record.fquotaOldValue,jdbcType=DECIMAL},
+      fquota_new_value = #{record.fquotaNewValue,jdbcType=DECIMAL},
+      fuser_id = #{record.fuserId,jdbcType=BIGINT},
+      fuser_no = #{record.fuserNo,jdbcType=VARCHAR},
+      fuser_name = #{record.fuserName,jdbcType=VARCHAR},
+      forg_id = #{record.forgId,jdbcType=BIGINT},
+      fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLog" >
+    update t_business_quota_log
+    <set >
+      <if test="fquotaId != null" >
+        fquota_id = #{fquotaId,jdbcType=BIGINT},
+      </if>
+      <if test="fquotaName != null" >
+        fquota_name = #{fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaNameEn != null" >
+        fquota_name_en = #{fquotaNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaOldValue != null" >
+        fquota_old_value = #{fquotaOldValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fquotaNewValue != null" >
+        fquota_new_value = #{fquotaNewValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fuserId != null" >
+        fuser_id = #{fuserId,jdbcType=BIGINT},
+      </if>
+      <if test="fuserNo != null" >
+        fuser_no = #{fuserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fuserName != null" >
+        fuser_name = #{fuserName,jdbcType=VARCHAR},
+      </if>
+      <if test="forgId != null" >
+        forg_id = #{forgId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaLog" >
+    update t_business_quota_log
+    set fquota_id = #{fquotaId,jdbcType=BIGINT},
+      fquota_name = #{fquotaName,jdbcType=VARCHAR},
+      fquota_name_en = #{fquotaNameEn,jdbcType=VARCHAR},
+      fquota_old_value = #{fquotaOldValue,jdbcType=DECIMAL},
+      fquota_new_value = #{fquotaNewValue,jdbcType=DECIMAL},
+      fuser_id = #{fuserId,jdbcType=BIGINT},
+      fuser_no = #{fuserNo,jdbcType=VARCHAR},
+      fuser_name = #{fuserName,jdbcType=VARCHAR},
+      forg_id = #{forgId,jdbcType=BIGINT},
+      fcreatime = #{fcreatime,jdbcType=TIMESTAMP}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

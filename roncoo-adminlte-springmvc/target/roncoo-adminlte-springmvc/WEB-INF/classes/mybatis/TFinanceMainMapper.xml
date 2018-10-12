@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceMain" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fcreator" property="fcreator" jdbcType="BIGINT" />
+    <result column="fcreatime" property="fcreatime" jdbcType="TIMESTAMP" />
+    <result column="fupdator" property="fupdator" jdbcType="BIGINT" />
+    <result column="fupdatime" property="fupdatime" jdbcType="TIMESTAMP" />
+    <result column="fcompany_number" property="fcompanyNumber" jdbcType="VARCHAR" />
+    <result column="fcompany_name" property="fcompanyName" jdbcType="VARCHAR" />
+    <result column="fstatus" property="fstatus" jdbcType="VARCHAR" />
+    <result column="fyear_month" property="fyearMonth" jdbcType="VARCHAR" />
+    <result column="freport" property="freport" jdbcType="VARCHAR" />
+    <result column="fdescription" property="fdescription" jdbcType="VARCHAR" />
+    <result column="freport_number" property="freportNumber" jdbcType="VARCHAR" />
+    <result column="ffinance_chage" property="ffinanceChage" jdbcType="VARCHAR" />
+    <result column="funit_chage" property="funitChage" jdbcType="VARCHAR" />
+    <result column="fbizdate" property="fbizdate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fcreator, fcreatime, fupdator, fupdatime, fcompany_number, fcompany_name, fstatus, 
+    fyear_month, freport, fdescription, freport_number, ffinance_chage, funit_chage, 
+    fbizdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_main
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_finance_main
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainExample" >
+    delete from t_finance_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert"  useGeneratedKeys="false" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMain" >
+    insert into t_finance_main (fcreator, fcreatime,
+      fupdator, fupdatime, fcompany_number, 
+      fcompany_name, fstatus, fyear_month, 
+      freport, fdescription, freport_number, 
+      ffinance_chage, funit_chage, fbizdate
+      )
+    values (#{fcreator,jdbcType=BIGINT}, #{fcreatime,jdbcType=TIMESTAMP},
+      #{fupdator,jdbcType=BIGINT}, #{fupdatime,jdbcType=TIMESTAMP}, #{fcompanyNumber,jdbcType=VARCHAR}, 
+      #{fcompanyName,jdbcType=VARCHAR}, #{fstatus,jdbcType=VARCHAR}, #{fyearMonth,jdbcType=VARCHAR}, 
+      #{freport,jdbcType=VARCHAR}, #{fdescription,jdbcType=VARCHAR}, #{freportNumber,jdbcType=VARCHAR}, 
+      #{ffinanceChage,jdbcType=VARCHAR}, #{funitChage,jdbcType=VARCHAR}, #{fbizdate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMain" >
+    insert into t_finance_main
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fcreator != null" >
+        fcreator,
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime,
+      </if>
+      <if test="fupdator != null" >
+        fupdator,
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime,
+      </if>
+      <if test="fcompanyNumber != null" >
+        fcompany_number,
+      </if>
+      <if test="fcompanyName != null" >
+        fcompany_name,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fyearMonth != null" >
+        fyear_month,
+      </if>
+      <if test="freport != null" >
+        freport,
+      </if>
+      <if test="fdescription != null" >
+        fdescription,
+      </if>
+      <if test="freportNumber != null" >
+        freport_number,
+      </if>
+      <if test="ffinanceChage != null" >
+        ffinance_chage,
+      </if>
+      <if test="funitChage != null" >
+        funit_chage,
+      </if>
+      <if test="fbizdate != null" >
+        fbizdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fcreator != null" >
+        #{fcreator,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdator != null" >
+        #{fupdator,jdbcType=BIGINT},
+      </if>
+      <if test="fupdatime != null" >
+        #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcompanyNumber != null" >
+        #{fcompanyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fcompanyName != null" >
+        #{fcompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fyearMonth != null" >
+        #{fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="freport != null" >
+        #{freport,jdbcType=VARCHAR},
+      </if>
+      <if test="fdescription != null" >
+        #{fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="freportNumber != null" >
+        #{freportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ffinanceChage != null" >
+        #{ffinanceChage,jdbcType=VARCHAR},
+      </if>
+      <if test="funitChage != null" >
+        #{funitChage,jdbcType=VARCHAR},
+      </if>
+      <if test="fbizdate != null" >
+        #{fbizdate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_main
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_main
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreator != null" >
+        fcreator = #{record.fcreator,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreatime != null" >
+        fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fupdator != null" >
+        fupdator = #{record.fupdator,jdbcType=BIGINT},
+      </if>
+      <if test="record.fupdatime != null" >
+        fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fcompanyNumber != null" >
+        fcompany_number = #{record.fcompanyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcompanyName != null" >
+        fcompany_name = #{record.fcompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fyearMonth != null" >
+        fyear_month = #{record.fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freport != null" >
+        freport = #{record.freport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdescription != null" >
+        fdescription = #{record.fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freportNumber != null" >
+        freport_number = #{record.freportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ffinanceChage != null" >
+        ffinance_chage = #{record.ffinanceChage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funitChage != null" >
+        funit_chage = #{record.funitChage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbizdate != null" >
+        fbizdate = #{record.fbizdate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_main
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fcreator = #{record.fcreator,jdbcType=BIGINT},
+      fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      fupdator = #{record.fupdator,jdbcType=BIGINT},
+      fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP},
+      fcompany_number = #{record.fcompanyNumber,jdbcType=VARCHAR},
+      fcompany_name = #{record.fcompanyName,jdbcType=VARCHAR},
+      fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      fyear_month = #{record.fyearMonth,jdbcType=VARCHAR},
+      freport = #{record.freport,jdbcType=VARCHAR},
+      fdescription = #{record.fdescription,jdbcType=VARCHAR},
+      freport_number = #{record.freportNumber,jdbcType=VARCHAR},
+      ffinance_chage = #{record.ffinanceChage,jdbcType=VARCHAR},
+      funit_chage = #{record.funitChage,jdbcType=VARCHAR},
+      fbizdate = #{record.fbizdate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMain" >
+    update t_finance_main
+    <set >
+      <if test="fcreator != null" >
+        fcreator = #{fcreator,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdator != null" >
+        fupdator = #{fupdator,jdbcType=BIGINT},
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime = #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fcompanyNumber != null" >
+        fcompany_number = #{fcompanyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fcompanyName != null" >
+        fcompany_name = #{fcompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fyearMonth != null" >
+        fyear_month = #{fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="freport != null" >
+        freport = #{freport,jdbcType=VARCHAR},
+      </if>
+      <if test="fdescription != null" >
+        fdescription = #{fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="freportNumber != null" >
+        freport_number = #{freportNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ffinanceChage != null" >
+        ffinance_chage = #{ffinanceChage,jdbcType=VARCHAR},
+      </if>
+      <if test="funitChage != null" >
+        funit_chage = #{funitChage,jdbcType=VARCHAR},
+      </if>
+      <if test="fbizdate != null" >
+        fbizdate = #{fbizdate,jdbcType=DATE},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMain" >
+    update t_finance_main
+    set fcreator = #{fcreator,jdbcType=BIGINT},
+      fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      fupdator = #{fupdator,jdbcType=BIGINT},
+      fupdatime = #{fupdatime,jdbcType=TIMESTAMP},
+      fcompany_number = #{fcompanyNumber,jdbcType=VARCHAR},
+      fcompany_name = #{fcompanyName,jdbcType=VARCHAR},
+      fstatus = #{fstatus,jdbcType=VARCHAR},
+      fyear_month = #{fyearMonth,jdbcType=VARCHAR},
+      freport = #{freport,jdbcType=VARCHAR},
+      fdescription = #{fdescription,jdbcType=VARCHAR},
+      freport_number = #{freportNumber,jdbcType=VARCHAR},
+      ffinance_chage = #{ffinanceChage,jdbcType=VARCHAR},
+      funit_chage = #{funitChage,jdbcType=VARCHAR},
+      fbizdate = #{fbizdate,jdbcType=DATE}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+
+  <!--通过组织和期间查询主表记录 by lx-->
+  <select id="selectByProperty" parameterType="java.util.Map"  resultMap="BaseResultMap">
+    select
+    <if test="ditsinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_main
+    WHERE
+    <if test="fcompany_number!=null">
+      fcompany_number=#{fcompany_number} AND
+    </if>
+    fyear_month=#{fyear_month}
+    <if test="freport != null">
+      AND  freport=#{freport}
+    </if>
+  </select>
+
+ <!-- 查询资产负债表合并表 -->
+  <select id="getUnionByBalance" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT
+      a.FROW_INDEX,
+      a.FPROJECT,
+      a.FROW_NUM,
+      a.FPROJECT2,
+      a.FROW_NUM2,
+      sum(a.PERIOD_BEGIN_ACCOUNT) PERIOD_BEGIN_ACCOUNT,
+      sum(a.PERIOD_END_ACCOUNT) PERIOD_END_ACCOUNT,
+      sum(a.PERIOD_BEGIN_ACCOUNT2) PERIOD_BEGIN_ACCOUNT2,
+      sum(a.PERIOD_END_ACCOUNT2) PERIOD_END_ACCOUNT2
+    FROM t_finance_balance a, T_FINANCE_MAIN h
+    where a.FHEAD_ID = h.FID
+    and h.FYEAR_MONTH = #{yearMonth,jdbcType=VARCHAR}
+    GROUP BY
+      a.FROW_INDEX,
+      a.FPROJECT,
+      a.FROW_NUM,
+      a.FPROJECT2,
+      a.FROW_NUM2
+    ORDER BY a.FROW_INDEX
+  </select>
+</mapper>

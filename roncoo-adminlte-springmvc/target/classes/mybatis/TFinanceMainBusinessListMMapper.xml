@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceMainBusinessListMMapper">
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListM">
+    <id column="FID" jdbcType="DECIMAL" property="fid" />
+    <result column="FROW_NUM" jdbcType="VARCHAR" property="frowNum" />
+    <result column="FPROJECT" jdbcType="VARCHAR" property="fproject" />
+    <result column="SALES_VOLUME" jdbcType="DECIMAL" property="salesVolume" />
+    <result column="SELLING_UNIT_PRICE" jdbcType="DECIMAL" property="sellingUnitPrice" />
+    <result column="SELLING_AMONT" jdbcType="DECIMAL" property="sellingAmont" />
+    <result column="COST_UNIT" jdbcType="DECIMAL" property="costUnit" />
+    <result column="COST_AMONT" jdbcType="DECIMAL" property="costAmont" />
+    <result column="SALE_PROFIT_UNIT" jdbcType="DECIMAL" property="saleProfitUnit" />
+    <result column="SALE_PROFIT_COUNT" jdbcType="DECIMAL" property="saleProfitCount" />
+    <result column="SALE_PROFIT_RATIO" jdbcType="DECIMAL" property="saleProfitRatio" />
+    <result column="FHEAD_ID" jdbcType="DECIMAL" property="fheadId" />
+    <result column="FROW_INDEX" jdbcType="DECIMAL" property="frowIndex" />
+    <result column="FSTRONG" jdbcType="DECIMAL" property="fstrong" />
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+
+  <sql id="Base_Column_List">
+    FID, FROW_NUM, FPROJECT, SALES_VOLUME, SELLING_UNIT_PRICE, SELLING_AMONT, COST_UNIT,
+    COST_AMONT, SALE_PROFIT_UNIT, SALE_PROFIT_COUNT, SALE_PROFIT_RATIO, FHEAD_ID, FROW_INDEX,
+    FSTRONG
+  </sql>
+
+  <select id="selectByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListMExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MAIN_BUSINESS_LIST_M
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MAIN_BUSINESS_LIST_M
+    where FID = #{fid,jdbcType=DECIMAL}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from T_FINANCE_MAIN_BUSINESS_LIST_M
+    where FID = #{fid,jdbcType=DECIMAL}
+  </delete>
+
+
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListMExample">
+    delete from T_FINANCE_MAIN_BUSINESS_LIST_M
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListM">
+    insert into T_FINANCE_MAIN_BUSINESS_LIST_M (FID, FROW_NUM, FPROJECT,
+      SALES_VOLUME, SELLING_UNIT_PRICE, SELLING_AMONT,
+      COST_UNIT, COST_AMONT, SALE_PROFIT_UNIT,
+      SALE_PROFIT_COUNT, SALE_PROFIT_RATIO, FHEAD_ID,
+      FROW_INDEX, FSTRONG)
+    values (#{fid,jdbcType=DECIMAL}, #{frowNum,jdbcType=VARCHAR}, #{fproject,jdbcType=VARCHAR},
+      #{salesVolume,jdbcType=DECIMAL}, #{sellingUnitPrice,jdbcType=DECIMAL}, #{sellingAmont,jdbcType=DECIMAL},
+      #{costUnit,jdbcType=DECIMAL}, #{costAmont,jdbcType=DECIMAL}, #{saleProfitUnit,jdbcType=DECIMAL},
+      #{saleProfitCount,jdbcType=DECIMAL}, #{saleProfitRatio,jdbcType=DECIMAL}, #{fheadId,jdbcType=DECIMAL},
+      #{frowIndex,jdbcType=DECIMAL}, #{fstrong,jdbcType=DECIMAL})
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListM">
+    insert into T_FINANCE_MAIN_BUSINESS_LIST_M
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="frowNum != null">
+        FROW_NUM,
+      </if>
+      <if test="fproject != null">
+        FPROJECT,
+      </if>
+      <if test="salesVolume != null">
+        SALES_VOLUME,
+      </if>
+      <if test="sellingUnitPrice != null">
+        SELLING_UNIT_PRICE,
+      </if>
+      <if test="sellingAmont != null">
+        SELLING_AMONT,
+      </if>
+      <if test="costUnit != null">
+        COST_UNIT,
+      </if>
+      <if test="costAmont != null">
+        COST_AMONT,
+      </if>
+      <if test="saleProfitUnit != null">
+        SALE_PROFIT_UNIT,
+      </if>
+      <if test="saleProfitCount != null">
+        SALE_PROFIT_COUNT,
+      </if>
+      <if test="saleProfitRatio != null">
+        SALE_PROFIT_RATIO,
+      </if>
+      <if test="fheadId != null">
+        FHEAD_ID,
+      </if>
+      <if test="frowIndex != null">
+        FROW_INDEX,
+      </if>
+      <if test="fstrong != null">
+        FSTRONG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=DECIMAL},
+      </if>
+      <if test="frowNum != null">
+        #{frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fproject != null">
+        #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null">
+        #{salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingUnitPrice != null">
+        #{sellingUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingAmont != null">
+        #{sellingAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="costUnit != null">
+        #{costUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="costAmont != null">
+        #{costAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitUnit != null">
+        #{saleProfitUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitCount != null">
+        #{saleProfitCount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitRatio != null">
+        #{saleProfitRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null">
+        #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null">
+        #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="fstrong != null">
+        #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListMExample" resultType="java.lang.Long">
+    select count(*) from T_FINANCE_MAIN_BUSINESS_LIST_M
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_FINANCE_MAIN_BUSINESS_LIST_M
+    <set>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frowNum != null">
+        FROW_NUM = #{record.frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fproject != null">
+        FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesVolume != null">
+        SALES_VOLUME = #{record.salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sellingUnitPrice != null">
+        SELLING_UNIT_PRICE = #{record.sellingUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sellingAmont != null">
+        SELLING_AMONT = #{record.sellingAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costUnit != null">
+        COST_UNIT = #{record.costUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costAmont != null">
+        COST_AMONT = #{record.costAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitUnit != null">
+        SALE_PROFIT_UNIT = #{record.saleProfitUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitCount != null">
+        SALE_PROFIT_COUNT = #{record.saleProfitCount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitRatio != null">
+        SALE_PROFIT_RATIO = #{record.saleProfitRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fheadId != null">
+        FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frowIndex != null">
+        FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fstrong != null">
+        FSTRONG = #{record.fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+
+  <update id="updateByExample" parameterType="map">
+    update T_FINANCE_MAIN_BUSINESS_LIST_M
+    set FID = #{record.fid,jdbcType=DECIMAL},
+      FROW_NUM = #{record.frowNum,jdbcType=VARCHAR},
+      FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      SALES_VOLUME = #{record.salesVolume,jdbcType=DECIMAL},
+      SELLING_UNIT_PRICE = #{record.sellingUnitPrice,jdbcType=DECIMAL},
+      SELLING_AMONT = #{record.sellingAmont,jdbcType=DECIMAL},
+      COST_UNIT = #{record.costUnit,jdbcType=DECIMAL},
+      COST_AMONT = #{record.costAmont,jdbcType=DECIMAL},
+      SALE_PROFIT_UNIT = #{record.saleProfitUnit,jdbcType=DECIMAL},
+      SALE_PROFIT_COUNT = #{record.saleProfitCount,jdbcType=DECIMAL},
+      SALE_PROFIT_RATIO = #{record.saleProfitRatio,jdbcType=DECIMAL},
+      FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      FSTRONG = #{record.fstrong,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListM">
+    update T_FINANCE_MAIN_BUSINESS_LIST_M
+    <set>
+      <if test="frowNum != null">
+        FROW_NUM = #{frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fproject != null">
+        FPROJECT = #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null">
+        SALES_VOLUME = #{salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingUnitPrice != null">
+        SELLING_UNIT_PRICE = #{sellingUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sellingAmont != null">
+        SELLING_AMONT = #{sellingAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="costUnit != null">
+        COST_UNIT = #{costUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="costAmont != null">
+        COST_AMONT = #{costAmont,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitUnit != null">
+        SALE_PROFIT_UNIT = #{saleProfitUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitCount != null">
+        SALE_PROFIT_COUNT = #{saleProfitCount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitRatio != null">
+        SALE_PROFIT_RATIO = #{saleProfitRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null">
+        FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null">
+        FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="fstrong != null">
+        FSTRONG = #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessListM">
+    update T_FINANCE_MAIN_BUSINESS_LIST_M
+    set FROW_NUM = #{frowNum,jdbcType=VARCHAR},
+      FPROJECT = #{fproject,jdbcType=VARCHAR},
+      SALES_VOLUME = #{salesVolume,jdbcType=DECIMAL},
+      SELLING_UNIT_PRICE = #{sellingUnitPrice,jdbcType=DECIMAL},
+      SELLING_AMONT = #{sellingAmont,jdbcType=DECIMAL},
+      COST_UNIT = #{costUnit,jdbcType=DECIMAL},
+      COST_AMONT = #{costAmont,jdbcType=DECIMAL},
+      SALE_PROFIT_UNIT = #{saleProfitUnit,jdbcType=DECIMAL},
+      SALE_PROFIT_COUNT = #{saleProfitCount,jdbcType=DECIMAL},
+      SALE_PROFIT_RATIO = #{saleProfitRatio,jdbcType=DECIMAL},
+      FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      FSTRONG = #{fstrong,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+
+
+</mapper>

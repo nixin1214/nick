@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TAccountsReceivableMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TAccountsReceivable" >
+    <id column="FID" property="fid" jdbcType="DECIMAL" />
+    <result column="FHEAD_ID" property="fheadId" jdbcType="DECIMAL" />
+    <result column="FROW_INDEX" property="frowIndex" jdbcType="DECIMAL" />
+    <result column="DISTRIBUTOR" property="distributor" jdbcType="VARCHAR" />
+    <result column="ACCOUNTS_RECEIVABLE" property="accountsReceivable" jdbcType="DECIMAL" />
+    <result column="GROWTH_RATE" property="growthRate" jdbcType="DECIMAL" />
+    <result column="RING_RATIO" property="ringRatio" jdbcType="DECIMAL" />
+    <result column="YEAR_ON" property="yearOn" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FID, FHEAD_ID, FROW_INDEX, DISTRIBUTOR, ACCOUNTS_RECEIVABLE, GROWTH_RATE, RING_RATIO, 
+    YEAR_ON
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivableExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_ACCOUNTS_RECEIVABLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ACCOUNTS_RECEIVABLE
+    where FID = #{fid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from T_ACCOUNTS_RECEIVABLE
+    where FID = #{fid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivableExample" >
+    delete from T_ACCOUNTS_RECEIVABLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivable" >
+    insert into T_ACCOUNTS_RECEIVABLE (FID, FHEAD_ID, FROW_INDEX, 
+      DISTRIBUTOR, ACCOUNTS_RECEIVABLE, GROWTH_RATE, 
+      RING_RATIO, YEAR_ON)
+    values (#{fid,jdbcType=DECIMAL}, #{fheadId,jdbcType=DECIMAL}, #{frowIndex,jdbcType=DECIMAL}, 
+      #{distributor,jdbcType=VARCHAR}, #{accountsReceivable,jdbcType=DECIMAL}, #{growthRate,jdbcType=DECIMAL}, 
+      #{ringRatio,jdbcType=DECIMAL}, #{yearOn,jdbcType=DECIMAL})
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+      into T_ACCOUNTS_RECEIVABLE (FID, FHEAD_ID, FROW_INDEX,
+      DISTRIBUTOR, ACCOUNTS_RECEIVABLE, GROWTH_RATE, RING_RATIO, YEAR_ON
+      )
+      values
+      (#{item.fid,jdbcType=DECIMAL}, #{item.fheadId,jdbcType=DECIMAL}, #{item.frowIndex,jdbcType=DECIMAL},
+      #{item.distributor,jdbcType=VARCHAR}, #{item.accountsReceivable,jdbcType=DECIMAL}, #{item.growthRate,jdbcType=DECIMAL},
+      #{item.ringRatio,jdbcType=DECIMAL}, #{item.yearOn,jdbcType=DECIMAL}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivable" >
+    insert into T_ACCOUNTS_RECEIVABLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        FID,
+      </if>
+      <if test="fheadId != null" >
+        FHEAD_ID,
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX,
+      </if>
+      <if test="distributor != null" >
+        DISTRIBUTOR,
+      </if>
+      <if test="accountsReceivable != null" >
+        ACCOUNTS_RECEIVABLE,
+      </if>
+      <if test="growthRate != null" >
+        GROWTH_RATE,
+      </if>
+      <if test="ringRatio != null" >
+        RING_RATIO,
+      </if>
+      <if test="yearOn != null" >
+        YEAR_ON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="distributor != null" >
+        #{distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsReceivable != null" >
+        #{accountsReceivable,jdbcType=DECIMAL},
+      </if>
+      <if test="growthRate != null" >
+        #{growthRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ringRatio != null" >
+        #{ringRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="yearOn != null" >
+        #{yearOn,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivableExample" resultType="java.lang.Integer" >
+    select count(*) from T_ACCOUNTS_RECEIVABLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <select id="selectByHeadId" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_ACCOUNTS_RECEIVABLE
+    where FHEAD_ID = #{fheadId,jdbcType=DECIMAL}
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_ACCOUNTS_RECEIVABLE
+    <set >
+      <if test="record.fid != null" >
+        FID = #{record.fid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fheadId != null" >
+        FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frowIndex != null" >
+        FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.distributor != null" >
+        DISTRIBUTOR = #{record.distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountsReceivable != null" >
+        ACCOUNTS_RECEIVABLE = #{record.accountsReceivable,jdbcType=DECIMAL},
+      </if>
+      <if test="record.growthRate != null" >
+        GROWTH_RATE = #{record.growthRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ringRatio != null" >
+        RING_RATIO = #{record.ringRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yearOn != null" >
+        YEAR_ON = #{record.yearOn,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_ACCOUNTS_RECEIVABLE
+    set FID = #{record.fid,jdbcType=DECIMAL},
+      FHEAD_ID = #{record.fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{record.frowIndex,jdbcType=DECIMAL},
+      DISTRIBUTOR = #{record.distributor,jdbcType=VARCHAR},
+      ACCOUNTS_RECEIVABLE = #{record.accountsReceivable,jdbcType=DECIMAL},
+      GROWTH_RATE = #{record.growthRate,jdbcType=DECIMAL},
+      RING_RATIO = #{record.ringRatio,jdbcType=DECIMAL},
+      YEAR_ON = #{record.yearOn,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivable" >
+    update T_ACCOUNTS_RECEIVABLE
+    <set >
+      <if test="fheadId != null" >
+        FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="distributor != null" >
+        DISTRIBUTOR = #{distributor,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsReceivable != null" >
+        ACCOUNTS_RECEIVABLE = #{accountsReceivable,jdbcType=DECIMAL},
+      </if>
+      <if test="growthRate != null" >
+        GROWTH_RATE = #{growthRate,jdbcType=DECIMAL},
+      </if>
+      <if test="ringRatio != null" >
+        RING_RATIO = #{ringRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="yearOn != null" >
+        YEAR_ON = #{yearOn,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TAccountsReceivable" >
+    update T_ACCOUNTS_RECEIVABLE
+    set FHEAD_ID = #{fheadId,jdbcType=DECIMAL},
+      FROW_INDEX = #{frowIndex,jdbcType=DECIMAL},
+      DISTRIBUTOR = #{distributor,jdbcType=VARCHAR},
+      ACCOUNTS_RECEIVABLE = #{accountsReceivable,jdbcType=DECIMAL},
+      GROWTH_RATE = #{growthRate,jdbcType=DECIMAL},
+      RING_RATIO = #{ringRatio,jdbcType=DECIMAL},
+      YEAR_ON = #{yearOn,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainIndicesDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceMainIndices" >
+    <id column="fid" property="fid"/>
+    <result column="fcategory" property="fcreator"/>
+    <result column="fproject" property="fproject"/>
+    <result column="frow_index" property="frow_index"/>
+    <result column="fthis_period_budget" property="fthis_period_budget"/>
+    <result column="fthis_period_last_year" property="fthis_period_last_year"/>
+    <result column="fthis_period_actual" property="fthis_period_actual"/>
+    <result column="fcum_budget" property="fcum_budget" />
+    <result column="fcum_last_year" property="fcum_last_year" />
+    <result column="fcum_actual" property="fcum_actual" />
+    <result column="fhead_id" property="fhead_id"/>
+    <result column="fsheet_row_index" property="fsheet_row_index"  />
+    <result column="fis_strong" property="fis_strong"/>
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainIndices" >
+    insert into t_finance_main_indices (fid, fcategory, fproject,
+      frow_index, fthis_period_budget, fthis_period_last_year,
+      fthis_period_actual, fcum_budget, fcum_last_year,
+      fcum_actual, fhead_id, fsheet_row_index,fis_strong
+      )
+    values (#{fid}, #{fcategory}, #{fproject},
+      #{frow_index}, #{fthis_period_budget}, #{fthis_period_last_year},
+      #{fthis_period_actual}, #{fcum_budget}, #{fcum_last_year},
+      #{fcum_actual}, #{fhead_id}, #{fsheet_row_index},#{fis_strong}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" >
+    into t_finance_main_indices (fcategory, fproject,
+      frow_index, fthis_period_budget, fthis_period_last_year,
+      fthis_period_actual, fcum_budget, fcum_last_year,
+      fcum_actual, fhead_id, fsheet_row_index,fis_strong
+    ) values
+    (#{item.fcategory}, #{item.fproject},
+      #{item.frow_index}, #{item.fthis_period_budget},
+      #{item.fthis_period_last_year},#{item.fthis_period_actual},
+      #{item.fcum_budget}, #{item.fcum_last_year},
+      #{item.fcum_actual}, #{item.fhead_id}, #{item.fsheet_row_index},#{item.fis_strong}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_indices WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainIndices">
+    delete from t_finance_main_indices WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.TFinanceMainIndices" >
+    select * from t_finance_main_indices where 1=1
+    <if test="fhead_id != null and fhead_id.size()>0" >
+       and fhead_id in
+      <foreach collection="fhead_id" index="index" item="head_id" open="(" close=")" separator=",">
+        #{head_id}
+      </foreach>
+    </if>
+    order by frow_index ASC
+  </select>
+
+  <!--修改对象-->
+  <update id="update" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainIndices" >
+    update t_finance_main
+    <set >
+      <if test="fcategory != null" >
+        fcategory = #{fcategory},
+      </if><if test="fproject != null" >
+        fproject = #{fproject},
+      </if>
+      <if test="frow_index != null" >
+        frow_index = #{frow_index},
+      </if>
+      <if test="fthis_period_budget != null" >
+        fthis_period_budget = #{fthis_period_budget},
+      </if>
+      <if test="fthis_period_last_year != null" >
+        fthis_period_last_year = #{fthis_period_last_year},
+      </if>
+      <if test="fthis_period_actual != null" >
+        fthis_period_actual = #{fthis_period_actual},
+      </if>
+      <if test="fcum_budget != null" >
+        fcum_budget = #{fcum_budget},
+      </if>
+      <if test="fcum_last_year != null" >
+        fcum_last_year = #{fcum_last_year},
+      </if>
+      <if test="fcum_actual != null" >
+        fcum_actual = #{fcum_actual},
+      </if>
+      <if test="fhead_id != null" >
+        fhead_id = #{fhead_id},
+      </if>
+      <if test="fsheet_row_index != null" >
+        fsheet_row_index = #{fsheet_row_index},
+      </if>
+      <if test="fis_strong != null" >
+        fis_strong = #{fis_strong},
+      </if>
+    </set>
+    where fid = #{fid}
+  </update>
+
+
+</mapper>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceBalanceDifferenceMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifference" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fproject" property="fproject" jdbcType="VARCHAR" />
+    <result column="frow_num" property="frowNum" jdbcType="INTEGER" />
+    <result column="period_end_account" property="periodEndAccount" jdbcType="DECIMAL" />
+    <result column="period_begin_account" property="periodBeginAccount" jdbcType="DECIMAL" />
+    <result column="fproject2" property="fproject2" jdbcType="VARCHAR" />
+    <result column="frow_num2" property="frowNum2" jdbcType="INTEGER" />
+    <result column="period_end_account2" property="periodEndAccount2" jdbcType="DECIMAL" />
+    <result column="period_begin_account2" property="periodBeginAccount2" jdbcType="DECIMAL" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="frow_index" property="frowIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fproject, frow_num, period_end_account, period_begin_account, fproject2, frow_num2, 
+    period_end_account2, period_begin_account2, fhead_id, frow_index
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifferenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_balance_difference
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_balance_difference
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_finance_balance_difference
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifferenceExample" >
+    delete from t_finance_balance_difference
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifference" >
+    insert into t_finance_balance_difference (fid, fproject, frow_num, 
+      period_end_account, period_begin_account, fproject2, 
+      frow_num2, period_end_account2, period_begin_account2, 
+      fhead_id, frow_index)
+    values (#{fid,jdbcType=BIGINT}, #{fproject,jdbcType=VARCHAR}, #{frowNum,jdbcType=INTEGER}, 
+      #{periodEndAccount,jdbcType=DECIMAL}, #{periodBeginAccount,jdbcType=DECIMAL}, #{fproject2,jdbcType=VARCHAR}, 
+      #{frowNum2,jdbcType=INTEGER}, #{periodEndAccount2,jdbcType=DECIMAL}, #{periodBeginAccount2,jdbcType=DECIMAL}, 
+      #{fheadId,jdbcType=BIGINT}, #{frowIndex,jdbcType=INTEGER})
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_balance_difference (fproject,frow_num,period_end_account,period_begin_account,
+    fproject2,frow_num2,period_end_account2,period_begin_account2,
+    fhead_id,frow_index
+    )
+    values
+      (#{item.fproject},#{item.frowNum},#{item.periodEndAccount},#{item.periodBeginAccount},
+      #{item.fproject2},#{item.frowNum2},#{item.periodEndAccount2},#{item.periodBeginAccount2},
+      #{item.fheadId}, #{item.frowIndex}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifference" >
+    insert into t_finance_balance_difference
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fproject != null" >
+        fproject,
+      </if>
+      <if test="frowNum != null" >
+        frow_num,
+      </if>
+      <if test="periodEndAccount != null" >
+        period_end_account,
+      </if>
+      <if test="periodBeginAccount != null" >
+        period_begin_account,
+      </if>
+      <if test="fproject2 != null" >
+        fproject2,
+      </if>
+      <if test="frowNum2 != null" >
+        frow_num2,
+      </if>
+      <if test="periodEndAccount2 != null" >
+        period_end_account2,
+      </if>
+      <if test="periodBeginAccount2 != null" >
+        period_begin_account2,
+      </if>
+      <if test="fheadId != null" >
+        fhead_id,
+      </if>
+      <if test="frowIndex != null" >
+        frow_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fproject != null" >
+        #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum != null" >
+        #{frowNum,jdbcType=INTEGER},
+      </if>
+      <if test="periodEndAccount != null" >
+        #{periodEndAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="periodBeginAccount != null" >
+        #{periodBeginAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="fproject2 != null" >
+        #{fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum2 != null" >
+        #{frowNum2,jdbcType=INTEGER},
+      </if>
+      <if test="periodEndAccount2 != null" >
+        #{periodEndAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="periodBeginAccount2 != null" >
+        #{periodBeginAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifferenceExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_balance_difference
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_balance_difference
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fproject != null" >
+        fproject = #{record.fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frowNum != null" >
+        frow_num = #{record.frowNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodEndAccount != null" >
+        period_end_account = #{record.periodEndAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.periodBeginAccount != null" >
+        period_begin_account = #{record.periodBeginAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fproject2 != null" >
+        fproject2 = #{record.fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frowNum2 != null" >
+        frow_num2 = #{record.frowNum2,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodEndAccount2 != null" >
+        period_end_account2 = #{record.periodEndAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.periodBeginAccount2 != null" >
+        period_begin_account2 = #{record.periodBeginAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fheadId != null" >
+        fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        frow_index = #{record.frowIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_balance_difference
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fproject = #{record.fproject,jdbcType=VARCHAR},
+      frow_num = #{record.frowNum,jdbcType=INTEGER},
+      period_end_account = #{record.periodEndAccount,jdbcType=DECIMAL},
+      period_begin_account = #{record.periodBeginAccount,jdbcType=DECIMAL},
+      fproject2 = #{record.fproject2,jdbcType=VARCHAR},
+      frow_num2 = #{record.frowNum2,jdbcType=INTEGER},
+      period_end_account2 = #{record.periodEndAccount2,jdbcType=DECIMAL},
+      period_begin_account2 = #{record.periodBeginAccount2,jdbcType=DECIMAL},
+      fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      frow_index = #{record.frowIndex,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifference" >
+    update t_finance_balance_difference
+    <set >
+      <if test="fproject != null" >
+        fproject = #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum != null" >
+        frow_num = #{frowNum,jdbcType=INTEGER},
+      </if>
+      <if test="periodEndAccount != null" >
+        period_end_account = #{periodEndAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="periodBeginAccount != null" >
+        period_begin_account = #{periodBeginAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="fproject2 != null" >
+        fproject2 = #{fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="frowNum2 != null" >
+        frow_num2 = #{frowNum2,jdbcType=INTEGER},
+      </if>
+      <if test="periodEndAccount2 != null" >
+        period_end_account2 = #{periodEndAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="periodBeginAccount2 != null" >
+        period_begin_account2 = #{periodBeginAccount2,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null" >
+        fhead_id = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        frow_index = #{frowIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceDifference" >
+    update t_finance_balance_difference
+    set fproject = #{fproject,jdbcType=VARCHAR},
+      frow_num = #{frowNum,jdbcType=INTEGER},
+      period_end_account = #{periodEndAccount,jdbcType=DECIMAL},
+      period_begin_account = #{periodBeginAccount,jdbcType=DECIMAL},
+      fproject2 = #{fproject2,jdbcType=VARCHAR},
+      frow_num2 = #{frowNum2,jdbcType=INTEGER},
+      period_end_account2 = #{periodEndAccount2,jdbcType=DECIMAL},
+      period_begin_account2 = #{periodBeginAccount2,jdbcType=DECIMAL},
+      fhead_id = #{fheadId,jdbcType=BIGINT},
+      frow_index = #{frowIndex,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.BalanceSheet">
+    delete from t_finance_balance_difference WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.BalanceSheet" >
+    select * from t_finance_balance_difference where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+      and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+</mapper>

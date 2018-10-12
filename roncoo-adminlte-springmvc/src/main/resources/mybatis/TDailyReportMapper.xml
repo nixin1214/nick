@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TDailyReportMapper">
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TDailyReport">
+    <id column="FID" jdbcType="DECIMAL" property="fid" />
+    <result column="YEAR_MONTH" jdbcType="VARCHAR" property="yearMonth" />
+    <result column="FDIFFERENCE" jdbcType="DECIMAL" property="fdifference" />
+    <result column="FSHEET_ROW_INDEX" jdbcType="DECIMAL" property="fsheetRowIndex" />
+    <result column="DISTRIBUTION_CHANNEL" jdbcType="VARCHAR" property="distributionChannel" />
+    <result column="SALES_AREA" jdbcType="VARCHAR" property="salesArea" />
+    <result column="AREA_LIST" jdbcType="VARCHAR" property="areaList" />
+    <result column="DAILY_PRACTICE" jdbcType="DECIMAL" property="dailyPractice" />
+    <result column="DAILY_TOTAL_AVG" jdbcType="DECIMAL" property="dailyTotalAvg" />
+    <result column="DAILY_AVG_BUDGET" jdbcType="DECIMAL" property="dailyAvgBudget" />
+    <result column="COMPLETION_RATE" jdbcType="DECIMAL" property="completionRate" />
+    <result column="THIS_MONTH_BUDGET" jdbcType="DECIMAL" property="thisMonthBudget" />
+    <result column="THIS_MONTH_TOTAL" jdbcType="DECIMAL" property="thisMonthTotal" />
+    <result column="THIS_MONTH_COMPLETION_RATE" jdbcType="DECIMAL" property="thisMonthCompletionRate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FID, YEAR_MONTH, FDIFFERENCE, FSHEET_ROW_INDEX, DISTRIBUTION_CHANNEL, SALES_AREA, 
+    AREA_LIST, DAILY_PRACTICE, DAILY_TOTAL_AVG, DAILY_AVG_BUDGET, COMPLETION_RATE, THIS_MONTH_BUDGET, 
+    THIS_MONTH_TOTAL, THIS_MONTH_COMPLETION_RATE
+  </sql>
+  <select id="selectByExample" parameterType="com.roncoo.adminlte.bean.entity.TDailyReportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_DAILY_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_DAILY_REPORT
+    where FID = #{fid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from T_DAILY_REPORT
+    where FID = #{fid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TDailyReportExample">
+    delete from T_DAILY_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TDailyReport">
+    insert into T_DAILY_REPORT (FID, YEAR_MONTH, FDIFFERENCE, 
+      FSHEET_ROW_INDEX, DISTRIBUTION_CHANNEL, SALES_AREA, 
+      AREA_LIST, DAILY_PRACTICE, DAILY_TOTAL_AVG, 
+      DAILY_AVG_BUDGET, COMPLETION_RATE, THIS_MONTH_BUDGET, 
+      THIS_MONTH_TOTAL, THIS_MONTH_COMPLETION_RATE
+      )
+    values (#{fid,jdbcType=DECIMAL}, #{yearMonth,jdbcType=VARCHAR}, #{fdifference,jdbcType=DECIMAL}, 
+      #{fsheetRowIndex,jdbcType=DECIMAL}, #{distributionChannel,jdbcType=VARCHAR}, #{salesArea,jdbcType=VARCHAR}, 
+      #{areaList,jdbcType=VARCHAR}, #{dailyPractice,jdbcType=DECIMAL}, #{dailyTotalAvg,jdbcType=DECIMAL}, 
+      #{dailyAvgBudget,jdbcType=DECIMAL}, #{completionRate,jdbcType=DECIMAL}, #{thisMonthBudget,jdbcType=DECIMAL}, 
+      #{thisMonthTotal,jdbcType=DECIMAL}, #{thisMonthCompletionRate,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TDailyReport">
+    insert into T_DAILY_REPORT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="yearMonth != null">
+        YEAR_MONTH,
+      </if>
+      <if test="fdifference != null">
+        FDIFFERENCE,
+      </if>
+      <if test="fsheetRowIndex != null">
+        FSHEET_ROW_INDEX,
+      </if>
+      <if test="distributionChannel != null">
+        DISTRIBUTION_CHANNEL,
+      </if>
+      <if test="salesArea != null">
+        SALES_AREA,
+      </if>
+      <if test="areaList != null">
+        AREA_LIST,
+      </if>
+      <if test="dailyPractice != null">
+        DAILY_PRACTICE,
+      </if>
+      <if test="dailyTotalAvg != null">
+        DAILY_TOTAL_AVG,
+      </if>
+      <if test="dailyAvgBudget != null">
+        DAILY_AVG_BUDGET,
+      </if>
+      <if test="completionRate != null">
+        COMPLETION_RATE,
+      </if>
+      <if test="thisMonthBudget != null">
+        THIS_MONTH_BUDGET,
+      </if>
+      <if test="thisMonthTotal != null">
+        THIS_MONTH_TOTAL,
+      </if>
+      <if test="thisMonthCompletionRate != null">
+        THIS_MONTH_COMPLETION_RATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=DECIMAL},
+      </if>
+      <if test="yearMonth != null">
+        #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="fdifference != null">
+        #{fdifference,jdbcType=DECIMAL},
+      </if>
+      <if test="fsheetRowIndex != null">
+        #{fsheetRowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="distributionChannel != null">
+        #{distributionChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="salesArea != null">
+        #{salesArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaList != null">
+        #{areaList,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPractice != null">
+        #{dailyPractice,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyTotalAvg != null">
+        #{dailyTotalAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyAvgBudget != null">
+        #{dailyAvgBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="completionRate != null">
+        #{completionRate,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthBudget != null">
+        #{thisMonthBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthTotal != null">
+        #{thisMonthTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthCompletionRate != null">
+        #{thisMonthCompletionRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TDailyReportExample" resultType="java.lang.Long">
+    select count(*) from T_DAILY_REPORT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_DAILY_REPORT
+    <set>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yearMonth != null">
+        YEAR_MONTH = #{record.yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdifference != null">
+        FDIFFERENCE = #{record.fdifference,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fsheetRowIndex != null">
+        FSHEET_ROW_INDEX = #{record.fsheetRowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="record.distributionChannel != null">
+        DISTRIBUTION_CHANNEL = #{record.distributionChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesArea != null">
+        SALES_AREA = #{record.salesArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaList != null">
+        AREA_LIST = #{record.areaList,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyPractice != null">
+        DAILY_PRACTICE = #{record.dailyPractice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dailyTotalAvg != null">
+        DAILY_TOTAL_AVG = #{record.dailyTotalAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dailyAvgBudget != null">
+        DAILY_AVG_BUDGET = #{record.dailyAvgBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.completionRate != null">
+        COMPLETION_RATE = #{record.completionRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisMonthBudget != null">
+        THIS_MONTH_BUDGET = #{record.thisMonthBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisMonthTotal != null">
+        THIS_MONTH_TOTAL = #{record.thisMonthTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thisMonthCompletionRate != null">
+        THIS_MONTH_COMPLETION_RATE = #{record.thisMonthCompletionRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_DAILY_REPORT
+    set FID = #{record.fid,jdbcType=DECIMAL},
+      YEAR_MONTH = #{record.yearMonth,jdbcType=VARCHAR},
+      FDIFFERENCE = #{record.fdifference,jdbcType=DECIMAL},
+      FSHEET_ROW_INDEX = #{record.fsheetRowIndex,jdbcType=DECIMAL},
+      DISTRIBUTION_CHANNEL = #{record.distributionChannel,jdbcType=VARCHAR},
+      SALES_AREA = #{record.salesArea,jdbcType=VARCHAR},
+      AREA_LIST = #{record.areaList,jdbcType=VARCHAR},
+      DAILY_PRACTICE = #{record.dailyPractice,jdbcType=DECIMAL},
+      DAILY_TOTAL_AVG = #{record.dailyTotalAvg,jdbcType=DECIMAL},
+      DAILY_AVG_BUDGET = #{record.dailyAvgBudget,jdbcType=DECIMAL},
+      COMPLETION_RATE = #{record.completionRate,jdbcType=DECIMAL},
+      THIS_MONTH_BUDGET = #{record.thisMonthBudget,jdbcType=DECIMAL},
+      THIS_MONTH_TOTAL = #{record.thisMonthTotal,jdbcType=DECIMAL},
+      THIS_MONTH_COMPLETION_RATE = #{record.thisMonthCompletionRate,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TDailyReport">
+    update T_DAILY_REPORT
+    <set>
+      <if test="yearMonth != null">
+        YEAR_MONTH = #{yearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="fdifference != null">
+        FDIFFERENCE = #{fdifference,jdbcType=DECIMAL},
+      </if>
+      <if test="fsheetRowIndex != null">
+        FSHEET_ROW_INDEX = #{fsheetRowIndex,jdbcType=DECIMAL},
+      </if>
+      <if test="distributionChannel != null">
+        DISTRIBUTION_CHANNEL = #{distributionChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="salesArea != null">
+        SALES_AREA = #{salesArea,jdbcType=VARCHAR},
+      </if>
+      <if test="areaList != null">
+        AREA_LIST = #{areaList,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPractice != null">
+        DAILY_PRACTICE = #{dailyPractice,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyTotalAvg != null">
+        DAILY_TOTAL_AVG = #{dailyTotalAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyAvgBudget != null">
+        DAILY_AVG_BUDGET = #{dailyAvgBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="completionRate != null">
+        COMPLETION_RATE = #{completionRate,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthBudget != null">
+        THIS_MONTH_BUDGET = #{thisMonthBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthTotal != null">
+        THIS_MONTH_TOTAL = #{thisMonthTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="thisMonthCompletionRate != null">
+        THIS_MONTH_COMPLETION_RATE = #{thisMonthCompletionRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TDailyReport">
+    update T_DAILY_REPORT
+    set YEAR_MONTH = #{yearMonth,jdbcType=VARCHAR},
+      FDIFFERENCE = #{fdifference,jdbcType=DECIMAL},
+      FSHEET_ROW_INDEX = #{fsheetRowIndex,jdbcType=DECIMAL},
+      DISTRIBUTION_CHANNEL = #{distributionChannel,jdbcType=VARCHAR},
+      SALES_AREA = #{salesArea,jdbcType=VARCHAR},
+      AREA_LIST = #{areaList,jdbcType=VARCHAR},
+      DAILY_PRACTICE = #{dailyPractice,jdbcType=DECIMAL},
+      DAILY_TOTAL_AVG = #{dailyTotalAvg,jdbcType=DECIMAL},
+      DAILY_AVG_BUDGET = #{dailyAvgBudget,jdbcType=DECIMAL},
+      COMPLETION_RATE = #{completionRate,jdbcType=DECIMAL},
+      THIS_MONTH_BUDGET = #{thisMonthBudget,jdbcType=DECIMAL},
+      THIS_MONTH_TOTAL = #{thisMonthTotal,jdbcType=DECIMAL},
+      THIS_MONTH_COMPLETION_RATE = #{thisMonthCompletionRate,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" >
+      INTO T_DAILY_REPORT ( YEAR_MONTH, FDIFFERENCE, FSHEET_ROW_INDEX, DISTRIBUTION_CHANNEL, SALES_AREA,
+      AREA_LIST, DAILY_PRACTICE, DAILY_TOTAL_AVG, DAILY_AVG_BUDGET, COMPLETION_RATE,
+      THIS_MONTH_BUDGET,THIS_MONTH_TOTAL, THIS_MONTH_COMPLETION_RATE
+      ) values
+      ( #{item.yearMonth}, #{item.fdifference},#{item.fsheetRowIndex}, #{item.distributionChannel},
+      #{item.salesArea},#{item.areaList},#{item.dailyPractice}, #{item.dailyTotalAvg},
+      #{item.dailyAvgBudget}, #{item.completionRate}, #{item.thisMonthBudget},#{item.thisMonthTotal},
+      #{item.thisMonthCompletionRate}
+      )
+    </foreach>
+    SELECT 1 FROM dual
+  </insert>
+
+
+
+</mapper>

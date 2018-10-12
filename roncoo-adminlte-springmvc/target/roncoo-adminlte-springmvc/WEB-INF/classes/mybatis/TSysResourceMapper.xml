@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TSysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TSysResource" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fres_name" property="fresName" jdbcType="VARCHAR" />
+    <result column="fres_desc" property="fresDesc" jdbcType="VARCHAR" />
+    <result column="fis_leaf" property="fisLeaf" jdbcType="INTEGER" />
+    <result column="fres_url" property="fresUrl" jdbcType="VARCHAR" />
+    <result column="fico" property="fico" jdbcType="VARCHAR" />
+    <result column="fres_type" property="fresType" jdbcType="VARCHAR" />
+    <result column="fpos" property="fpos" jdbcType="INTEGER" />
+    <result column="fparent_id" property="fparentId" jdbcType="BIGINT" />
+    <result column="fcreate_date" property="fcreateDate" jdbcType="TIMESTAMP" />
+    <result column="fpermission_value" property="fpermissionValue" jdbcType="VARCHAR" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="fstyle" property="fstyle" jdbcType="VARCHAR" />
+    <result column="fpermission_name" property="fpermissionName" jdbcType="VARCHAR" />
+    <result column="flevel" property="flevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fres_name, fres_desc, fis_leaf, fres_url, fico, fres_type, fpos, fparent_id, 
+    fcreate_date, fpermission_value, fstatus, fstyle, fpermission_name, flevel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TSysResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_resource
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sys_resource
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysResourceExample" >
+    delete from t_sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TSysResource" >
+    insert into t_sys_resource (fid, fres_name, fres_desc, 
+      fis_leaf, fres_url, fico, 
+      fres_type, fpos, fparent_id, 
+      fcreate_date, fpermission_value, fstatus, 
+      fstyle, fpermission_name, flevel
+      )
+    values (#{fid,jdbcType=BIGINT}, #{fresName,jdbcType=VARCHAR}, #{fresDesc,jdbcType=VARCHAR}, 
+      #{fisLeaf,jdbcType=INTEGER}, #{fresUrl,jdbcType=VARCHAR}, #{fico,jdbcType=VARCHAR}, 
+      #{fresType,jdbcType=VARCHAR}, #{fpos,jdbcType=INTEGER}, #{fparentId,jdbcType=BIGINT}, 
+      #{fcreateDate,jdbcType=TIMESTAMP}, #{fpermissionValue,jdbcType=VARCHAR}, #{fstatus,jdbcType=INTEGER}, 
+      #{fstyle,jdbcType=VARCHAR}, #{fpermissionName,jdbcType=VARCHAR}, #{flevel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TSysResource" >
+    insert into t_sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fresName != null" >
+        fres_name,
+      </if>
+      <if test="fresDesc != null" >
+        fres_desc,
+      </if>
+      <if test="fisLeaf != null" >
+        fis_leaf,
+      </if>
+      <if test="fresUrl != null" >
+        fres_url,
+      </if>
+      <if test="fico != null" >
+        fico,
+      </if>
+      <if test="fresType != null" >
+        fres_type,
+      </if>
+      <if test="fpos != null" >
+        fpos,
+      </if>
+      <if test="fparentId != null" >
+        fparent_id,
+      </if>
+      <if test="fcreateDate != null" >
+        fcreate_date,
+      </if>
+      <if test="fpermissionValue != null" >
+        fpermission_value,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fstyle != null" >
+        fstyle,
+      </if>
+      <if test="fpermissionName != null" >
+        fpermission_name,
+      </if>
+      <if test="flevel != null" >
+        flevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fresName != null" >
+        #{fresName,jdbcType=VARCHAR},
+      </if>
+      <if test="fresDesc != null" >
+        #{fresDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fisLeaf != null" >
+        #{fisLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="fresUrl != null" >
+        #{fresUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fico != null" >
+        #{fico,jdbcType=VARCHAR},
+      </if>
+      <if test="fresType != null" >
+        #{fresType,jdbcType=VARCHAR},
+      </if>
+      <if test="fpos != null" >
+        #{fpos,jdbcType=INTEGER},
+      </if>
+      <if test="fparentId != null" >
+        #{fparentId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreateDate != null" >
+        #{fcreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fpermissionValue != null" >
+        #{fpermissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fstyle != null" >
+        #{fstyle,jdbcType=VARCHAR},
+      </if>
+      <if test="fpermissionName != null" >
+        #{fpermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="flevel != null" >
+        #{flevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysResourceExample" resultType="java.lang.Integer" >
+    select count(*) from t_sys_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sys_resource
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fresName != null" >
+        fres_name = #{record.fresName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fresDesc != null" >
+        fres_desc = #{record.fresDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fisLeaf != null" >
+        fis_leaf = #{record.fisLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="record.fresUrl != null" >
+        fres_url = #{record.fresUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fico != null" >
+        fico = #{record.fico,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fresType != null" >
+        fres_type = #{record.fresType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fpos != null" >
+        fpos = #{record.fpos,jdbcType=INTEGER},
+      </if>
+      <if test="record.fparentId != null" >
+        fparent_id = #{record.fparentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreateDate != null" >
+        fcreate_date = #{record.fcreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fpermissionValue != null" >
+        fpermission_value = #{record.fpermissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstyle != null" >
+        fstyle = #{record.fstyle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fpermissionName != null" >
+        fpermission_name = #{record.fpermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flevel != null" >
+        flevel = #{record.flevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sys_resource
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fres_name = #{record.fresName,jdbcType=VARCHAR},
+      fres_desc = #{record.fresDesc,jdbcType=VARCHAR},
+      fis_leaf = #{record.fisLeaf,jdbcType=INTEGER},
+      fres_url = #{record.fresUrl,jdbcType=VARCHAR},
+      fico = #{record.fico,jdbcType=VARCHAR},
+      fres_type = #{record.fresType,jdbcType=VARCHAR},
+      fpos = #{record.fpos,jdbcType=INTEGER},
+      fparent_id = #{record.fparentId,jdbcType=BIGINT},
+      fcreate_date = #{record.fcreateDate,jdbcType=TIMESTAMP},
+      fpermission_value = #{record.fpermissionValue,jdbcType=VARCHAR},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      fstyle = #{record.fstyle,jdbcType=VARCHAR},
+      fpermission_name = #{record.fpermissionName,jdbcType=VARCHAR},
+      flevel = #{record.flevel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TSysResource" >
+    update t_sys_resource
+    <set >
+      <if test="fresName != null" >
+        fres_name = #{fresName,jdbcType=VARCHAR},
+      </if>
+      <if test="fresDesc != null" >
+        fres_desc = #{fresDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fisLeaf != null" >
+        fis_leaf = #{fisLeaf,jdbcType=INTEGER},
+      </if>
+      <if test="fresUrl != null" >
+        fres_url = #{fresUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fico != null" >
+        fico = #{fico,jdbcType=VARCHAR},
+      </if>
+      <if test="fresType != null" >
+        fres_type = #{fresType,jdbcType=VARCHAR},
+      </if>
+      <if test="fpos != null" >
+        fpos = #{fpos,jdbcType=INTEGER},
+      </if>
+      <if test="fparentId != null" >
+        fparent_id = #{fparentId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreateDate != null" >
+        fcreate_date = #{fcreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fpermissionValue != null" >
+        fpermission_value = #{fpermissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fstyle != null" >
+        fstyle = #{fstyle,jdbcType=VARCHAR},
+      </if>
+      <if test="fpermissionName != null" >
+        fpermission_name = #{fpermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="flevel != null" >
+        flevel = #{flevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TSysResource" >
+    update t_sys_resource
+    set fres_name = #{fresName,jdbcType=VARCHAR},
+      fres_desc = #{fresDesc,jdbcType=VARCHAR},
+      fis_leaf = #{fisLeaf,jdbcType=INTEGER},
+      fres_url = #{fresUrl,jdbcType=VARCHAR},
+      fico = #{fico,jdbcType=VARCHAR},
+      fres_type = #{fresType,jdbcType=VARCHAR},
+      fpos = #{fpos,jdbcType=INTEGER},
+      fparent_id = #{fparentId,jdbcType=BIGINT},
+      fcreate_date = #{fcreateDate,jdbcType=TIMESTAMP},
+      fpermission_value = #{fpermissionValue,jdbcType=VARCHAR},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      fstyle = #{fstyle,jdbcType=VARCHAR},
+      fpermission_name = #{fpermissionName,jdbcType=VARCHAR},
+      flevel = #{flevel,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

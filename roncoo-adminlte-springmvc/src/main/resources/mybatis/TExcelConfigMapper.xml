@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TExcelConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TExcelConfig" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fnumber" property="fnumber" jdbcType="VARCHAR" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="fremark" property="fremark" jdbcType="VARCHAR" />
+    <result column="ftype" property="ftype" jdbcType="VARCHAR" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="fversion" property="fversion" jdbcType="VARCHAR" />
+    <collection property="sheetConfigs" ofType="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" column="fid" select="selectByHeadId"></collection>
+  </resultMap>
+  <resultMap id="SheetBaseResultMap" type="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="fsheet_index" property="fsheetIndex" jdbcType="INTEGER" />
+    <result column="fsheet_name" property="fsheetName" jdbcType="VARCHAR" />
+    <result column="fstart_row_index" property="fstartRowIndex" jdbcType="INTEGER" />
+    <result column="fend_row_index" property="fendRowIndex" jdbcType="INTEGER" />
+    <result column="fcol_indexs" property="fcolIndexs" jdbcType="VARCHAR" />
+    <result column="fignore_rows_index" property="fignoreRowsIndex" jdbcType="VARCHAR" />
+    <result column="fdb_table" property="fdbTable" jdbcType="VARCHAR" />
+    <result column="fstrong_rows_index" property="fstrongRowsIndex" jdbcType="VARCHAR" />
+    <result column="fmerges" property="fmerges" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fnumber, fname, fremark, ftype, fstatus, file_type, fversion
+  </sql>
+  <select id="selectByHeadId" parameterType="java.lang.Long" resultMap="SheetBaseResultMap">
+    select fid, fhead_id, fsheet_index, fsheet_name, fstart_row_index, fend_row_index, fcol_indexs,
+    fignore_rows_index, fdb_table, fstrong_rows_index, fmerges from t_excel_sheet_config where fhead_id = #{fid}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_excel_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_excel_config
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_excel_config
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfigExample" >
+    delete from t_excel_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfig" >
+    insert into t_excel_config (fid, fnumber, fname, 
+      fremark, ftype, fstatus, 
+      file_type, fversion)
+    values (#{fid,jdbcType=BIGINT}, #{fnumber,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, 
+      #{fremark,jdbcType=VARCHAR}, #{ftype,jdbcType=VARCHAR}, #{fstatus,jdbcType=INTEGER}, 
+      #{fileType,jdbcType=VARCHAR}, #{fversion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfig" >
+    insert into t_excel_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fnumber != null" >
+        fnumber,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="fremark != null" >
+        fremark,
+      </if>
+      <if test="ftype != null" >
+        ftype,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="fversion != null" >
+        fversion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fnumber != null" >
+        #{fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fileType != null" >
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fversion != null" >
+        #{fversion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfigExample" resultType="java.lang.Integer" >
+    select count(*) from t_excel_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_excel_config
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fnumber != null" >
+        fnumber = #{record.fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fremark != null" >
+        fremark = #{record.fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftype != null" >
+        ftype = #{record.ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileType != null" >
+        file_type = #{record.fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fversion != null" >
+        fversion = #{record.fversion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_excel_config
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fnumber = #{record.fnumber,jdbcType=VARCHAR},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      fremark = #{record.fremark,jdbcType=VARCHAR},
+      ftype = #{record.ftype,jdbcType=VARCHAR},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      file_type = #{record.fileType,jdbcType=VARCHAR},
+      fversion = #{record.fversion,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfig" >
+    update t_excel_config
+    <set >
+      <if test="fnumber != null" >
+        fnumber = #{fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        fremark = #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        ftype = #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fversion != null" >
+        fversion = #{fversion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TExcelConfig" >
+    update t_excel_config
+    set fnumber = #{fnumber,jdbcType=VARCHAR},
+      fname = #{fname,jdbcType=VARCHAR},
+      fremark = #{fremark,jdbcType=VARCHAR},
+      ftype = #{ftype,jdbcType=VARCHAR},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      fversion = #{fversion,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

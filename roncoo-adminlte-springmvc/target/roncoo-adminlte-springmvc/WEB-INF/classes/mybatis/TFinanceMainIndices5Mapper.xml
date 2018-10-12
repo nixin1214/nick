@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainIndices5Dao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFmainIndices5" >
+    <id column="fid" property="fid"/>
+    <result column="fproject" property="fproject"/>
+    <result column="year_plan" property="year_plan"/>
+    <result column="q1_done" property="q1_done"/>
+    <result column="q2_done" property="q2_done"/>
+    <result column="q3_done" property="q3_done"/>
+    <result column="q4_done" property="q4_done"/>
+    <result column="year_done" property="year_done"/>
+    <result column="year_done_count" property="year_done_count"/>
+    <result column="year_done_ratio" property="year_done_ratio"/>
+    <result column="year_done_variance" property="year_done_variance"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices5" >
+    insert into t_finance_main_indices5 (fproject,year_plan,q1_done,q2_done,q3_done,q4_done,
+      year_done,year_done_count,year_done_ratio,year_done_variance,
+      fhead_id,frow_index
+      )
+    values (#{fproject},#{year_plan},#{q1_done},#{q2_done},#{q3_done},#{q4_done},
+      #{year_done},#{year_done_count},#{year_done_ratio},#{year_done_variance},
+      #{fhead_id}, #{frow_index}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index">
+    into t_finance_main_indices5 (fproject,year_plan,q1_done,q2_done,q3_done,q4_done,
+    year_done,year_done_count,year_done_ratio,year_done_variance,
+    fhead_id,frow_index
+    )
+    values
+      (#{item.fproject},#{item.year_plan},#{item.q1_done},#{item.q2_done},#{item.q3_done},#{item.q4_done},
+      #{item.year_done},#{item.year_done_count},#{item.year_done_ratio},#{item.year_done_variance},
+      #{item.fhead_id}, #{item.frow_index}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_indices5 WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices5">
+    delete from t_finance_main_indices5 WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.TFmainIndices5" >
+    select * from t_finance_main_indices5 where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+</mapper>

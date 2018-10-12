@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceManufEDiffMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceManufEDiff" >
+    <id column="FID" property="fid" jdbcType="BIGINT" />
+    <result column="FHEAD_ID" property="fheadId" jdbcType="BIGINT" />
+    <result column="FROW_INDEX" property="frowIndex" jdbcType="BIGINT" />
+    <result column="FSEQ" property="fseq" jdbcType="VARCHAR" />
+    <result column="FPROJECT_NAME" property="fprojectName" jdbcType="VARCHAR" />
+    <result column="FAFTER_YEAR_THIS" property="fafterYearThis" jdbcType="DECIMAL" />
+    <result column="FAFTER_YEAR_TOTAL" property="fafterYearTotal" jdbcType="DECIMAL" />
+    <result column="FTHIS_YEAR_BUDGET_THIS" property="fthisYearBudgetThis" jdbcType="DECIMAL" />
+    <result column="FTHIS_YEAR_BUDGET_TOTAL" property="fthisYearBudgetTotal" jdbcType="DECIMAL" />
+    <result column="FTHIS_YEAR_ACTUAL_THIS" property="fthisYearActualThis" jdbcType="DECIMAL" />
+    <result column="FTHIS_YEAR_ACTUAL_TOTAL" property="fthisYearActualTotal" jdbcType="DECIMAL" />
+    <result column="FEXTEND1" property="fextend1" jdbcType="DECIMAL" />
+    <result column="FEXTEND2" property="fextend2" jdbcType="DECIMAL" />
+    <result column="FEXTEND3" property="fextend3" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FID, FHEAD_ID, FROW_INDEX, FSEQ, FPROJECT_NAME, FAFTER_YEAR_THIS, FAFTER_YEAR_TOTAL, 
+    FTHIS_YEAR_BUDGET_THIS, FTHIS_YEAR_BUDGET_TOTAL, FTHIS_YEAR_ACTUAL_THIS, FTHIS_YEAR_ACTUAL_TOTAL, 
+    FEXTEND1, FEXTEND2, FEXTEND3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MANUF_E_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MANUF_E_DIFF
+    where FID = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_FINANCE_MANUF_E_DIFF
+    where FID = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiffExample" >
+    delete from T_FINANCE_MANUF_E_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiff" >
+    insert into T_FINANCE_MANUF_E_DIFF (FID, FHEAD_ID, FROW_INDEX, 
+      FSEQ, FPROJECT_NAME, FAFTER_YEAR_THIS, 
+      FAFTER_YEAR_TOTAL, FTHIS_YEAR_BUDGET_THIS, FTHIS_YEAR_BUDGET_TOTAL, 
+      FTHIS_YEAR_ACTUAL_THIS, FTHIS_YEAR_ACTUAL_TOTAL, 
+      FEXTEND1, FEXTEND2, FEXTEND3
+      )
+    values (#{fid,jdbcType=BIGINT}, #{fheadId,jdbcType=BIGINT}, #{frowIndex,jdbcType=BIGINT}, 
+      #{fseq,jdbcType=VARCHAR}, #{fprojectName,jdbcType=VARCHAR}, #{fafterYearThis,jdbcType=DECIMAL}, 
+      #{fafterYearTotal,jdbcType=DECIMAL}, #{fthisYearBudgetThis,jdbcType=DECIMAL}, #{fthisYearBudgetTotal,jdbcType=DECIMAL}, 
+      #{fthisYearActualThis,jdbcType=DECIMAL}, #{fthisYearActualTotal,jdbcType=DECIMAL}, 
+      #{fextend1,jdbcType=DECIMAL}, #{fextend2,jdbcType=DECIMAL}, #{fextend3,jdbcType=DECIMAL}
+      )
+  </insert>
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+      into T_FINANCE_MANUF_E_DIFF (FID, FHEAD_ID, FROW_INDEX,
+      FSEQ, FPROJECT_NAME, FAFTER_YEAR_THIS,
+      FAFTER_YEAR_TOTAL, FTHIS_YEAR_BUDGET_THIS, FTHIS_YEAR_BUDGET_TOTAL,
+      FTHIS_YEAR_ACTUAL_THIS, FTHIS_YEAR_ACTUAL_TOTAL,
+      FEXTEND1, FEXTEND2, FEXTEND3
+      )
+      values
+      (#{item.fid,jdbcType=BIGINT}, #{item.fheadId,jdbcType=BIGINT}, #{item.frowIndex,jdbcType=BIGINT},
+      #{item.fseq,jdbcType=VARCHAR}, #{item.fprojectName,jdbcType=VARCHAR}, #{item.fafterYearThis,jdbcType=DECIMAL},
+      #{item.fafterYearTotal,jdbcType=DECIMAL}, #{item.fthisYearBudgetThis,jdbcType=DECIMAL}, #{item.fthisYearBudgetTotal,jdbcType=DECIMAL},
+      #{item.fthisYearActualThis,jdbcType=DECIMAL}, #{item.fthisYearActualTotal,jdbcType=DECIMAL},
+      #{item.fextend1,jdbcType=DECIMAL}, #{item.fextend2,jdbcType=DECIMAL}, #{item.fextend3,jdbcType=DECIMAL}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiff" >
+    insert into T_FINANCE_MANUF_E_DIFF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        FID,
+      </if>
+      <if test="fheadId != null" >
+        FHEAD_ID,
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX,
+      </if>
+      <if test="fseq != null" >
+        FSEQ,
+      </if>
+      <if test="fprojectName != null" >
+        FPROJECT_NAME,
+      </if>
+      <if test="fafterYearThis != null" >
+        FAFTER_YEAR_THIS,
+      </if>
+      <if test="fafterYearTotal != null" >
+        FAFTER_YEAR_TOTAL,
+      </if>
+      <if test="fthisYearBudgetThis != null" >
+        FTHIS_YEAR_BUDGET_THIS,
+      </if>
+      <if test="fthisYearBudgetTotal != null" >
+        FTHIS_YEAR_BUDGET_TOTAL,
+      </if>
+      <if test="fthisYearActualThis != null" >
+        FTHIS_YEAR_ACTUAL_THIS,
+      </if>
+      <if test="fthisYearActualTotal != null" >
+        FTHIS_YEAR_ACTUAL_TOTAL,
+      </if>
+      <if test="fextend1 != null" >
+        FEXTEND1,
+      </if>
+      <if test="fextend2 != null" >
+        FEXTEND2,
+      </if>
+      <if test="fextend3 != null" >
+        FEXTEND3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fseq != null" >
+        #{fseq,jdbcType=VARCHAR},
+      </if>
+      <if test="fprojectName != null" >
+        #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fafterYearThis != null" >
+        #{fafterYearThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fafterYearTotal != null" >
+        #{fafterYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearBudgetThis != null" >
+        #{fthisYearBudgetThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearBudgetTotal != null" >
+        #{fthisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearActualThis != null" >
+        #{fthisYearActualThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearActualTotal != null" >
+        #{fthisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        #{fextend3,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiffExample" resultType="java.lang.Integer" >
+    select count(*) from T_FINANCE_MANUF_E_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FINANCE_MANUF_E_DIFF
+    <set >
+      <if test="record.fid != null" >
+        FID = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fheadId != null" >
+        FHEAD_ID = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="record.fseq != null" >
+        FSEQ = #{record.fseq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fprojectName != null" >
+        FPROJECT_NAME = #{record.fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fafterYearThis != null" >
+        FAFTER_YEAR_THIS = #{record.fafterYearThis,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fafterYearTotal != null" >
+        FAFTER_YEAR_TOTAL = #{record.fafterYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearBudgetThis != null" >
+        FTHIS_YEAR_BUDGET_THIS = #{record.fthisYearBudgetThis,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearBudgetTotal != null" >
+        FTHIS_YEAR_BUDGET_TOTAL = #{record.fthisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearActualThis != null" >
+        FTHIS_YEAR_ACTUAL_THIS = #{record.fthisYearActualThis,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearActualTotal != null" >
+        FTHIS_YEAR_ACTUAL_TOTAL = #{record.fthisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend1 != null" >
+        FEXTEND1 = #{record.fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend2 != null" >
+        FEXTEND2 = #{record.fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend3 != null" >
+        FEXTEND3 = #{record.fextend3,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FINANCE_MANUF_E_DIFF
+    set FID = #{record.fid,jdbcType=BIGINT},
+      FHEAD_ID = #{record.fheadId,jdbcType=BIGINT},
+      FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      FSEQ = #{record.fseq,jdbcType=VARCHAR},
+      FPROJECT_NAME = #{record.fprojectName,jdbcType=VARCHAR},
+      FAFTER_YEAR_THIS = #{record.fafterYearThis,jdbcType=DECIMAL},
+      FAFTER_YEAR_TOTAL = #{record.fafterYearTotal,jdbcType=DECIMAL},
+      FTHIS_YEAR_BUDGET_THIS = #{record.fthisYearBudgetThis,jdbcType=DECIMAL},
+      FTHIS_YEAR_BUDGET_TOTAL = #{record.fthisYearBudgetTotal,jdbcType=DECIMAL},
+      FTHIS_YEAR_ACTUAL_THIS = #{record.fthisYearActualThis,jdbcType=DECIMAL},
+      FTHIS_YEAR_ACTUAL_TOTAL = #{record.fthisYearActualTotal,jdbcType=DECIMAL},
+      FEXTEND1 = #{record.fextend1,jdbcType=DECIMAL},
+      FEXTEND2 = #{record.fextend2,jdbcType=DECIMAL},
+      FEXTEND3 = #{record.fextend3,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiff" >
+    update T_FINANCE_MANUF_E_DIFF
+    <set >
+      <if test="fheadId != null" >
+        FHEAD_ID = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fseq != null" >
+        FSEQ = #{fseq,jdbcType=VARCHAR},
+      </if>
+      <if test="fprojectName != null" >
+        FPROJECT_NAME = #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fafterYearThis != null" >
+        FAFTER_YEAR_THIS = #{fafterYearThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fafterYearTotal != null" >
+        FAFTER_YEAR_TOTAL = #{fafterYearTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearBudgetThis != null" >
+        FTHIS_YEAR_BUDGET_THIS = #{fthisYearBudgetThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearBudgetTotal != null" >
+        FTHIS_YEAR_BUDGET_TOTAL = #{fthisYearBudgetTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearActualThis != null" >
+        FTHIS_YEAR_ACTUAL_THIS = #{fthisYearActualThis,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearActualTotal != null" >
+        FTHIS_YEAR_ACTUAL_TOTAL = #{fthisYearActualTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        FEXTEND1 = #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        FEXTEND2 = #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        FEXTEND3 = #{fextend3,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceManufEDiff" >
+    update T_FINANCE_MANUF_E_DIFF
+    set FHEAD_ID = #{fheadId,jdbcType=BIGINT},
+      FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      FSEQ = #{fseq,jdbcType=VARCHAR},
+      FPROJECT_NAME = #{fprojectName,jdbcType=VARCHAR},
+      FAFTER_YEAR_THIS = #{fafterYearThis,jdbcType=DECIMAL},
+      FAFTER_YEAR_TOTAL = #{fafterYearTotal,jdbcType=DECIMAL},
+      FTHIS_YEAR_BUDGET_THIS = #{fthisYearBudgetThis,jdbcType=DECIMAL},
+      FTHIS_YEAR_BUDGET_TOTAL = #{fthisYearBudgetTotal,jdbcType=DECIMAL},
+      FTHIS_YEAR_ACTUAL_THIS = #{fthisYearActualThis,jdbcType=DECIMAL},
+      FTHIS_YEAR_ACTUAL_TOTAL = #{fthisYearActualTotal,jdbcType=DECIMAL},
+      FEXTEND1 = #{fextend1,jdbcType=DECIMAL},
+      FEXTEND2 = #{fextend2,jdbcType=DECIMAL},
+      FEXTEND3 = #{fextend3,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

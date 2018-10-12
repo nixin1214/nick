@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceMainBusinessTotalDiffDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff" >
+    <id column="FID" property="fid" jdbcType="BIGINT" />
+    <result column="FROW_NUM" property="frowNum" jdbcType="VARCHAR" />
+    <result column="FPROJECT" property="fproject" jdbcType="VARCHAR" />
+    <result column="SALE_BUDGET" property="saleBudget" jdbcType="DECIMAL" />
+    <result column="SALE_ACTUAL" property="saleActual" jdbcType="DECIMAL" />
+    <result column="INCOME_BUDGET" property="incomeBudget" jdbcType="DECIMAL" />
+    <result column="INCOME_ACTUAL" property="incomeActual" jdbcType="DECIMAL" />
+    <result column="INCOME_TOTAL" property="incomeTotal" jdbcType="DECIMAL" />
+    <result column="COST_BUDGET" property="costBudget" jdbcType="DECIMAL" />
+    <result column="COST_ACTUAL" property="costActual" jdbcType="DECIMAL" />
+    <result column="COST_TOTAL" property="costTotal" jdbcType="DECIMAL" />
+    <result column="SALE_PROFIT_BUDGET" property="saleProfitBudget" jdbcType="DECIMAL" />
+    <result column="SALE_PROFIT_ACTUAL" property="saleProfitActual" jdbcType="DECIMAL" />
+    <result column="SALE_PROFIT_BUDGET_RATIO" property="saleProfitBudgetRatio" jdbcType="DECIMAL" />
+    <result column="SALE_PROFIT_ACTUAL_RATIO" property="saleProfitActualRatio" jdbcType="DECIMAL" />
+    <result column="SALE_TOTAL" property="saleTotal" jdbcType="DECIMAL" />
+    <result column="FHEAD_ID" property="fheadId" jdbcType="BIGINT" />
+    <result column="FROW_INDEX" property="frowIndex" jdbcType="BIGINT" />
+    <result column="FSTRONG" property="fstrong" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FID, FROW_NUM, FPROJECT, SALE_BUDGET, SALE_ACTUAL, INCOME_BUDGET, INCOME_ACTUAL, 
+    INCOME_TOTAL, COST_BUDGET, COST_ACTUAL, COST_TOTAL, SALE_PROFIT_BUDGET, SALE_PROFIT_ACTUAL, 
+    SALE_PROFIT_BUDGET_RATIO, SALE_PROFIT_ACTUAL_RATIO, SALE_TOTAL, FHEAD_ID, FROW_INDEX, 
+    FSTRONG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FINANCE_MAIN_BUSINESS_T_DIFF
+    where FID = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_FINANCE_MAIN_BUSINESS_T_DIFF
+    where FID = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiffExample" >
+    delete from T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff" >
+    insert into T_FINANCE_MAIN_BUSINESS_T_DIFF (FID, FROW_NUM, FPROJECT, 
+      SALE_BUDGET, SALE_ACTUAL, INCOME_BUDGET, 
+      INCOME_ACTUAL, INCOME_TOTAL, COST_BUDGET, 
+      COST_ACTUAL, COST_TOTAL, SALE_PROFIT_BUDGET, 
+      SALE_PROFIT_ACTUAL, SALE_PROFIT_BUDGET_RATIO, 
+      SALE_PROFIT_ACTUAL_RATIO, SALE_TOTAL, FHEAD_ID, 
+      FROW_INDEX, FSTRONG)
+    values (#{fid,jdbcType=BIGINT}, #{frowNum,jdbcType=VARCHAR}, #{fproject,jdbcType=VARCHAR}, 
+      #{saleBudget,jdbcType=DECIMAL}, #{saleActual,jdbcType=DECIMAL}, #{incomeBudget,jdbcType=DECIMAL}, 
+      #{incomeActual,jdbcType=DECIMAL}, #{incomeTotal,jdbcType=DECIMAL}, #{costBudget,jdbcType=DECIMAL}, 
+      #{costActual,jdbcType=DECIMAL}, #{costTotal,jdbcType=DECIMAL}, #{saleProfitBudget,jdbcType=DECIMAL}, 
+      #{saleProfitActual,jdbcType=DECIMAL}, #{saleProfitBudgetRatio,jdbcType=DECIMAL}, 
+      #{saleProfitActualRatio,jdbcType=DECIMAL}, #{saleTotal,jdbcType=DECIMAL}, #{fheadId,jdbcType=BIGINT}, 
+      #{frowIndex,jdbcType=BIGINT}, #{fstrong,jdbcType=DECIMAL})
+  </insert>
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+      into T_FINANCE_MAIN_BUSINESS_T_DIFF ( FROW_NUM, FPROJECT,
+      SALE_BUDGET, SALE_ACTUAL, INCOME_BUDGET,
+      INCOME_ACTUAL, INCOME_TOTAL, COST_BUDGET,
+      COST_ACTUAL, COST_TOTAL, SALE_PROFIT_BUDGET,
+      SALE_PROFIT_ACTUAL, SALE_PROFIT_BUDGET_RATIO,
+      SALE_PROFIT_ACTUAL_RATIO, SALE_TOTAL, FHEAD_ID,
+      FROW_INDEX, FSTRONG)
+      values
+      (#{item.frowNum,jdbcType=VARCHAR}, #{item.fproject,jdbcType=VARCHAR},
+      #{item.saleBudget,jdbcType=DECIMAL}, #{item.saleActual,jdbcType=DECIMAL}, #{item.incomeBudget,jdbcType=DECIMAL},
+      #{item.incomeActual,jdbcType=DECIMAL}, #{item.incomeTotal,jdbcType=DECIMAL}, #{item.costBudget,jdbcType=DECIMAL},
+      #{item.costActual,jdbcType=DECIMAL}, #{item.costTotal,jdbcType=DECIMAL}, #{item.saleProfitBudget,jdbcType=DECIMAL},
+      #{item.saleProfitActual,jdbcType=DECIMAL}, #{item.saleProfitBudgetRatio,jdbcType=DECIMAL},
+      #{item.saleProfitActualRatio,jdbcType=DECIMAL}, #{item.saleTotal,jdbcType=DECIMAL}, #{item.fheadId,jdbcType=BIGINT},
+      #{item.frowIndex,jdbcType=BIGINT}, #{item.fstrong,jdbcType=DECIMAL})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff" >
+    insert into T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        FID,
+      </if>
+      <if test="frowNum != null" >
+        FROW_NUM,
+      </if>
+      <if test="fproject != null" >
+        FPROJECT,
+      </if>
+      <if test="saleBudget != null" >
+        SALE_BUDGET,
+      </if>
+      <if test="saleActual != null" >
+        SALE_ACTUAL,
+      </if>
+      <if test="incomeBudget != null" >
+        INCOME_BUDGET,
+      </if>
+      <if test="incomeActual != null" >
+        INCOME_ACTUAL,
+      </if>
+      <if test="incomeTotal != null" >
+        INCOME_TOTAL,
+      </if>
+      <if test="costBudget != null" >
+        COST_BUDGET,
+      </if>
+      <if test="costActual != null" >
+        COST_ACTUAL,
+      </if>
+      <if test="costTotal != null" >
+        COST_TOTAL,
+      </if>
+      <if test="saleProfitBudget != null" >
+        SALE_PROFIT_BUDGET,
+      </if>
+      <if test="saleProfitActual != null" >
+        SALE_PROFIT_ACTUAL,
+      </if>
+      <if test="saleProfitBudgetRatio != null" >
+        SALE_PROFIT_BUDGET_RATIO,
+      </if>
+      <if test="saleProfitActualRatio != null" >
+        SALE_PROFIT_ACTUAL_RATIO,
+      </if>
+      <if test="saleTotal != null" >
+        SALE_TOTAL,
+      </if>
+      <if test="fheadId != null" >
+        FHEAD_ID,
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX,
+      </if>
+      <if test="fstrong != null" >
+        FSTRONG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="frowNum != null" >
+        #{frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fproject != null" >
+        #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="saleBudget != null" >
+        #{saleBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="saleActual != null" >
+        #{saleActual,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeBudget != null" >
+        #{incomeBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeActual != null" >
+        #{incomeActual,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeTotal != null" >
+        #{incomeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="costBudget != null" >
+        #{costBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="costActual != null" >
+        #{costActual,jdbcType=DECIMAL},
+      </if>
+      <if test="costTotal != null" >
+        #{costTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitBudget != null" >
+        #{saleProfitBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitActual != null" >
+        #{saleProfitActual,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitBudgetRatio != null" >
+        #{saleProfitBudgetRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitActualRatio != null" >
+        #{saleProfitActualRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="saleTotal != null" >
+        #{saleTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fstrong != null" >
+        #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiffExample" resultType="java.lang.Integer" >
+    select count(*) from T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <set >
+      <if test="record.fid != null" >
+        FID = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowNum != null" >
+        FROW_NUM = #{record.frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fproject != null" >
+        FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleBudget != null" >
+        SALE_BUDGET = #{record.saleBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleActual != null" >
+        SALE_ACTUAL = #{record.saleActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.incomeBudget != null" >
+        INCOME_BUDGET = #{record.incomeBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.incomeActual != null" >
+        INCOME_ACTUAL = #{record.incomeActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.incomeTotal != null" >
+        INCOME_TOTAL = #{record.incomeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costBudget != null" >
+        COST_BUDGET = #{record.costBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costActual != null" >
+        COST_ACTUAL = #{record.costActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTotal != null" >
+        COST_TOTAL = #{record.costTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitBudget != null" >
+        SALE_PROFIT_BUDGET = #{record.saleProfitBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitActual != null" >
+        SALE_PROFIT_ACTUAL = #{record.saleProfitActual,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitBudgetRatio != null" >
+        SALE_PROFIT_BUDGET_RATIO = #{record.saleProfitBudgetRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleProfitActualRatio != null" >
+        SALE_PROFIT_ACTUAL_RATIO = #{record.saleProfitActualRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleTotal != null" >
+        SALE_TOTAL = #{record.saleTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fheadId != null" >
+        FHEAD_ID = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="record.fstrong != null" >
+        FSTRONG = #{record.fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FINANCE_MAIN_BUSINESS_T_DIFF
+    set FID = #{record.fid,jdbcType=BIGINT},
+      FROW_NUM = #{record.frowNum,jdbcType=VARCHAR},
+      FPROJECT = #{record.fproject,jdbcType=VARCHAR},
+      SALE_BUDGET = #{record.saleBudget,jdbcType=DECIMAL},
+      SALE_ACTUAL = #{record.saleActual,jdbcType=DECIMAL},
+      INCOME_BUDGET = #{record.incomeBudget,jdbcType=DECIMAL},
+      INCOME_ACTUAL = #{record.incomeActual,jdbcType=DECIMAL},
+      INCOME_TOTAL = #{record.incomeTotal,jdbcType=DECIMAL},
+      COST_BUDGET = #{record.costBudget,jdbcType=DECIMAL},
+      COST_ACTUAL = #{record.costActual,jdbcType=DECIMAL},
+      COST_TOTAL = #{record.costTotal,jdbcType=DECIMAL},
+      SALE_PROFIT_BUDGET = #{record.saleProfitBudget,jdbcType=DECIMAL},
+      SALE_PROFIT_ACTUAL = #{record.saleProfitActual,jdbcType=DECIMAL},
+      SALE_PROFIT_BUDGET_RATIO = #{record.saleProfitBudgetRatio,jdbcType=DECIMAL},
+      SALE_PROFIT_ACTUAL_RATIO = #{record.saleProfitActualRatio,jdbcType=DECIMAL},
+      SALE_TOTAL = #{record.saleTotal,jdbcType=DECIMAL},
+      FHEAD_ID = #{record.fheadId,jdbcType=BIGINT},
+      FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      FSTRONG = #{record.fstrong,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff" >
+    update T_FINANCE_MAIN_BUSINESS_T_DIFF
+    <set >
+      <if test="frowNum != null" >
+        FROW_NUM = #{frowNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fproject != null" >
+        FPROJECT = #{fproject,jdbcType=VARCHAR},
+      </if>
+      <if test="saleBudget != null" >
+        SALE_BUDGET = #{saleBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="saleActual != null" >
+        SALE_ACTUAL = #{saleActual,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeBudget != null" >
+        INCOME_BUDGET = #{incomeBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeActual != null" >
+        INCOME_ACTUAL = #{incomeActual,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeTotal != null" >
+        INCOME_TOTAL = #{incomeTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="costBudget != null" >
+        COST_BUDGET = #{costBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="costActual != null" >
+        COST_ACTUAL = #{costActual,jdbcType=DECIMAL},
+      </if>
+      <if test="costTotal != null" >
+        COST_TOTAL = #{costTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitBudget != null" >
+        SALE_PROFIT_BUDGET = #{saleProfitBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitActual != null" >
+        SALE_PROFIT_ACTUAL = #{saleProfitActual,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitBudgetRatio != null" >
+        SALE_PROFIT_BUDGET_RATIO = #{saleProfitBudgetRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="saleProfitActualRatio != null" >
+        SALE_PROFIT_ACTUAL_RATIO = #{saleProfitActualRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="saleTotal != null" >
+        SALE_TOTAL = #{saleTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="fheadId != null" >
+        FHEAD_ID = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fstrong != null" >
+        FSTRONG = #{fstrong,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff" >
+    update T_FINANCE_MAIN_BUSINESS_T_DIFF
+    set FROW_NUM = #{frowNum,jdbcType=VARCHAR},
+      FPROJECT = #{fproject,jdbcType=VARCHAR},
+      SALE_BUDGET = #{saleBudget,jdbcType=DECIMAL},
+      SALE_ACTUAL = #{saleActual,jdbcType=DECIMAL},
+      INCOME_BUDGET = #{incomeBudget,jdbcType=DECIMAL},
+      INCOME_ACTUAL = #{incomeActual,jdbcType=DECIMAL},
+      INCOME_TOTAL = #{incomeTotal,jdbcType=DECIMAL},
+      COST_BUDGET = #{costBudget,jdbcType=DECIMAL},
+      COST_ACTUAL = #{costActual,jdbcType=DECIMAL},
+      COST_TOTAL = #{costTotal,jdbcType=DECIMAL},
+      SALE_PROFIT_BUDGET = #{saleProfitBudget,jdbcType=DECIMAL},
+      SALE_PROFIT_ACTUAL = #{saleProfitActual,jdbcType=DECIMAL},
+      SALE_PROFIT_BUDGET_RATIO = #{saleProfitBudgetRatio,jdbcType=DECIMAL},
+      SALE_PROFIT_ACTUAL_RATIO = #{saleProfitActualRatio,jdbcType=DECIMAL},
+      SALE_TOTAL = #{saleTotal,jdbcType=DECIMAL},
+      FHEAD_ID = #{fheadId,jdbcType=BIGINT},
+      FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      FSTRONG = #{fstrong,jdbcType=DECIMAL}
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFinanceMainBusinessTDiff">
+    delete from T_FINANCE_MAIN_BUSINESS_T_DIFF WHERE 1=1
+    <if test="fheadId!=null and fheadId!=0">
+      and fhead_id=#{fheadId}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map"  resultMap="BaseResultMap">
+    select * from T_FINANCE_MAIN_BUSINESS_T_DIFF where 1=1
+    <if test="fheadId != null and fheadId!=0" >
+      and fhead_id=#{fheadId}
+    </if>
+    order by frow_index ASC
+  </select>
+</mapper>

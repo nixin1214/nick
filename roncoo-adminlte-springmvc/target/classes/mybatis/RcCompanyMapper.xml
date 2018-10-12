@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.RcCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.RcCompany" >
+    <id column="ID" property="id" jdbcType="BIGINT"/>
+    <result column="FNAME" property="fname" jdbcType="VARCHAR" />
+    <result column="FNUMBER" property="fnumber" jdbcType="VARCHAR" />
+    <result column="FTYPE" property="ftype" jdbcType="VARCHAR" />
+    <result column="FDESC" property="fdesc" jdbcType="VARCHAR" />
+    <result column="FLONG_CODE" property="flongCode" jdbcType="VARCHAR" />
+    <result column="FPARENT_CODE" property="fparentCode" jdbcType="VARCHAR" />
+    <result column="FPOS" property="fpos" jdbcType="DECIMAL" />
+    <result column="FENDFLAG" property="fendflag" jdbcType="DECIMAL" />
+    <result column="FSTATUS" property="fstatus" jdbcType="DECIMAL" />
+    <result column="FDESCN" property="fdescn" jdbcType="VARCHAR" />
+    <result column="FVIEW" property="fview" jdbcType="VARCHAR" />
+    <result column="FLEVEL" property="flevel" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, FNAME, FNUMBER, FTYPE, FDESC, FLONG_CODE, FPARENT_CODE, FPOS, FENDFLAG, FSTATUS,
+    FDESCN, FVIEW, FLEVEL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.RcCompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RC_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from RC_COMPANY
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from RC_COMPANY
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.RcCompanyExample" >
+    delete from RC_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.RcCompany" >
+    insert into RC_COMPANY (ID, FNAME, FNUMBER,
+    FTYPE, FDESC, FLONG_CODE,
+    FPARENT_CODE, FPOS, FENDFLAG,
+    FSTATUS, FDESCN, FVIEW,
+    FLEVEL)
+    values (#{id,jdbcType=BIGINT}, #{fname,jdbcType=VARCHAR}, #{fnumber,jdbcType=VARCHAR},
+    #{ftype,jdbcType=VARCHAR}, #{fdesc,jdbcType=VARCHAR}, #{flongCode,jdbcType=VARCHAR},
+    #{fparentCode,jdbcType=VARCHAR}, #{fpos,jdbcType=DECIMAL}, #{fendflag,jdbcType=DECIMAL},
+    #{fstatus,jdbcType=DECIMAL}, #{fdescn,jdbcType=VARCHAR}, #{fview,jdbcType=VARCHAR},
+    #{flevel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.RcCompany" >
+    insert into RC_COMPANY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fname != null" >
+        FNAME,
+      </if>
+      <if test="fnumber != null" >
+        FNUMBER,
+      </if>
+      <if test="ftype != null" >
+        FTYPE,
+      </if>
+      <if test="fdesc != null" >
+        FDESC,
+      </if>
+      <if test="flongCode != null" >
+        FLONG_CODE,
+      </if>
+      <if test="fparentCode != null" >
+        FPARENT_CODE,
+      </if>
+      <if test="fpos != null" >
+        FPOS,
+      </if>
+      <if test="fendflag != null" >
+        FENDFLAG,
+      </if>
+      <if test="fstatus != null" >
+        FSTATUS,
+      </if>
+      <if test="fdescn != null" >
+        FDESCN,
+      </if>
+      <if test="fview != null" >
+        FVIEW,
+      </if>
+      <if test="flevel != null" >
+        FLEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fnumber != null" >
+        #{fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fdesc != null" >
+        #{fdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flongCode != null" >
+        #{flongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fparentCode != null" >
+        #{fparentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fpos != null" >
+        #{fpos,jdbcType=DECIMAL},
+      </if>
+      <if test="fendflag != null" >
+        #{fendflag,jdbcType=DECIMAL},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="fdescn != null" >
+        #{fdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="fview != null" >
+        #{fview,jdbcType=VARCHAR},
+      </if>
+      <if test="flevel != null" >
+        #{flevel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.RcCompanyExample" resultType="java.lang.Integer" >
+    select count(*) from RC_COMPANY
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update RC_COMPANY
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.fname != null" >
+        FNAME = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fnumber != null" >
+        FNUMBER = #{record.fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftype != null" >
+        FTYPE = #{record.ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdesc != null" >
+        FDESC = #{record.fdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flongCode != null" >
+        FLONG_CODE = #{record.flongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fparentCode != null" >
+        FPARENT_CODE = #{record.fparentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fpos != null" >
+        FPOS = #{record.fpos,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fendflag != null" >
+        FENDFLAG = #{record.fendflag,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fstatus != null" >
+        FSTATUS = #{record.fstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fdescn != null" >
+        FDESCN = #{record.fdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fview != null" >
+        FVIEW = #{record.fview,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flevel != null" >
+        FLEVEL = #{record.flevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update RC_COMPANY
+    set ID = #{record.id,jdbcType=BIGINT},
+    FNAME = #{record.fname,jdbcType=VARCHAR},
+    FNUMBER = #{record.fnumber,jdbcType=VARCHAR},
+    FTYPE = #{record.ftype,jdbcType=VARCHAR},
+    FDESC = #{record.fdesc,jdbcType=VARCHAR},
+    FLONG_CODE = #{record.flongCode,jdbcType=VARCHAR},
+    FPARENT_CODE = #{record.fparentCode,jdbcType=VARCHAR},
+    FPOS = #{record.fpos,jdbcType=DECIMAL},
+    FENDFLAG = #{record.fendflag,jdbcType=DECIMAL},
+    FSTATUS = #{record.fstatus,jdbcType=DECIMAL},
+    FDESCN = #{record.fdescn,jdbcType=VARCHAR},
+    FVIEW = #{record.fview,jdbcType=VARCHAR},
+    FLEVEL = #{record.flevel,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.RcCompany" >
+    update RC_COMPANY
+    <set >
+      <if test="fname != null" >
+        FNAME = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fnumber != null" >
+        FNUMBER = #{fnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        FTYPE = #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fdesc != null" >
+        FDESC = #{fdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="flongCode != null" >
+        FLONG_CODE = #{flongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fparentCode != null" >
+        FPARENT_CODE = #{fparentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fpos != null" >
+        FPOS = #{fpos,jdbcType=DECIMAL},
+      </if>
+      <if test="fendflag != null" >
+        FENDFLAG = #{fendflag,jdbcType=DECIMAL},
+      </if>
+      <if test="fstatus != null" >
+        FSTATUS = #{fstatus,jdbcType=DECIMAL},
+      </if>
+      <if test="fdescn != null" >
+        FDESCN = #{fdescn,jdbcType=VARCHAR},
+      </if>
+      <if test="fview != null" >
+        FVIEW = #{fview,jdbcType=VARCHAR},
+      </if>
+      <if test="flevel != null" >
+        FLEVEL = #{flevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.RcCompany" >
+    update RC_COMPANY
+    set FNAME = #{fname,jdbcType=VARCHAR},
+    FNUMBER = #{fnumber,jdbcType=VARCHAR},
+    FTYPE = #{ftype,jdbcType=VARCHAR},
+    FDESC = #{fdesc,jdbcType=VARCHAR},
+    FLONG_CODE = #{flongCode,jdbcType=VARCHAR},
+    FPARENT_CODE = #{fparentCode,jdbcType=VARCHAR},
+    FPOS = #{fpos,jdbcType=DECIMAL},
+    FENDFLAG = #{fendflag,jdbcType=DECIMAL},
+    FSTATUS = #{fstatus,jdbcType=DECIMAL},
+    FDESCN = #{fdescn,jdbcType=VARCHAR},
+    FVIEW = #{fview,jdbcType=VARCHAR},
+    FLEVEL = #{flevel,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainIndices2Dao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFmainIndices2" >
+    <id column="fid" property="fid"/>
+    <result column="fcategory" property="fcreator"/>
+    <result column="budget1" property="budget1"/>
+    <result column="actual1" property="actual1"/>
+    <result column="budget2" property="budget2"/>
+    <result column="actual2" property="actual2"/>
+    <result column="budget3" property="budget3"/>
+    <result column="actual3" property="actual3"/>
+    <result column="budget4" property="budget4"/>
+    <result column="actual4" property="actual4"/>
+    <result column="budget5" property="budget5"/>
+    <result column="actual5" property="actual5"/>
+    <result column="budget6" property="budget6"/>
+    <result column="actual6" property="actual6"/>
+    <result column="budget7" property="budget7"/>
+    <result column="actual7" property="actual7"/>
+    <result column="budget8" property="budget8"/>
+    <result column="actual8" property="actual8"/>
+    <result column="budget9" property="budget9"/>
+    <result column="actual9" property="actual9"/>
+    <result column="budget10" property="budget10"/>
+    <result column="actual10" property="actual10"/>
+    <result column="budget11" property="budget11"/>
+    <result column="actual11" property="actual11"/>
+    <result column="budget12" property="budget12"/>
+    <result column="actual12" property="actual12"/>
+    <result column="q1_aim" property="q1_aim"/>
+    <result column="q1_done" property="q1_done"/>
+    <result column="q1_done_ratio" property="q1_done_ratio"/>
+    <result column="q1_cost_ratio" property="q1_cost_ratio"/>
+    <result column="q2_aim" property="q2_aim"/>
+    <result column="q2_done" property="q2_done"/>
+    <result column="q2_done_ratio" property="q2_done_ratio"/>
+    <result column="q2_cost_ratio" property="q2_cost_ratio"/>
+    <result column="q3_aim" property="q3_aim"/>
+    <result column="q3_done" property="q3_done"/>
+    <result column="q3_done_ratio" property="q3_done_ratio"/>
+    <result column="q3_cost_ratio" property="q3_cost_ratio"/>
+    <result column="q4_aim" property="q4_aim"/>
+    <result column="q4_done" property="q4_done"/>
+    <result column="q4_done_ratio" property="q4_done_ratio"/>
+    <result column="q4_cost_ratio" property="q4_cost_ratio"/>
+    <result column="y_aim" property="y_aim"/>
+    <result column="y_done" property="y_done"/>
+    <result column="y_done_ratio" property="y_done_ratio"/>
+    <result column="y_cost_ratio" property="y_cost_ratio"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+    <result column="finace_warrning" property="finace_warrning"/>
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices2" >
+    insert into t_finance_main_indices2 (fproject,budget1,actual1,budget2,actual2,budget3,actual3,budget4,actual4,budget5,actual5,
+      budget6,actual6,budget7,actual7,budget8,actual8,budget9,actual9,budget10,actual10,budget11,actual11,budget12,actual12,
+      q1_aim, q1_done, q1_done_ratio,q1_cost_ratio,
+      q2_aim, q2_done, q2_done_ratio,q2_cost_ratio,
+      q3_aim, q3_done, q3_done_ratio,q3_cost_ratio,
+      q4_aim, q4_done, q4_done_ratio,q4_cost_ratio,
+      y_aim, y_done, y_done_ratio,y_cost_ratio,
+      fhead_id,frow_index, finace_warrning
+      )
+    values (#{fproject},#{budget1},#{actual1},#{budget2},#{actual2},
+      #{budget3},#{actual3},#{budget4},#{actual4},#{budget5},#{actual5},
+      #{budget6},#{actual6},#{budget7},#{actual7},#{budget8},#{actual8},
+      #{budget9},#{actual9},#{budget10},#{actual10},#{budget11},#{actual11},#{budget12},#{actual12},
+      #{q1_aim}, #{q1_done}, #{q1_done_ratio},#{q1_cost_ratio},
+      #{q2_aim}, #{q2_done}, #{q2_done_ratio},#{q2_cost_ratio},
+      #{q3_aim}, #{q3_done}, #{q3_done_ratio},#{q3_cost_ratio},
+      #{q4_aim}, #{q4_done}, #{q4_done_ratio},#{q4_cost_ratio},
+      #{y_aim}, #{y_done}, #{y_done_ratio},#{y_cost_ratio},
+      #{fhead_id}, #{frow_index},#{finace_warrning}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_main_indices2 (fproject,budget1,actual1,budget2,actual2,budget3,actual3,budget4,actual4,budget5,actual5,
+    budget6,actual6,budget7,actual7,budget8,actual8,budget9,actual9,budget10,actual10,budget11,actual11,budget12,actual12,
+    q1_aim, q1_done, q1_done_ratio,q1_cost_ratio,
+    q2_aim, q2_done, q2_done_ratio,q2_cost_ratio,
+    q3_aim, q3_done, q3_done_ratio,q3_cost_ratio,
+    q4_aim, q4_done, q4_done_ratio,q4_cost_ratio,
+    y_aim, y_done, y_done_ratio,y_cost_ratio,
+    fhead_id,frow_index,finace_warrning
+    )
+    values
+      (#{item.fproject},#{item.budget1},#{item.actual1},#{item.budget2},#{item.actual2},
+      #{item.budget3},#{item.actual3},#{item.budget4},#{item.actual4},#{item.budget5},#{item.actual5},
+      #{item.budget6},#{item.actual6},#{item.budget7},#{item.actual7},#{item.budget8},#{item.actual8},
+      #{item.budget9},#{item.actual9},#{item.budget10},#{item.actual10},#{item.budget11},#{item.actual11},#{item.budget12},#{item.actual12},
+      #{item.q1_aim}, #{item.q1_done}, #{item.q1_done_ratio},#{item.q1_cost_ratio},
+      #{item.q2_aim}, #{item.q2_done}, #{item.q2_done_ratio},#{item.q2_cost_ratio},
+      #{item.q3_aim}, #{item.q3_done}, #{item.q3_done_ratio},#{item.q3_cost_ratio},
+      #{item.q4_aim}, #{item.q4_done}, #{item.q4_done_ratio},#{item.q4_cost_ratio},
+      #{item.y_aim}, #{item.y_done}, #{item.y_done_ratio},#{item.y_cost_ratio},
+      #{item.fhead_id},#{item.frow_index},#{item.finace_warrning}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_indices2 WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices2">
+    delete from t_finance_main_indices2 WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.TFmainIndices2" >
+    select * from t_finance_main_indices2 where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+
+
+</mapper>

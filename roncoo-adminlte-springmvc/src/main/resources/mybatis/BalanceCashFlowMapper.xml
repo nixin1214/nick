@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceCashFlowDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.BalanceCashFlow" >
+    <id column="fid" property="fid"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="fproject" property="fproject"/>
+    <result column="fthis_period_cum" property="fthis_period_cum"/>
+    <result column="flast_year_cum" property="flast_year_cum"/>
+    <result column="fother_data" property="fother_data"/>
+    <result column="fthis_period_cum2" property="fthis_period_cum2"  />
+    <result column="flast_year_cum2" property="flast_year_cum2"  />
+    <result column="fsheet_row_index" property="fsheet_row_index"  />
+    <result column="fis_strong" property="fis_strong"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.BalanceCashFlow" >
+    insert into t_finance_cash_flow (
+      fhead_id,fproject,fthis_period_cum,flast_year_cum,fother_data,
+      fthis_period_cum2,flast_year_cum2,fsheet_row_index,fis_strong
+      )
+    values (
+      #{fhead_id},#{fproject},#{fthis_period_cum},#{flast_year_cum},#{fother_data},
+      #{fthis_period_cum2},#{flast_year_cum2},#{fsheet_row_index},#{fis_strong}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_cash_flow (  fhead_id,fproject,fthis_period_cum,flast_year_cum,fother_data,
+    fthis_period_cum2,flast_year_cum2,fsheet_row_index,fis_strong
+    )
+    values
+      ( #{item.fhead_id},#{item.fproject},#{item.fthis_period_cum},#{item.flast_year_cum},#{item.fother_data},
+      #{item.fthis_period_cum2},#{item.flast_year_cum2},#{item.fsheet_row_index},#{item.fis_strong}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_cash_flow WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.BalanceCashFlow">
+    delete from t_finance_cash_flow WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.BalanceCashFlow" >
+    select * from t_finance_cash_flow where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by fsheet_row_index ASC
+  </select>
+
+  <!--通过条件查询列表(组织集合)-->
+  <select id="queryByPropertyAll" parameterType="java.util.List" resultType="com.roncoo.adminlte.bean.entity.BalanceCashFlow" >
+    select * from t_finance_cash_flow where 1=1
+    <if test="list.size > 0" >
+      and fhead_id in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by fsheet_row_index ASC
+  </select>
+</mapper>

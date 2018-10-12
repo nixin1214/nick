@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceEmpSalaryMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceEmpSalary" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="frow_index" property="frowIndex" jdbcType="INTEGER" />
+    <result column="fproject_name" property="fprojectName" jdbcType="VARCHAR" />
+    <result column="fthis_begin_period_amount" property="fthisBeginPeriodAmount" jdbcType="DECIMAL" />
+    <result column="fthis_period_amount" property="fthisPeriodAmount" jdbcType="DECIMAL" />
+    <result column="fthis_period_paid_amount" property="fthisPeriodPaidAmount" jdbcType="DECIMAL" />
+    <result column="fthis_period_end_amount" property="fthisPeriodEndAmount" jdbcType="DECIMAL" />
+    <result column="ftotal_begin_period_amount" property="ftotalBeginPeriodAmount" jdbcType="DECIMAL" />
+    <result column="ftotal_period_amount" property="ftotalPeriodAmount" jdbcType="DECIMAL" />
+    <result column="ftotal_period_paid_amount" property="ftotalPeriodPaidAmount" jdbcType="DECIMAL" />
+    <result column="ftotal_period_end_amount" property="ftotalPeriodEndAmount" jdbcType="DECIMAL" />
+    <result column="fextend1" property="fextend1" jdbcType="DECIMAL" />
+    <result column="fextend2" property="fextend2" jdbcType="DECIMAL" />
+    <result column="fextend3" property="fextend3" jdbcType="DECIMAL" />
+    <result column="fthis_budget" property="fthisBudget" jdbcType="DECIMAL" />
+    <result column="ftotal_budget" property="ftotalBudget" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fhead_id, frow_index, fproject_name, fthis_begin_period_amount, fthis_period_amount, 
+    fthis_period_paid_amount, fthis_period_end_amount, ftotal_begin_period_amount, ftotal_period_amount, 
+    ftotal_period_paid_amount, ftotal_period_end_amount, fextend1, fextend2, fextend3,fthis_budget,ftotal_budget
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_emp_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_emp_salary
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_finance_emp_salary
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalaryExample" >
+    delete from t_finance_emp_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalary" >
+    insert into t_finance_emp_salary (fid, fhead_id, frow_index, 
+      fproject_name, fthis_begin_period_amount, fthis_period_amount, 
+      fthis_period_paid_amount, fthis_period_end_amount, 
+      ftotal_begin_period_amount, ftotal_period_amount, 
+      ftotal_period_paid_amount, ftotal_period_end_amount, 
+      fextend1, fextend2, fextend3,fthis_budget,ftotal_budget
+      )
+    values (#{fid,jdbcType=BIGINT}, #{fheadId,jdbcType=BIGINT}, #{frowIndex,jdbcType=INTEGER}, 
+      #{fprojectName,jdbcType=VARCHAR}, #{fthisBeginPeriodAmount,jdbcType=DECIMAL}, #{fthisPeriodAmount,jdbcType=DECIMAL}, 
+      #{fthisPeriodPaidAmount,jdbcType=DECIMAL}, #{fthisPeriodEndAmount,jdbcType=DECIMAL}, 
+      #{ftotalBeginPeriodAmount,jdbcType=DECIMAL}, #{ftotalPeriodAmount,jdbcType=DECIMAL}, 
+      #{ftotalPeriodPaidAmount,jdbcType=DECIMAL}, #{ftotalPeriodEndAmount,jdbcType=DECIMAL}, 
+      #{fextend1,jdbcType=DECIMAL}, #{fextend2,jdbcType=DECIMAL}, #{fextend3,jdbcType=DECIMAL}, #{fthisBudget,jdbcType=DECIMAL}, #{ftotalBudget,jdbcType=DECIMAL}
+      )
+  </insert>
+  <!-- 批量新增 -->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_emp_salary (fid, fhead_id, frow_index,
+    fproject_name, fthis_begin_period_amount, fthis_period_amount,
+    fthis_period_paid_amount, fthis_period_end_amount,
+    ftotal_begin_period_amount, ftotal_period_amount,
+    ftotal_period_paid_amount, ftotal_period_end_amount,
+    fextend1, fextend2, fextend3,fthis_budget,ftotal_budget
+    )
+    values
+      (#{item.fid,jdbcType=BIGINT}, #{item.fheadId,jdbcType=BIGINT}, #{item.frowIndex,jdbcType=INTEGER},
+      #{item.fprojectName,jdbcType=VARCHAR}, #{item.fthisBeginPeriodAmount,jdbcType=DECIMAL}, #{item.fthisPeriodAmount,jdbcType=DECIMAL},
+      #{item.fthisPeriodPaidAmount,jdbcType=DECIMAL}, #{item.fthisPeriodEndAmount,jdbcType=DECIMAL},
+      #{item.ftotalBeginPeriodAmount,jdbcType=DECIMAL}, #{item.ftotalPeriodAmount,jdbcType=DECIMAL},
+      #{item.ftotalPeriodPaidAmount,jdbcType=DECIMAL}, #{item.ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      #{item.fextend1,jdbcType=DECIMAL}, #{item.fextend2,jdbcType=DECIMAL}, #{item.fextend3,jdbcType=DECIMAL}, #{item.fthisBudget,jdbcType=DECIMAL}, #{item.ftotalBudget,jdbcType=DECIMAL}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalary" >
+    insert into t_finance_emp_salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fheadId != null" >
+        fhead_id,
+      </if>
+      <if test="frowIndex != null" >
+        frow_index,
+      </if>
+      <if test="fprojectName != null" >
+        fproject_name,
+      </if>
+      <if test="fthisBeginPeriodAmount != null" >
+        fthis_begin_period_amount,
+      </if>
+      <if test="fthisPeriodAmount != null" >
+        fthis_period_amount,
+      </if>
+      <if test="fthisPeriodPaidAmount != null" >
+        fthis_period_paid_amount,
+      </if>
+      <if test="fthisPeriodEndAmount != null" >
+        fthis_period_end_amount,
+      </if>
+      <if test="ftotalBeginPeriodAmount != null" >
+        ftotal_begin_period_amount,
+      </if>
+      <if test="ftotalPeriodAmount != null" >
+        ftotal_period_amount,
+      </if>
+      <if test="ftotalPeriodPaidAmount != null" >
+        ftotal_period_paid_amount,
+      </if>
+      <if test="ftotalPeriodEndAmount != null" >
+        ftotal_period_end_amount,
+      </if>
+      <if test="fextend1 != null" >
+        fextend1,
+      </if>
+      <if test="fextend2 != null" >
+        fextend2,
+      </if>
+      <if test="fextend3 != null" >
+        fextend3,
+      </if>
+      <if test="fthisBudget != null" >
+        fthis_budget,
+      </if>
+      <if test="ftotalBudget != null" >
+        ftotal_budget,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fprojectName != null" >
+        #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fthisBeginPeriodAmount != null" >
+        #{fthisBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodAmount != null" >
+        #{fthisPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodPaidAmount != null" >
+        #{fthisPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodEndAmount != null" >
+        #{fthisPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalBeginPeriodAmount != null" >
+        #{ftotalBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodAmount != null" >
+        #{ftotalPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodPaidAmount != null" >
+        #{ftotalPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodEndAmount != null" >
+        #{ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        #{fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisBudget != null" >
+        #{fthisBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalBudget != null" >
+        #{ftotalBudget,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalaryExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_emp_salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_emp_salary
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fheadId != null" >
+        fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        frow_index = #{record.frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fprojectName != null" >
+        fproject_name = #{record.fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fthisBeginPeriodAmount != null" >
+        fthis_begin_period_amount = #{record.fthisBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisPeriodAmount != null" >
+        fthis_period_amount = #{record.fthisPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisPeriodPaidAmount != null" >
+        fthis_period_paid_amount = #{record.fthisPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisPeriodEndAmount != null" >
+        fthis_period_end_amount = #{record.fthisPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalBeginPeriodAmount != null" >
+        ftotal_begin_period_amount = #{record.ftotalBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalPeriodAmount != null" >
+        ftotal_period_amount = #{record.ftotalPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalPeriodPaidAmount != null" >
+        ftotal_period_paid_amount = #{record.ftotalPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalPeriodEndAmount != null" >
+        ftotal_period_end_amount = #{record.ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend1 != null" >
+        fextend1 = #{record.fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend2 != null" >
+        fextend2 = #{record.fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend3 != null" >
+        fextend3 = #{record.fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisBudget != null" >
+        fthis_budget = #{record.fthisBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalBudget != null" >
+        ftotal_budget = #{record.ftotalBudget,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_emp_salary
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      frow_index = #{record.frowIndex,jdbcType=INTEGER},
+      fproject_name = #{record.fprojectName,jdbcType=VARCHAR},
+      fthis_begin_period_amount = #{record.fthisBeginPeriodAmount,jdbcType=DECIMAL},
+      fthis_period_amount = #{record.fthisPeriodAmount,jdbcType=DECIMAL},
+      fthis_period_paid_amount = #{record.fthisPeriodPaidAmount,jdbcType=DECIMAL},
+      fthis_period_end_amount = #{record.fthisPeriodEndAmount,jdbcType=DECIMAL},
+      ftotal_begin_period_amount = #{record.ftotalBeginPeriodAmount,jdbcType=DECIMAL},
+      ftotal_period_amount = #{record.ftotalPeriodAmount,jdbcType=DECIMAL},
+      ftotal_period_paid_amount = #{record.ftotalPeriodPaidAmount,jdbcType=DECIMAL},
+      ftotal_period_end_amount = #{record.ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      fextend1 = #{record.fextend1,jdbcType=DECIMAL},
+      fextend2 = #{record.fextend2,jdbcType=DECIMAL},
+      fextend3 = #{record.fextend3,jdbcType=DECIMAL},
+      fthis_budget = #{record.fthisBudget,jdbcType=DECIMAL},
+      ftotal_budget = #{record.ftotalBudget,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalary" >
+    update t_finance_emp_salary
+    <set >
+      <if test="fheadId != null" >
+        fhead_id = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        frow_index = #{frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fprojectName != null" >
+        fproject_name = #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fthisBeginPeriodAmount != null" >
+        fthis_begin_period_amount = #{fthisBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodAmount != null" >
+        fthis_period_amount = #{fthisPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodPaidAmount != null" >
+        fthis_period_paid_amount = #{fthisPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisPeriodEndAmount != null" >
+        fthis_period_end_amount = #{fthisPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalBeginPeriodAmount != null" >
+        ftotal_begin_period_amount = #{ftotalBeginPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodAmount != null" >
+        ftotal_period_amount = #{ftotalPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodPaidAmount != null" >
+        ftotal_period_paid_amount = #{ftotalPeriodPaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalPeriodEndAmount != null" >
+        ftotal_period_end_amount = #{ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        fextend1 = #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        fextend2 = #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        fextend3 = #{fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisBudget != null" >
+        fthis_budget = #{fthisBudget,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalBudget != null" >
+        ftotal_budget = #{ftotalBudget,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceEmpSalary" >
+    update t_finance_emp_salary
+    set fhead_id = #{fheadId,jdbcType=BIGINT},
+      frow_index = #{frowIndex,jdbcType=INTEGER},
+      fproject_name = #{fprojectName,jdbcType=VARCHAR},
+      fthis_begin_period_amount = #{fthisBeginPeriodAmount,jdbcType=DECIMAL},
+      fthis_period_amount = #{fthisPeriodAmount,jdbcType=DECIMAL},
+      fthis_period_paid_amount = #{fthisPeriodPaidAmount,jdbcType=DECIMAL},
+      fthis_period_end_amount = #{fthisPeriodEndAmount,jdbcType=DECIMAL},
+      ftotal_begin_period_amount = #{ftotalBeginPeriodAmount,jdbcType=DECIMAL},
+      ftotal_period_amount = #{ftotalPeriodAmount,jdbcType=DECIMAL},
+      ftotal_period_paid_amount = #{ftotalPeriodPaidAmount,jdbcType=DECIMAL},
+      ftotal_period_end_amount = #{ftotalPeriodEndAmount,jdbcType=DECIMAL},
+      fextend1 = #{fextend1,jdbcType=DECIMAL},
+      fextend2 = #{fextend2,jdbcType=DECIMAL},
+      fextend3 = #{fextend3,jdbcType=DECIMAL},
+      fthis_budget = #{fthisBudget,jdbcType=DECIMAL},
+      ftotal_budget = #{ftotalBudget,jdbcType=DECIMAL}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

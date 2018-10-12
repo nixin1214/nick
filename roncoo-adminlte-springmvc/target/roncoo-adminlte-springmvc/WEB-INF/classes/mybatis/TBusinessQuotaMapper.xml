@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TBusinessQuotaMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TBusinessQuota" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fres_sys" property="fresSys" jdbcType="VARCHAR" />
+    <result column="forg_id" property="forgId" jdbcType="BIGINT" />
+    <result column="forg_code" property="forgCode" jdbcType="VARCHAR" />
+    <result column="forg_long_code" property="forgLongCode" jdbcType="VARCHAR" />
+    <result column="fyear_month" property="fyearMonth" jdbcType="VARCHAR" />
+    <result column="ftype" property="ftype" jdbcType="VARCHAR" />
+    <result column="fname_zh" property="fnameZh" jdbcType="VARCHAR" />
+    <result column="fname_en" property="fnameEn" jdbcType="VARCHAR" />
+    <result column="fvalue" property="fvalue" jdbcType="DECIMAL" />
+    <result column="fvalue_type" property="fvalueType" jdbcType="VARCHAR" />
+    <result column="fcreatime" property="fcreatime" jdbcType="TIMESTAMP" />
+    <result column="fupdatime" property="fupdatime" jdbcType="TIMESTAMP" />
+    <result column="funit" property="funit" jdbcType="VARCHAR" />
+    <result column="fdimension" property="fdimension" jdbcType="VARCHAR" />
+    <result column="fremark" property="fremark" jdbcType="VARCHAR" />
+    <result column="flast_updator" property="flastUpdator" jdbcType="VARCHAR" />
+    <result column="fsmall_class" property="fsmallClass" jdbcType="VARCHAR" />
+    <association property="company" column="forg_code" javaType="com.roncoo.adminlte.bean.entity.RcCompany" select="selectCompany">
+      <id property="id" column="id" jdbcType="BIGINT" javaType="long"></id>
+      <result property="number" column="fnumber" jdbcType="VARCHAR" javaType="string"/>
+      <result property="name" column="fname" jdbcType="VARCHAR" javaType="string"/>
+      <result property="type" column="ftype" jdbcType="VARCHAR" javaType="string"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fres_sys, forg_id, forg_code, forg_long_code, fyear_month, ftype, fname_zh, 
+    fname_en, fvalue, fvalue_type, fcreatime, fupdatime, funit, fdimension, fremark, 
+    flast_updator, fsmall_class
+  </sql>
+  <select id="selectCompany" resultType="com.roncoo.adminlte.bean.entity.RcCompany" parameterType="string">
+    select id, fname "fname", fnumber "fnumber", ftype "ftype" from rc_company where fnumber=#{forg_code}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_business_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_business_quota
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_business_quota
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaExample" >
+    delete from t_business_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuota" >
+    insert into t_business_quota (fid, fres_sys, forg_id, 
+      forg_code, forg_long_code, fyear_month, 
+      ftype, fname_zh, fname_en, 
+      fvalue, fvalue_type, fcreatime, 
+      fupdatime, funit, fdimension, 
+      fremark, flast_updator, fsmall_class
+      )
+    values (#{fid,jdbcType=BIGINT}, #{fresSys,jdbcType=VARCHAR}, #{forgId,jdbcType=BIGINT}, 
+      #{forgCode,jdbcType=VARCHAR}, #{forgLongCode,jdbcType=VARCHAR}, #{fyearMonth,jdbcType=VARCHAR}, 
+      #{ftype,jdbcType=VARCHAR}, #{fnameZh,jdbcType=VARCHAR}, #{fnameEn,jdbcType=VARCHAR}, 
+      #{fvalue,jdbcType=DECIMAL}, #{fvalueType,jdbcType=VARCHAR}, #{fcreatime,jdbcType=TIMESTAMP}, 
+      #{fupdatime,jdbcType=TIMESTAMP}, #{funit,jdbcType=VARCHAR}, #{fdimension,jdbcType=VARCHAR}, 
+      #{fremark,jdbcType=VARCHAR}, #{flastUpdator,jdbcType=VARCHAR}, #{fsmallClass,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuota" >
+    insert into t_business_quota
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fresSys != null" >
+        fres_sys,
+      </if>
+      <if test="forgId != null" >
+        forg_id,
+      </if>
+      <if test="forgCode != null" >
+        forg_code,
+      </if>
+      <if test="forgLongCode != null" >
+        forg_long_code,
+      </if>
+      <if test="fyearMonth != null" >
+        fyear_month,
+      </if>
+      <if test="ftype != null" >
+        ftype,
+      </if>
+      <if test="fnameZh != null" >
+        fname_zh,
+      </if>
+      <if test="fnameEn != null" >
+        fname_en,
+      </if>
+      <if test="fvalue != null" >
+        fvalue,
+      </if>
+      <if test="fvalueType != null" >
+        fvalue_type,
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime,
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime,
+      </if>
+      <if test="funit != null" >
+        funit,
+      </if>
+      <if test="fdimension != null" >
+        fdimension,
+      </if>
+      <if test="fremark != null" >
+        fremark,
+      </if>
+      <if test="flastUpdator != null" >
+        flast_updator,
+      </if>
+      <if test="fsmallClass != null" >
+        fsmall_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fresSys != null" >
+        #{fresSys,jdbcType=VARCHAR},
+      </if>
+      <if test="forgId != null" >
+        #{forgId,jdbcType=BIGINT},
+      </if>
+      <if test="forgCode != null" >
+        #{forgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="forgLongCode != null" >
+        #{forgLongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fyearMonth != null" >
+        #{fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fnameZh != null" >
+        #{fnameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="fnameEn != null" >
+        #{fnameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fvalue != null" >
+        #{fvalue,jdbcType=DECIMAL},
+      </if>
+      <if test="fvalueType != null" >
+        #{fvalueType,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdatime != null" >
+        #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funit != null" >
+        #{funit,jdbcType=VARCHAR},
+      </if>
+      <if test="fdimension != null" >
+        #{fdimension,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="flastUpdator != null" >
+        #{flastUpdator,jdbcType=VARCHAR},
+      </if>
+      <if test="fsmallClass != null" >
+        #{fsmallClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 批量新增 -->
+  <insert id="insertBatch"  parameterType="java.util.List">
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" >
+      into t_business_quota (fid, fres_sys, forg_id,
+      forg_code, forg_long_code, fyear_month,
+      ftype, fname_zh, fname_en,
+      fvalue, fvalue_type, funit, fdimension,
+      fremark, flast_updator, fsmall_class
+      )
+      values (#{item.fid,jdbcType=DECIMAL}, #{item.fresSys,jdbcType=VARCHAR}, #{item.forgId,jdbcType=DECIMAL},
+      #{item.forgCode,jdbcType=VARCHAR}, #{item.forgLongCode,jdbcType=VARCHAR}, #{item.fyearMonth,jdbcType=VARCHAR},
+      #{item.ftype,jdbcType=VARCHAR}, #{item.fnameZh,jdbcType=VARCHAR}, #{item.fnameEn,jdbcType=VARCHAR},
+      #{item.fvalue,jdbcType=DECIMAL}, #{item.fvalueType,jdbcType=VARCHAR},  #{item.funit,jdbcType=VARCHAR}, #{item.fdimension,jdbcType=VARCHAR},
+      #{item.fremark,jdbcType=VARCHAR}, #{item.flastUpdator,jdbcType=VARCHAR}, #{item.fsmallClass,jdbcType=VARCHAR}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuotaExample" resultType="java.lang.Integer" >
+    select count(*) from t_business_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_business_quota
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fresSys != null" >
+        fres_sys = #{record.fresSys,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forgId != null" >
+        forg_id = #{record.forgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.forgCode != null" >
+        forg_code = #{record.forgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forgLongCode != null" >
+        forg_long_code = #{record.forgLongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fyearMonth != null" >
+        fyear_month = #{record.fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftype != null" >
+        ftype = #{record.ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fnameZh != null" >
+        fname_zh = #{record.fnameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fnameEn != null" >
+        fname_en = #{record.fnameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fvalue != null" >
+        fvalue = #{record.fvalue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fvalueType != null" >
+        fvalue_type = #{record.fvalueType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcreatime != null" >
+        fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fupdatime != null" >
+        fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.funit != null" >
+        funit = #{record.funit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdimension != null" >
+        fdimension = #{record.fdimension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fremark != null" >
+        fremark = #{record.fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flastUpdator != null" >
+        flast_updator = #{record.flastUpdator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsmallClass != null" >
+        fsmall_class = #{record.fsmallClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_business_quota
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fres_sys = #{record.fresSys,jdbcType=VARCHAR},
+      forg_id = #{record.forgId,jdbcType=BIGINT},
+      forg_code = #{record.forgCode,jdbcType=VARCHAR},
+      forg_long_code = #{record.forgLongCode,jdbcType=VARCHAR},
+      fyear_month = #{record.fyearMonth,jdbcType=VARCHAR},
+      ftype = #{record.ftype,jdbcType=VARCHAR},
+      fname_zh = #{record.fnameZh,jdbcType=VARCHAR},
+      fname_en = #{record.fnameEn,jdbcType=VARCHAR},
+      fvalue = #{record.fvalue,jdbcType=DECIMAL},
+      fvalue_type = #{record.fvalueType,jdbcType=VARCHAR},
+      fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP},
+      funit = #{record.funit,jdbcType=VARCHAR},
+      fdimension = #{record.fdimension,jdbcType=VARCHAR},
+      fremark = #{record.fremark,jdbcType=VARCHAR},
+      flast_updator = #{record.flastUpdator,jdbcType=VARCHAR},
+      fsmall_class = #{record.fsmallClass,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuota" >
+    update t_business_quota
+    <set >
+      <if test="fresSys != null" >
+        fres_sys = #{fresSys,jdbcType=VARCHAR},
+      </if>
+      <if test="forgId != null" >
+        forg_id = #{forgId,jdbcType=BIGINT},
+      </if>
+      <if test="forgCode != null" >
+        forg_code = #{forgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="forgLongCode != null" >
+        forg_long_code = #{forgLongCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fyearMonth != null" >
+        fyear_month = #{fyearMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ftype != null" >
+        ftype = #{ftype,jdbcType=VARCHAR},
+      </if>
+      <if test="fnameZh != null" >
+        fname_zh = #{fnameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="fnameEn != null" >
+        fname_en = #{fnameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="fvalue != null" >
+        fvalue = #{fvalue,jdbcType=DECIMAL},
+      </if>
+      <if test="fvalueType != null" >
+        fvalue_type = #{fvalueType,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime = #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funit != null" >
+        funit = #{funit,jdbcType=VARCHAR},
+      </if>
+      <if test="fdimension != null" >
+        fdimension = #{fdimension,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        fremark = #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="flastUpdator != null" >
+        flast_updator = #{flastUpdator,jdbcType=VARCHAR},
+      </if>
+      <if test="fsmallClass != null" >
+        fsmall_class = #{fsmallClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TBusinessQuota" >
+    update t_business_quota
+    set fres_sys = #{fresSys,jdbcType=VARCHAR},
+      forg_id = #{forgId,jdbcType=BIGINT},
+      forg_code = #{forgCode,jdbcType=VARCHAR},
+      forg_long_code = #{forgLongCode,jdbcType=VARCHAR},
+      fyear_month = #{fyearMonth,jdbcType=VARCHAR},
+      ftype = #{ftype,jdbcType=VARCHAR},
+      fname_zh = #{fnameZh,jdbcType=VARCHAR},
+      fname_en = #{fnameEn,jdbcType=VARCHAR},
+      fvalue = #{fvalue,jdbcType=DECIMAL},
+      fvalue_type = #{fvalueType,jdbcType=VARCHAR},
+      fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      fupdatime = #{fupdatime,jdbcType=TIMESTAMP},
+      funit = #{funit,jdbcType=VARCHAR},
+      fdimension = #{fdimension,jdbcType=VARCHAR},
+      fremark = #{fremark,jdbcType=VARCHAR},
+      flast_updator = #{flastUpdator,jdbcType=VARCHAR},
+      fsmall_class = #{fsmallClass,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  
+
+  
+  
+</mapper>

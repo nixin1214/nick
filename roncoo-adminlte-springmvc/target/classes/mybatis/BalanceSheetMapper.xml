@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceSheetDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.BalanceSheet" >
+    <id column="fid" property="fid"/>
+    <result column="fproject" property="fproject"/>
+    <result column="frow_num" property="frow_num"/>
+    <result column="period_end_account" property="period_end_account"/>
+    <result column="period_begin_account" property="period_begin_account"/>
+    <result column="fproject2" property="fproject2"/>
+    <result column="frow_num2" property="frow_num2"/>
+    <result column="period_end_account2" property="period_end_account2"/>
+    <result column="period_begin_account2" property="period_begin_account2"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.BalanceSheet" >
+    insert into t_finance_balance (
+      fproject,frow_num,period_end_account,period_begin_account,
+      fproject2,frow_num2,period_end_account2,period_begin_account2,
+      fhead_id,frow_index
+      )
+    values (
+      #{fproject},#{frow_num},#{period_end_account},#{period_begin_account},
+      #{fproject2},#{frow_num2},#{period_end_account2},#{period_begin_account2},
+      #{fhead_id}, #{frow_index}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_balance ( fproject,frow_num,period_end_account,period_begin_account,
+    fproject2,frow_num2,period_end_account2,period_begin_account2,
+    fhead_id,frow_index
+    )
+    values
+      (#{item.fproject},#{item.frow_num},#{item.period_end_account},#{item.period_begin_account},
+      #{item.fproject2},#{item.frow_num2},#{item.period_end_account2},#{item.period_begin_account2},
+      #{item.fhead_id}, #{item.frow_index}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_balance WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.BalanceSheet">
+    delete from t_finance_balance WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.BalanceSheet" >
+    select * from t_finance_balance where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+  <!--通过条件查询列表(组织集合)-->
+  <select id="queryByPropertyAll" parameterType="java.util.List" resultType="com.roncoo.adminlte.bean.entity.BalanceSheet" >
+    select * from t_finance_balance where 1=1
+    <if test="list.size > 0" >
+      and fhead_id in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by frow_index ASC
+  </select>
+
+</mapper>

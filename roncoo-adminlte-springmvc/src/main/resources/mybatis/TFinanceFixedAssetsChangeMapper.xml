@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceFixedAssetsChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChange" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="frow_index" property="frowIndex" jdbcType="INTEGER" />
+    <result column="fproject_name" property="fprojectName" jdbcType="VARCHAR" />
+    <result column="fbegin_balance" property="fbeginBalance" jdbcType="DECIMAL" />
+    <result column="fthis_year_add" property="fthisYearAdd" jdbcType="DECIMAL" />
+    <result column="fthis_year_falling" property="fthisYearFalling" jdbcType="DECIMAL" />
+    <result column="fend_balance" property="fendBalance" jdbcType="DECIMAL" />
+    <result column="fextend1" property="fextend1" jdbcType="DECIMAL" />
+    <result column="fextend2" property="fextend2" jdbcType="DECIMAL" />
+    <result column="fextend3" property="fextend3" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fhead_id, frow_index, fproject_name, fbegin_balance, fthis_year_add, fthis_year_falling, 
+    fend_balance, fextend1, fextend2, fextend3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChangeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_fixed_assets_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_fixed_assets_change
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_finance_fixed_assets_change
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChangeExample" >
+    delete from t_finance_fixed_assets_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChange" >
+    insert into t_finance_fixed_assets_change (fid, fhead_id, frow_index, 
+      fproject_name, fbegin_balance, fthis_year_add, 
+      fthis_year_falling, fend_balance, fextend1, 
+      fextend2, fextend3)
+    values (#{fid,jdbcType=BIGINT}, #{fheadId,jdbcType=BIGINT}, #{frowIndex,jdbcType=INTEGER}, 
+      #{fprojectName,jdbcType=VARCHAR}, #{fbeginBalance,jdbcType=DECIMAL}, #{fthisYearAdd,jdbcType=DECIMAL}, 
+      #{fthisYearFalling,jdbcType=DECIMAL}, #{fendBalance,jdbcType=DECIMAL}, #{fextend1,jdbcType=DECIMAL}, 
+      #{fextend2,jdbcType=DECIMAL}, #{fextend3,jdbcType=DECIMAL})
+  </insert>
+  <!-- 批量新增 -->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_fixed_assets_change (fid, fhead_id, frow_index,
+    fproject_name, fbegin_balance, fthis_year_add,
+    fthis_year_falling, fend_balance, fextend1,
+    fextend2, fextend3)
+    values
+      (#{item.fid,jdbcType=BIGINT}, #{item.fheadId,jdbcType=BIGINT}, #{item.frowIndex,jdbcType=INTEGER},
+      #{item.fprojectName,jdbcType=VARCHAR}, #{item.fbeginBalance,jdbcType=DECIMAL}, #{item.fthisYearAdd,jdbcType=DECIMAL},
+      #{item.fthisYearFalling,jdbcType=DECIMAL}, #{item.fendBalance,jdbcType=DECIMAL}, #{item.fextend1,jdbcType=DECIMAL},
+      #{item.fextend2,jdbcType=DECIMAL}, #{item.fextend3,jdbcType=DECIMAL})
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChange" >
+    insert into t_finance_fixed_assets_change
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fheadId != null" >
+        fhead_id,
+      </if>
+      <if test="frowIndex != null" >
+        frow_index,
+      </if>
+      <if test="fprojectName != null" >
+        fproject_name,
+      </if>
+      <if test="fbeginBalance != null" >
+        fbegin_balance,
+      </if>
+      <if test="fthisYearAdd != null" >
+        fthis_year_add,
+      </if>
+      <if test="fthisYearFalling != null" >
+        fthis_year_falling,
+      </if>
+      <if test="fendBalance != null" >
+        fend_balance,
+      </if>
+      <if test="fextend1 != null" >
+        fextend1,
+      </if>
+      <if test="fextend2 != null" >
+        fextend2,
+      </if>
+      <if test="fextend3 != null" >
+        fextend3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fprojectName != null" >
+        #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fbeginBalance != null" >
+        #{fbeginBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearAdd != null" >
+        #{fthisYearAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearFalling != null" >
+        #{fthisYearFalling,jdbcType=DECIMAL},
+      </if>
+      <if test="fendBalance != null" >
+        #{fendBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        #{fextend3,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChangeExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_fixed_assets_change
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_fixed_assets_change
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fheadId != null" >
+        fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        frow_index = #{record.frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fprojectName != null" >
+        fproject_name = #{record.fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fbeginBalance != null" >
+        fbegin_balance = #{record.fbeginBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearAdd != null" >
+        fthis_year_add = #{record.fthisYearAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fthisYearFalling != null" >
+        fthis_year_falling = #{record.fthisYearFalling,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fendBalance != null" >
+        fend_balance = #{record.fendBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend1 != null" >
+        fextend1 = #{record.fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend2 != null" >
+        fextend2 = #{record.fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend3 != null" >
+        fextend3 = #{record.fextend3,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_fixed_assets_change
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      frow_index = #{record.frowIndex,jdbcType=INTEGER},
+      fproject_name = #{record.fprojectName,jdbcType=VARCHAR},
+      fbegin_balance = #{record.fbeginBalance,jdbcType=DECIMAL},
+      fthis_year_add = #{record.fthisYearAdd,jdbcType=DECIMAL},
+      fthis_year_falling = #{record.fthisYearFalling,jdbcType=DECIMAL},
+      fend_balance = #{record.fendBalance,jdbcType=DECIMAL},
+      fextend1 = #{record.fextend1,jdbcType=DECIMAL},
+      fextend2 = #{record.fextend2,jdbcType=DECIMAL},
+      fextend3 = #{record.fextend3,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChange" >
+    update t_finance_fixed_assets_change
+    <set >
+      <if test="fheadId != null" >
+        fhead_id = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        frow_index = #{frowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fprojectName != null" >
+        fproject_name = #{fprojectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fbeginBalance != null" >
+        fbegin_balance = #{fbeginBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearAdd != null" >
+        fthis_year_add = #{fthisYearAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="fthisYearFalling != null" >
+        fthis_year_falling = #{fthisYearFalling,jdbcType=DECIMAL},
+      </if>
+      <if test="fendBalance != null" >
+        fend_balance = #{fendBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend1 != null" >
+        fextend1 = #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        fextend2 = #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        fextend3 = #{fextend3,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceFixedAssetsChange" >
+    update t_finance_fixed_assets_change
+    set fhead_id = #{fheadId,jdbcType=BIGINT},
+      frow_index = #{frowIndex,jdbcType=INTEGER},
+      fproject_name = #{fprojectName,jdbcType=VARCHAR},
+      fbegin_balance = #{fbeginBalance,jdbcType=DECIMAL},
+      fthis_year_add = #{fthisYearAdd,jdbcType=DECIMAL},
+      fthis_year_falling = #{fthisYearFalling,jdbcType=DECIMAL},
+      fend_balance = #{fendBalance,jdbcType=DECIMAL},
+      fextend1 = #{fextend1,jdbcType=DECIMAL},
+      fextend2 = #{fextend2,jdbcType=DECIMAL},
+      fextend3 = #{fextend3,jdbcType=DECIMAL}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

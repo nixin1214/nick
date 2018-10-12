@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceBalanceMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceBalance" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="frow_index1" property="frowIndex1" jdbcType="INTEGER" />
+    <result column="fproject1" property="fproject1" jdbcType="VARCHAR" />
+    <result column="ffinal_amount1" property="ffinalAmount1" jdbcType="DOUBLE" />
+    <result column="fbeginning_amount1" property="fbeginningAmount1" jdbcType="DOUBLE" />
+    <result column="fproject2" property="fproject2" jdbcType="VARCHAR" />
+    <result column="frow_index2" property="frowIndex2" jdbcType="INTEGER" />
+    <result column="ffinal_amount2" property="ffinalAmount2" jdbcType="DOUBLE" />
+    <result column="fbeginning_amount2" property="fbeginningAmount2" jdbcType="DOUBLE" />
+    <result column="fstatus" property="fstatus" jdbcType="VARCHAR" />
+    <result column="fsheet_row_number" property="fsheetRowNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fhead_id, frow_index1, fproject1, ffinal_amount1, fbeginning_amount1, fproject2, 
+    frow_index2, ffinal_amount2, fbeginning_amount2, fstatus, fsheet_row_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_finance_balance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_finance_balance
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_finance_balance
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceExample" >
+    delete from t_finance_balance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalance" >
+    insert into t_finance_balance (fid, fhead_id, frow_index1, 
+      fproject1, ffinal_amount1, fbeginning_amount1, 
+      fproject2, frow_index2, ffinal_amount2, 
+      fbeginning_amount2, fstatus, fsheet_row_number
+      )
+    values (#{fid,jdbcType=BIGINT}, #{fheadId,jdbcType=BIGINT}, #{frowIndex1,jdbcType=INTEGER}, 
+      #{fproject1,jdbcType=VARCHAR}, #{ffinalAmount1,jdbcType=DOUBLE}, #{fbeginningAmount1,jdbcType=DOUBLE}, 
+      #{fproject2,jdbcType=VARCHAR}, #{frowIndex2,jdbcType=INTEGER}, #{ffinalAmount2,jdbcType=DOUBLE}, 
+      #{fbeginningAmount2,jdbcType=DOUBLE}, #{fstatus,jdbcType=VARCHAR}, #{fsheetRowNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalance" >
+    insert into t_finance_balance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fheadId != null" >
+        fhead_id,
+      </if>
+      <if test="frowIndex1 != null" >
+        frow_index1,
+      </if>
+      <if test="fproject1 != null" >
+        fproject1,
+      </if>
+      <if test="ffinalAmount1 != null" >
+        ffinal_amount1,
+      </if>
+      <if test="fbeginningAmount1 != null" >
+        fbeginning_amount1,
+      </if>
+      <if test="fproject2 != null" >
+        fproject2,
+      </if>
+      <if test="frowIndex2 != null" >
+        frow_index2,
+      </if>
+      <if test="ffinalAmount2 != null" >
+        ffinal_amount2,
+      </if>
+      <if test="fbeginningAmount2 != null" >
+        fbeginning_amount2,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fsheetRowNumber != null" >
+        fsheet_row_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex1 != null" >
+        #{frowIndex1,jdbcType=INTEGER},
+      </if>
+      <if test="fproject1 != null" >
+        #{fproject1,jdbcType=VARCHAR},
+      </if>
+      <if test="ffinalAmount1 != null" >
+        #{ffinalAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="fbeginningAmount1 != null" >
+        #{fbeginningAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="fproject2 != null" >
+        #{fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="frowIndex2 != null" >
+        #{frowIndex2,jdbcType=INTEGER},
+      </if>
+      <if test="ffinalAmount2 != null" >
+        #{ffinalAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="fbeginningAmount2 != null" >
+        #{fbeginningAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fsheetRowNumber != null" >
+        #{fsheetRowNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalanceExample" resultType="java.lang.Integer" >
+    select count(*) from t_finance_balance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_finance_balance
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fheadId != null" >
+        fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex1 != null" >
+        frow_index1 = #{record.frowIndex1,jdbcType=INTEGER},
+      </if>
+      <if test="record.fproject1 != null" >
+        fproject1 = #{record.fproject1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ffinalAmount1 != null" >
+        ffinal_amount1 = #{record.ffinalAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fbeginningAmount1 != null" >
+        fbeginning_amount1 = #{record.fbeginningAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fproject2 != null" >
+        fproject2 = #{record.fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frowIndex2 != null" >
+        frow_index2 = #{record.frowIndex2,jdbcType=INTEGER},
+      </if>
+      <if test="record.ffinalAmount2 != null" >
+        ffinal_amount2 = #{record.ffinalAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fbeginningAmount2 != null" >
+        fbeginning_amount2 = #{record.fbeginningAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsheetRowNumber != null" >
+        fsheet_row_number = #{record.fsheetRowNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_finance_balance
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      frow_index1 = #{record.frowIndex1,jdbcType=INTEGER},
+      fproject1 = #{record.fproject1,jdbcType=VARCHAR},
+      ffinal_amount1 = #{record.ffinalAmount1,jdbcType=DOUBLE},
+      fbeginning_amount1 = #{record.fbeginningAmount1,jdbcType=DOUBLE},
+      fproject2 = #{record.fproject2,jdbcType=VARCHAR},
+      frow_index2 = #{record.frowIndex2,jdbcType=INTEGER},
+      ffinal_amount2 = #{record.ffinalAmount2,jdbcType=DOUBLE},
+      fbeginning_amount2 = #{record.fbeginningAmount2,jdbcType=DOUBLE},
+      fstatus = #{record.fstatus,jdbcType=VARCHAR},
+      fsheet_row_number = #{record.fsheetRowNumber,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalance" >
+    update t_finance_balance
+    <set >
+      <if test="fheadId != null" >
+        fhead_id = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex1 != null" >
+        frow_index1 = #{frowIndex1,jdbcType=INTEGER},
+      </if>
+      <if test="fproject1 != null" >
+        fproject1 = #{fproject1,jdbcType=VARCHAR},
+      </if>
+      <if test="ffinalAmount1 != null" >
+        ffinal_amount1 = #{ffinalAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="fbeginningAmount1 != null" >
+        fbeginning_amount1 = #{fbeginningAmount1,jdbcType=DOUBLE},
+      </if>
+      <if test="fproject2 != null" >
+        fproject2 = #{fproject2,jdbcType=VARCHAR},
+      </if>
+      <if test="frowIndex2 != null" >
+        frow_index2 = #{frowIndex2,jdbcType=INTEGER},
+      </if>
+      <if test="ffinalAmount2 != null" >
+        ffinal_amount2 = #{ffinalAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="fbeginningAmount2 != null" >
+        fbeginning_amount2 = #{fbeginningAmount2,jdbcType=DOUBLE},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fsheetRowNumber != null" >
+        fsheet_row_number = #{fsheetRowNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceBalance" >
+    update t_finance_balance
+    set fhead_id = #{fheadId,jdbcType=BIGINT},
+      frow_index1 = #{frowIndex1,jdbcType=INTEGER},
+      fproject1 = #{fproject1,jdbcType=VARCHAR},
+      ffinal_amount1 = #{ffinalAmount1,jdbcType=DOUBLE},
+      fbeginning_amount1 = #{fbeginningAmount1,jdbcType=DOUBLE},
+      fproject2 = #{fproject2,jdbcType=VARCHAR},
+      frow_index2 = #{frowIndex2,jdbcType=INTEGER},
+      ffinal_amount2 = #{ffinalAmount2,jdbcType=DOUBLE},
+      fbeginning_amount2 = #{fbeginningAmount2,jdbcType=DOUBLE},
+      fstatus = #{fstatus,jdbcType=VARCHAR},
+      fsheet_row_number = #{fsheetRowNumber,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

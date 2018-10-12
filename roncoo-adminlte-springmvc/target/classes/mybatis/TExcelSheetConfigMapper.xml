@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TExcelSheetConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="fhead_id" property="fheadId" jdbcType="BIGINT" />
+    <result column="fsheet_index" property="fsheetIndex" jdbcType="INTEGER" />
+    <result column="fsheet_name" property="fsheetName" jdbcType="VARCHAR" />
+    <result column="fstart_row_index" property="fstartRowIndex" jdbcType="INTEGER" />
+    <result column="fend_row_index" property="fendRowIndex" jdbcType="INTEGER" />
+    <result column="fcol_indexs" property="fcolIndexs" jdbcType="VARCHAR" />
+    <result column="fignore_rows_index" property="fignoreRowsIndex" jdbcType="VARCHAR" />
+    <result column="fdb_table" property="fdbTable" jdbcType="VARCHAR" />
+    <result column="fstrong_rows_index" property="fstrongRowsIndex" jdbcType="VARCHAR" />
+    <result column="fmerges" property="fmerges" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fhead_id, fsheet_index, fsheet_name, fstart_row_index, fend_row_index, fcol_indexs, 
+    fignore_rows_index, fdb_table, fstrong_rows_index, fmerges
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_excel_sheet_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_excel_sheet_config
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_excel_sheet_config
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfigExample" >
+    delete from t_excel_sheet_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    insert into t_excel_sheet_config (fid, fhead_id, fsheet_index, 
+      fsheet_name, fstart_row_index, fend_row_index, 
+      fcol_indexs, fignore_rows_index, fdb_table, 
+      fstrong_rows_index, fmerges)
+    values (#{fid,jdbcType=BIGINT}, #{fheadId,jdbcType=BIGINT}, #{fsheetIndex,jdbcType=INTEGER}, 
+      #{fsheetName,jdbcType=VARCHAR}, #{fstartRowIndex,jdbcType=INTEGER}, #{fendRowIndex,jdbcType=INTEGER}, 
+      #{fcolIndexs,jdbcType=VARCHAR}, #{fignoreRowsIndex,jdbcType=VARCHAR}, #{fdbTable,jdbcType=VARCHAR}, 
+      #{fstrongRowsIndex,jdbcType=VARCHAR}, #{fmerges,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    insert into t_excel_sheet_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fheadId != null" >
+        fhead_id,
+      </if>
+      <if test="fsheetIndex != null" >
+        fsheet_index,
+      </if>
+      <if test="fsheetName != null" >
+        fsheet_name,
+      </if>
+      <if test="fstartRowIndex != null" >
+        fstart_row_index,
+      </if>
+      <if test="fendRowIndex != null" >
+        fend_row_index,
+      </if>
+      <if test="fcolIndexs != null" >
+        fcol_indexs,
+      </if>
+      <if test="fignoreRowsIndex != null" >
+        fignore_rows_index,
+      </if>
+      <if test="fdbTable != null" >
+        fdb_table,
+      </if>
+      <if test="fstrongRowsIndex != null" >
+        fstrong_rows_index,
+      </if>
+      <if test="fmerges != null" >
+        fmerges,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="fheadId != null" >
+        #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="fsheetIndex != null" >
+        #{fsheetIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fsheetName != null" >
+        #{fsheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="fstartRowIndex != null" >
+        #{fstartRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fendRowIndex != null" >
+        #{fendRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fcolIndexs != null" >
+        #{fcolIndexs,jdbcType=VARCHAR},
+      </if>
+      <if test="fignoreRowsIndex != null" >
+        #{fignoreRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="fdbTable != null" >
+        #{fdbTable,jdbcType=VARCHAR},
+      </if>
+      <if test="fstrongRowsIndex != null" >
+        #{fstrongRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="fmerges != null" >
+        #{fmerges,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfigExample" resultType="java.lang.Integer" >
+    select count(*) from t_excel_sheet_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_excel_sheet_config
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.fheadId != null" >
+        fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fsheetIndex != null" >
+        fsheet_index = #{record.fsheetIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fsheetName != null" >
+        fsheet_name = #{record.fsheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstartRowIndex != null" >
+        fstart_row_index = #{record.fstartRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fendRowIndex != null" >
+        fend_row_index = #{record.fendRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcolIndexs != null" >
+        fcol_indexs = #{record.fcolIndexs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fignoreRowsIndex != null" >
+        fignore_rows_index = #{record.fignoreRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdbTable != null" >
+        fdb_table = #{record.fdbTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstrongRowsIndex != null" >
+        fstrong_rows_index = #{record.fstrongRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fmerges != null" >
+        fmerges = #{record.fmerges,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_excel_sheet_config
+    set fid = #{record.fid,jdbcType=BIGINT},
+      fhead_id = #{record.fheadId,jdbcType=BIGINT},
+      fsheet_index = #{record.fsheetIndex,jdbcType=INTEGER},
+      fsheet_name = #{record.fsheetName,jdbcType=VARCHAR},
+      fstart_row_index = #{record.fstartRowIndex,jdbcType=INTEGER},
+      fend_row_index = #{record.fendRowIndex,jdbcType=INTEGER},
+      fcol_indexs = #{record.fcolIndexs,jdbcType=VARCHAR},
+      fignore_rows_index = #{record.fignoreRowsIndex,jdbcType=VARCHAR},
+      fdb_table = #{record.fdbTable,jdbcType=VARCHAR},
+      fstrong_rows_index = #{record.fstrongRowsIndex,jdbcType=VARCHAR},
+      fmerges = #{record.fmerges,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    update t_excel_sheet_config
+    <set >
+      <if test="fheadId != null" >
+        fhead_id = #{fheadId,jdbcType=BIGINT},
+      </if>
+      <if test="fsheetIndex != null" >
+        fsheet_index = #{fsheetIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fsheetName != null" >
+        fsheet_name = #{fsheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="fstartRowIndex != null" >
+        fstart_row_index = #{fstartRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fendRowIndex != null" >
+        fend_row_index = #{fendRowIndex,jdbcType=INTEGER},
+      </if>
+      <if test="fcolIndexs != null" >
+        fcol_indexs = #{fcolIndexs,jdbcType=VARCHAR},
+      </if>
+      <if test="fignoreRowsIndex != null" >
+        fignore_rows_index = #{fignoreRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="fdbTable != null" >
+        fdb_table = #{fdbTable,jdbcType=VARCHAR},
+      </if>
+      <if test="fstrongRowsIndex != null" >
+        fstrong_rows_index = #{fstrongRowsIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="fmerges != null" >
+        fmerges = #{fmerges,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TExcelSheetConfig" >
+    update t_excel_sheet_config
+    set fhead_id = #{fheadId,jdbcType=BIGINT},
+      fsheet_index = #{fsheetIndex,jdbcType=INTEGER},
+      fsheet_name = #{fsheetName,jdbcType=VARCHAR},
+      fstart_row_index = #{fstartRowIndex,jdbcType=INTEGER},
+      fend_row_index = #{fendRowIndex,jdbcType=INTEGER},
+      fcol_indexs = #{fcolIndexs,jdbcType=VARCHAR},
+      fignore_rows_index = #{fignoreRowsIndex,jdbcType=VARCHAR},
+      fdb_table = #{fdbTable,jdbcType=VARCHAR},
+      fstrong_rows_index = #{fstrongRowsIndex,jdbcType=VARCHAR},
+      fmerges = #{fmerges,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

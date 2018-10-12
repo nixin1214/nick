@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceMainBusinessMonthDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth" >
+    <id column="fid" property="fid"/>
+    <result column="frow_num" property="frow_num"  />
+    <result column="fproject" property="fproject"/>
+    <result column="sale_budget" property="sale_budget"/>
+    <result column="sale_actual" property="sale_actual"/>
+    <result column="income_budget" property="income_budget"/>
+    <result column="income_actual" property="income_actual"  />
+    <result column="income_total" property="income_total"  />
+    <result column="cost_budget" property="cost_budget"  />
+    <result column="cost_actual" property="cost_actual"  />
+    <result column="cost_total" property="cost_total"  />
+    <result column="sale_profit_budget" property="sale_profit_budget"  />
+    <result column="sale_profit_actual" property="sale_profit_actual"  />
+    <result column="sale_profit_budget_ratio" property="sale_profit_budget_ratio"  />
+    <result column="sale_profit_actual_ratio" property="sale_profit_actual_ratio"  />
+    <result column="sale_total" property="sale_total"  />
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+    <result column="fstrong" property="fstrong"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth" >
+    insert into t_finance_main_business_month (
+      frow_num,fproject,sale_budget,sale_actual,income_budget,income_actual,income_total,
+      cost_budget,cost_actual,cost_total,sale_profit_budget,sale_profit_actual,sale_profit_budget_ratio,sale_profit_actual_ratio,sale_total
+      fhead_id,frow_index,fstrong
+      )
+    values (
+      #{frow_num},#{fproject},#{sale_budget},#{sale_actual},#{income_budget},#{income_actual},#{income_total},
+      #{cost_budget},#{cost_actual},#{cost_total},#{sale_profit_budget},#{sale_profit_actual},#{sale_profit_budget_ratio},#{sale_profit_actual_ratio},#{sale_total}
+      #{fhead_id},#{frow_index},#{fstrong}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_main_business_month ( frow_num,fproject,sale_budget,sale_actual,income_budget,income_actual,income_total,
+    cost_budget,cost_actual,cost_total,sale_profit_budget,sale_profit_actual,sale_profit_budget_ratio,sale_profit_actual_ratio,sale_total,
+    fhead_id,frow_index,fstrong
+    )
+    values
+      (#{item.frow_num},#{item.fproject},#{item.sale_budget},#{item.sale_actual},#{item.income_budget},#{item.income_actual},#{item.income_total},
+      #{item.cost_budget},#{item.cost_actual},#{item.cost_total},#{item.sale_profit_budget},#{item.sale_profit_actual},#{item.sale_profit_budget_ratio},#{item.sale_profit_actual_ratio},#{item.sale_total},
+      #{item.fhead_id},#{item.frow_index},#{item.fstrong}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_business_month WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth">
+    delete from t_finance_main_business_month WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth" >
+    select * from t_finance_main_business_month where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+
+  <select id="queryByPropertyAndRowIndex" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth" >
+    select * from t_finance_main_business_month where
+      <if test="fheadIds != null">
+          fhead_id in
+          <foreach collection="fheadIds" item="headId" open="(" close=")" separator=",">
+            #{headId}
+          </foreach>
+          and
+      </if>
+      <if test="rowNum != null">
+        frow_index in
+        <foreach collection="rowNum" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    order by frow_index ASC
+  </select>
+
+  <!--通过条件查询列表(组织集合)-->
+  <select id="queryByPropertyAll" parameterType="java.util.List" resultType="com.roncoo.adminlte.bean.entity.FinanceMainBusinessMonth" >
+    select * from t_finance_main_business_month where 1=1
+    <if test="list.size > 0" >
+      and fhead_id in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by frow_index ASC
+  </select>
+</mapper>

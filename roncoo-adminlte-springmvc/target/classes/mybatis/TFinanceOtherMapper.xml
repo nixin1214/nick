@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TFinanceOtherMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFinanceOther" >
+    <id column="FID" property="fid" jdbcType="BIGINT" />
+    <result column="FROW_INDEX" property="frowIndex" jdbcType="BIGINT" />
+    <result column="FENTERPRISE" property="fenterprise" jdbcType="VARCHAR" />
+    <result column="FQUOTA_NAME" property="fquotaName" jdbcType="VARCHAR" />
+    <result column="FQUOTA_VALUE" property="fquotaValue" jdbcType="DECIMAL" />
+    <result column="FRESOURCE" property="fresource" jdbcType="VARCHAR" />
+    <result column="FCREATIME" property="fcreatime" jdbcType="TIMESTAMP" />
+    <result column="FYEARMONTH" property="fyearmonth" jdbcType="VARCHAR" />
+    <result column="FREMARK" property="fremark" jdbcType="VARCHAR" />
+    <result column="FEXTEND1" property="fextend1" jdbcType="DECIMAL" />
+    <result column="FEXTEND2" property="fextend2" jdbcType="DECIMAL" />
+    <result column="FEXTEND3" property="fextend3" jdbcType="DECIMAL" />
+    <result column="FCREATOR_ID" property="fcreatorId" jdbcType="BIGINT" />
+    <result column="FCREATOR_NAME" property="fcreatorName" jdbcType="VARCHAR" />
+    <result column="FCOMPANY_CODE" property="fcompanyCode" jdbcType="VARCHAR" />
+    <association property="company" column="FCOMPANY_CODE" javaType="com.roncoo.adminlte.bean.entity.RcCompany" select="selectCompany">
+      <id property="id" column="id" jdbcType="BIGINT" javaType="long"></id>
+      <result property="number" column="fnumber" jdbcType="VARCHAR" javaType="string"/>
+      <result property="name" column="fname" jdbcType="VARCHAR" javaType="string"/>
+      <result property="type" column="ftype" jdbcType="VARCHAR" javaType="string"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FID, FROW_INDEX, FENTERPRISE, FQUOTA_NAME, FQUOTA_VALUE, FRESOURCE, FCREATIME, FYEARMONTH, 
+    FREMARK, FEXTEND1, FEXTEND2, FEXTEND3, FCREATOR_ID, FCREATOR_NAME, FCOMPANY_CODE
+  </sql>
+  <select id="selectCompany" resultType="com.roncoo.adminlte.bean.entity.RcCompany" parameterType="string">
+    select id, fname "fname", fnumber "fnumber", ftype "ftype" from rc_company where fnumber=#{FCOMPANY_CODE}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOtherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FINANCE_OTHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_FINANCE_OTHER
+    where FID = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from T_FINANCE_OTHER
+    where FID = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOtherExample" >
+    delete from T_FINANCE_OTHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOther" >
+    insert into T_FINANCE_OTHER (FID, FROW_INDEX, FENTERPRISE, 
+      FQUOTA_NAME, FQUOTA_VALUE, FRESOURCE, 
+      FCREATIME, FYEARMONTH, FREMARK, 
+      FEXTEND1, FEXTEND2, FEXTEND3, 
+      FCREATOR_ID, FCREATOR_NAME, FCOMPANY_CODE
+      )
+    values (#{fid,jdbcType=BIGINT}, #{frowIndex,jdbcType=BIGINT}, #{fenterprise,jdbcType=VARCHAR},
+      #{fquotaName,jdbcType=VARCHAR}, #{fquotaValue,jdbcType=DECIMAL}, #{fresource,jdbcType=VARCHAR}, 
+      #{fcreatime,jdbcType=TIMESTAMP}, #{fyearmonth,jdbcType=VARCHAR}, #{fremark,jdbcType=VARCHAR}, 
+      #{fextend1,jdbcType=DECIMAL}, #{fextend2,jdbcType=DECIMAL}, #{fextend3,jdbcType=DECIMAL}, 
+      #{fcreatorId,jdbcType=BIGINT}, #{fcreatorName,jdbcType=VARCHAR}, #{fcompanyCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <!-- 批量新增 -->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+      into T_FINANCE_OTHER (FID, FROW_INDEX, FENTERPRISE,
+      FQUOTA_NAME, FQUOTA_VALUE, FRESOURCE,
+      FCREATIME, FYEARMONTH, FREMARK,
+      FEXTEND1, FEXTEND2, FEXTEND3,
+      FCREATOR_ID, FCREATOR_NAME, FCOMPANY_CODE
+      )
+      values
+      (#{item.fid,jdbcType=BIGINT}, #{item.frowIndex,jdbcType=BIGINT}, #{item.fenterprise,jdbcType=VARCHAR},
+      #{item.fquotaName,jdbcType=VARCHAR}, #{item.fquotaValue,jdbcType=DECIMAL}, #{item.fresource,jdbcType=VARCHAR},
+      #{item.fcreatime,jdbcType=TIMESTAMP}, #{item.fyearmonth,jdbcType=VARCHAR}, #{item.fremark,jdbcType=VARCHAR},
+      #{item.fextend1,jdbcType=DECIMAL}, #{item.fextend2,jdbcType=DECIMAL}, #{item.fextend3,jdbcType=DECIMAL},
+      #{item.fcreatorId,jdbcType=BIGINT}, #{item.fcreatorName,jdbcType=VARCHAR}, #{item.fcompanyCode,jdbcType=VARCHAR}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOther" >
+    insert into T_FINANCE_OTHER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        FID,
+      </if>
+      <if test="frowIndex != null" >
+        FROW_INDEX,
+      </if>
+      <if test="fenterprise != null" >
+        FENTERPRISE,
+      </if>
+      <if test="fquotaName != null" >
+        FQUOTA_NAME,
+      </if>
+      <if test="fquotaValue != null" >
+        FQUOTA_VALUE,
+      </if>
+      <if test="fresource != null" >
+        FRESOURCE,
+      </if>
+      <if test="fcreatime != null" >
+        FCREATIME,
+      </if>
+      <if test="fyearmonth != null" >
+        FYEARMONTH,
+      </if>
+      <if test="fremark != null" >
+        FREMARK,
+      </if>
+      <if test="fextend1 != null" >
+        FEXTEND1,
+      </if>
+      <if test="fextend2 != null" >
+        FEXTEND2,
+      </if>
+      <if test="fextend3 != null" >
+        FEXTEND3,
+      </if>
+      <if test="fcreatorId != null" >
+        FCREATOR_ID,
+      </if>
+      <if test="fcreatorName != null" >
+        FCREATOR_NAME,
+      </if>
+      <if test="fcompanyCode != null" >
+        FCOMPANY_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="frowIndex != null" >
+        #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fenterprise != null" >
+        #{fenterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaName != null" >
+        #{fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaValue != null" >
+        #{fquotaValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fresource != null" >
+        #{fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fyearmonth != null" >
+        #{fyearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fextend1 != null" >
+        #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        #{fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="fcreatorId != null" >
+        #{fcreatorId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatorName != null" >
+        #{fcreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="fcompanyCode != null" >
+        #{fcompanyCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOtherExample" resultType="java.lang.Integer" >
+    select count(*) from T_FINANCE_OTHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_FINANCE_OTHER
+    <set >
+      <if test="record.fid != null" >
+        FID = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.frowIndex != null" >
+        FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="record.fenterprise != null" >
+        FENTERPRISE = #{record.fenterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fquotaName != null" >
+        FQUOTA_NAME = #{record.fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fquotaValue != null" >
+        FQUOTA_VALUE = #{record.fquotaValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fresource != null" >
+        FRESOURCE = #{record.fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcreatime != null" >
+        FCREATIME = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fyearmonth != null" >
+        FYEARMONTH = #{record.fyearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fremark != null" >
+        FREMARK = #{record.fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fextend1 != null" >
+        FEXTEND1 = #{record.fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend2 != null" >
+        FEXTEND2 = #{record.fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fextend3 != null" >
+        FEXTEND3 = #{record.fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fcreatorId != null" >
+        FCREATOR_ID = #{record.fcreatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreatorName != null" >
+        FCREATOR_NAME = #{record.fcreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fcompanyCode != null" >
+        FCOMPANY_CODE = #{record.fcompanyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_FINANCE_OTHER
+    set FID = #{record.fid,jdbcType=BIGINT},
+      FROW_INDEX = #{record.frowIndex,jdbcType=BIGINT},
+      FENTERPRISE = #{record.fenterprise,jdbcType=VARCHAR},
+      FQUOTA_NAME = #{record.fquotaName,jdbcType=VARCHAR},
+      FQUOTA_VALUE = #{record.fquotaValue,jdbcType=DECIMAL},
+      FRESOURCE = #{record.fresource,jdbcType=VARCHAR},
+      FCREATIME = #{record.fcreatime,jdbcType=TIMESTAMP},
+      FYEARMONTH = #{record.fyearmonth,jdbcType=VARCHAR},
+      FREMARK = #{record.fremark,jdbcType=VARCHAR},
+      FEXTEND1 = #{record.fextend1,jdbcType=DECIMAL},
+      FEXTEND2 = #{record.fextend2,jdbcType=DECIMAL},
+      FEXTEND3 = #{record.fextend3,jdbcType=DECIMAL},
+      FCREATOR_ID = #{record.fcreatorId,jdbcType=BIGINT},
+      FCREATOR_NAME = #{record.fcreatorName,jdbcType=VARCHAR},
+      FCOMPANY_CODE = #{record.fcompanyCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOther" >
+    update T_FINANCE_OTHER
+    <set >
+      <if test="frowIndex != null" >
+        FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      </if>
+      <if test="fenterprise != null" >
+        FENTERPRISE = #{fenterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaName != null" >
+        FQUOTA_NAME = #{fquotaName,jdbcType=VARCHAR},
+      </if>
+      <if test="fquotaValue != null" >
+        FQUOTA_VALUE = #{fquotaValue,jdbcType=DECIMAL},
+      </if>
+      <if test="fresource != null" >
+        FRESOURCE = #{fresource,jdbcType=VARCHAR},
+      </if>
+      <if test="fcreatime != null" >
+        FCREATIME = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fyearmonth != null" >
+        FYEARMONTH = #{fyearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="fremark != null" >
+        FREMARK = #{fremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fextend1 != null" >
+        FEXTEND1 = #{fextend1,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend2 != null" >
+        FEXTEND2 = #{fextend2,jdbcType=DECIMAL},
+      </if>
+      <if test="fextend3 != null" >
+        FEXTEND3 = #{fextend3,jdbcType=DECIMAL},
+      </if>
+      <if test="fcreatorId != null" >
+        FCREATOR_ID = #{fcreatorId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatorName != null" >
+        FCREATOR_NAME = #{fcreatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="fcompanyCode != null" >
+        FCOMPANY_CODE = #{fcompanyCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TFinanceOther" >
+    update T_FINANCE_OTHER
+    set FROW_INDEX = #{frowIndex,jdbcType=BIGINT},
+      FENTERPRISE = #{fenterprise,jdbcType=VARCHAR},
+      FQUOTA_NAME = #{fquotaName,jdbcType=VARCHAR},
+      FQUOTA_VALUE = #{fquotaValue,jdbcType=DECIMAL},
+      FRESOURCE = #{fresource,jdbcType=VARCHAR},
+      FCREATIME = #{fcreatime,jdbcType=TIMESTAMP},
+      FYEARMONTH = #{fyearmonth,jdbcType=VARCHAR},
+      FREMARK = #{fremark,jdbcType=VARCHAR},
+      FEXTEND1 = #{fextend1,jdbcType=DECIMAL},
+      FEXTEND2 = #{fextend2,jdbcType=DECIMAL},
+      FEXTEND3 = #{fextend3,jdbcType=DECIMAL},
+      FCREATOR_ID = #{fcreatorId,jdbcType=BIGINT},
+      FCREATOR_NAME = #{fcreatorName,jdbcType=VARCHAR},
+      FCOMPANY_CODE = #{fcompanyCode,jdbcType=VARCHAR}
+    where FID = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

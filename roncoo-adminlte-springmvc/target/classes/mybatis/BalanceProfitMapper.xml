@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.BalanceProfitDao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.BalanceProfit" >
+    <id column="fid" property="fid"/>
+    <result column="fproject" property="fproject"/>
+    <result column="frow_num" property="frow_num"/>
+    <result column="last_year_actual" property="last_year_actual"/>
+    <result column="last_year_total" property="last_year_total"/>
+    <result column="this_year_budget" property="this_year_budget"/>
+    <result column="this_year_budget_total" property="this_year_budget_total"/>
+    <result column="this_year_actual" property="this_year_actual"/>
+    <result column="this_year_actual_total" property="this_year_actual_total"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+    <result column="fstrong" property="fstrong"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.BalanceProfit" >
+    insert into t_finance_profit (
+      fproject,frow_num,last_year_actual,last_year_total,
+      this_year_budget,this_year_budget_total,this_year_actual,this_year_actual_total,
+      fhead_id,frow_index,fstrong
+      )
+    values (
+      #{fproject},#{frow_num},#{last_year_actual},#{last_year_total},
+      #{this_year_budget},#{this_year_budget_total},#{this_year_actual},#{this_year_actual_total},
+      #{fhead_id}, #{frow_index},#{fstrong}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_profit ( fproject,frow_num,last_year_actual,last_year_total,
+    this_year_budget,this_year_budget_total,this_year_actual,this_year_actual_total,
+    fhead_id,frow_index,fstrong
+    )
+    values
+      ( #{item.fproject},#{item.frow_num},#{item.last_year_actual},#{item.last_year_total},
+      #{item.this_year_budget},#{item.this_year_budget_total},#{item.this_year_actual},#{item.this_year_actual_total},
+      #{item.fhead_id},#{item.frow_index},#{item.fstrong}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_profit WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.BalanceProfit">
+    delete from t_finance_profit WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.BalanceProfit" >
+    select * from t_finance_profit where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+  <!--通过条件查询列表(组织集合)-->
+  <select id="queryByPropertyAll" parameterType="java.util.List" resultType="com.roncoo.adminlte.bean.entity.BalanceProfit" >
+    select * from t_finance_profit where 1=1
+    <if test="list.size > 0" >
+      and fhead_id in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    order by frow_index ASC
+  </select>
+</mapper>

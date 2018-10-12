@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.TSysRoleResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TSysRoleResource" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="frole_id" property="froleId" jdbcType="BIGINT" />
+    <result column="fresource_id" property="fresourceId" jdbcType="BIGINT" />
+    <result column="fcreatime" property="fcreatime" jdbcType="TIMESTAMP" />
+    <result column="fupdatime" property="fupdatime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, frole_id, fresource_id, fcreatime, fupdatime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResourceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_role_resource
+    where fid = #{fid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sys_role_resource
+    where fid = #{fid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResourceExample" >
+    delete from t_sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResource" >
+    insert into t_sys_role_resource (fid, frole_id, fresource_id, 
+      fcreatime, fupdatime)
+    values (#{fid,jdbcType=BIGINT}, #{froleId,jdbcType=BIGINT}, #{fresourceId,jdbcType=BIGINT}, 
+      #{fcreatime,jdbcType=TIMESTAMP}, #{fupdatime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResource" >
+    insert into t_sys_role_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="froleId != null" >
+        frole_id,
+      </if>
+      <if test="fresourceId != null" >
+        fresource_id,
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime,
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=BIGINT},
+      </if>
+      <if test="froleId != null" >
+        #{froleId,jdbcType=BIGINT},
+      </if>
+      <if test="fresourceId != null" >
+        #{fresourceId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdatime != null" >
+        #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResourceExample" resultType="java.lang.Integer" >
+    select count(*) from t_sys_role_resource
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sys_role_resource
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=BIGINT},
+      </if>
+      <if test="record.froleId != null" >
+        frole_id = #{record.froleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fresourceId != null" >
+        fresource_id = #{record.fresourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fcreatime != null" >
+        fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fupdatime != null" >
+        fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sys_role_resource
+    set fid = #{record.fid,jdbcType=BIGINT},
+      frole_id = #{record.froleId,jdbcType=BIGINT},
+      fresource_id = #{record.fresourceId,jdbcType=BIGINT},
+      fcreatime = #{record.fcreatime,jdbcType=TIMESTAMP},
+      fupdatime = #{record.fupdatime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResource" >
+    update t_sys_role_resource
+    <set >
+      <if test="froleId != null" >
+        frole_id = #{froleId,jdbcType=BIGINT},
+      </if>
+      <if test="fresourceId != null" >
+        fresource_id = #{fresourceId,jdbcType=BIGINT},
+      </if>
+      <if test="fcreatime != null" >
+        fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fupdatime != null" >
+        fupdatime = #{fupdatime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.TSysRoleResource" >
+    update t_sys_role_resource
+    set frole_id = #{froleId,jdbcType=BIGINT},
+      fresource_id = #{fresourceId,jdbcType=BIGINT},
+      fcreatime = #{fcreatime,jdbcType=TIMESTAMP},
+      fupdatime = #{fupdatime,jdbcType=TIMESTAMP}
+    where fid = #{fid,jdbcType=BIGINT}
+  </update>
+</mapper>

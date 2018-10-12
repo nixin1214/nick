@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainIndices3Dao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFmainIndices3" >
+    <id column="fid" property="fid"/>
+    <result column="fproject" property="fproject"/>
+    <result column="fperoid1" property="fperoid1"/>
+    <result column="fperoid2" property="fperoid2"/>
+    <result column="fperoid3" property="fperoid3"/>
+    <result column="fperoid4" property="fperoid4"/>
+    <result column="fperoid5" property="fperoid5"/>
+    <result column="fperoid6" property="fperoid6"/>
+    <result column="fperoid7" property="fperoid7"/>
+    <result column="fperoid8" property="fperoid8"/>
+    <result column="fperoid9" property="fperoid9"/>
+    <result column="fperoid10" property="fperoid10"/>
+    <result column="fperoid11" property="fperoid11"/>
+    <result column="fperoid12" property="fperoid12"/>
+    <result column="this_year_count" property="this_year_count"/>
+    <result column="last_year_count" property="last_year_count"/>
+    <result column="year_count" property="year_count"/>
+    <result column="year_ratio" property="year_ratio"/>
+    <result column="q1_this_done" property="q1_this_done"/>
+    <result column="q1_last_done" property="q1_last_done"/>
+    <result column="q1_count" property="q1_count"/>
+    <result column="q1_ratio" property="q1_ratio"/>
+    <result column="q2_this_done" property="q2_this_done"/>
+    <result column="q2_last_done" property="q2_last_done"/>
+    <result column="q2_count" property="q2_count"/>
+    <result column="q2_ratio" property="q2_ratio"/>
+    <result column="q3_this_done" property="q3_this_done"/>
+    <result column="q3_last_done" property="q3_last_done"/>
+    <result column="q3_count" property="q3_count"/>
+    <result column="q3_ratio" property="q3_ratio"/>
+    <result column="q4_this_done" property="q4_this_done"/>
+    <result column="q4_last_done" property="q4_last_done"/>
+    <result column="q4_count" property="q4_count"/>
+    <result column="q4_ratio" property="q4_ratio"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices3" >
+    insert into t_finance_main_indices3 (fproject,fperoid1,fperoid2,fperoid3,fperoid4,fperoid5,fperoid6,fperoid7,fperoid8,fperoid9,fperoid10,fperoid11,fperoid12,
+      this_year_count, last_year_count, year_count,year_ratio,
+      q1_this_done, q1_last_done, q1_count,q1_ratio,
+      q2_this_done, q2_last_done, q2_count,q2_ratio,
+      q3_this_done, q3_last_done, q3_count,q3_ratio,
+      q4_this_done, q4_last_done, q4_count,q4_ratio,
+      fhead_id,frow_index
+      )
+    values (#{fproject},#{fperoid1},#{fperoid2},#{fperoid3},#{fperoid4},#{fperoid5},#{fperoid6},#{fperoid7},#{fperoid8},#{fperoid9},#{fperoid10},#{fperoid11},#{fperoid12},
+      #{this_year_count}, #{last_year_count}, #{year_count},#{year_ratio},
+      #{q1_this_done}, #{q1_last_done}, #{q1_count},#{q1_ratio},
+      #{q2_this_done}, #{q2_last_done}, #{q2_count},#{q2_ratio},
+      #{q3_this_done}, #{q3_last_done}, #{q3_count},#{q3_ratio},
+      #{q4_this_done}, #{q4_last_done}, #{q4_count},#{q4_ratio},
+      #{fhead_id}, #{frow_index}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" separator="" >
+    into t_finance_main_indices3 (fproject,fperoid1,fperoid2,fperoid3,fperoid4,fperoid5,fperoid6,fperoid7,fperoid8,fperoid9,fperoid10,fperoid11,fperoid12,
+    this_year_count, last_year_count, year_count,year_ratio,
+    q1_this_done, q1_last_done, q1_count,q1_ratio,
+    q2_this_done, q2_last_done, q2_count,q2_ratio,
+    q3_this_done, q3_last_done, q3_count,q3_ratio,
+    q4_this_done, q4_last_done, q4_count,q4_ratio,
+    fhead_id,frow_index
+    )
+    values
+      (#{item.fproject},#{item.fperoid1},#{item.fperoid2},#{item.fperoid3},#{item.fperoid4},#{item.fperoid5},#{item.fperoid6},#{item.fperoid7},#{item.fperoid8},#{item.fperoid9},#{item.fperoid10},#{item.fperoid11},#{item.fperoid12},
+      #{item.this_year_count}, #{item.last_year_count}, #{item.year_count},#{item.year_ratio},
+      #{item.q1_this_done}, #{item.q1_last_done}, #{item.q1_count},#{item.q1_ratio},
+      #{item.q2_this_done}, #{item.q2_last_done}, #{item.q2_count},#{item.q2_ratio},
+      #{item.q3_this_done}, #{item.q3_last_done}, #{item.q3_count},#{item.q3_ratio},
+      #{item.q4_this_done}, #{item.q4_last_done}, #{item.q4_count},#{item.q4_ratio},
+      #{item.fhead_id}, #{item.frow_index}
+      )
+    </foreach>
+    SELECT 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_indices3 WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices3">
+    delete from t_finance_main_indices3 WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.TFmainIndices3" >
+    select * from t_finance_main_indices3 where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+</mapper>

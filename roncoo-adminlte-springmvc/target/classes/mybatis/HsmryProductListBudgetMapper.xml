@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.impl.mybatis.HsmryProductListBudgetMapper">
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.HsmryProductListBudget">
+    <id column="FID" jdbcType="DECIMAL" property="fid" />
+    <result column="YEARMONTH" jdbcType="VARCHAR" property="yearmonth" />
+    <result column="PRODUCTNAME" jdbcType="VARCHAR" property="productname" />
+    <result column="SALESVOLUME" jdbcType="DECIMAL" property="salesvolume" />
+    <result column="SALESAMOUNT" jdbcType="DECIMAL" property="salesamount" />
+    <result column="CREATETIME" jdbcType="DATE" property="createtime" />
+    <result column="UPDATETIME" jdbcType="DATE" property="updatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FID, YEARMONTH, PRODUCTNAME, SALESVOLUME, SALESAMOUNT, CREATETIME, UPDATETIME
+  </sql>
+  <select id="selectByExample" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudgetExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HSMRY_PRODUCT_LIST_BUDGET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HSMRY_PRODUCT_LIST_BUDGET
+    where FID = #{fid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from HSMRY_PRODUCT_LIST_BUDGET
+    where FID = #{fid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudgetExample">
+    delete from HSMRY_PRODUCT_LIST_BUDGET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudget">
+    insert into HSMRY_PRODUCT_LIST_BUDGET (FID, YEARMONTH, PRODUCTNAME, 
+      SALESVOLUME, SALESAMOUNT, CREATETIME, 
+      UPDATETIME)
+    values (#{fid,jdbcType=DECIMAL}, #{yearmonth,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, 
+      #{salesvolume,jdbcType=DECIMAL}, #{salesamount,jdbcType=DECIMAL}, #{createtime,jdbcType=DATE}, 
+      #{updatetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudget">
+    insert into HSMRY_PRODUCT_LIST_BUDGET
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="yearmonth != null">
+        YEARMONTH,
+      </if>
+      <if test="productname != null">
+        PRODUCTNAME,
+      </if>
+      <if test="salesvolume != null">
+        SALESVOLUME,
+      </if>
+      <if test="salesamount != null">
+        SALESAMOUNT,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=DECIMAL},
+      </if>
+      <if test="yearmonth != null">
+        #{yearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null">
+        #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="salesvolume != null">
+        #{salesvolume,jdbcType=DECIMAL},
+      </if>
+      <if test="salesamount != null">
+        #{salesamount,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudgetExample" resultType="java.lang.Long">
+    select count(*) from HSMRY_PRODUCT_LIST_BUDGET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HSMRY_PRODUCT_LIST_BUDGET
+    <set>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yearmonth != null">
+        YEARMONTH = #{record.yearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productname != null">
+        PRODUCTNAME = #{record.productname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesvolume != null">
+        SALESVOLUME = #{record.salesvolume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salesamount != null">
+        SALESAMOUNT = #{record.salesamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createtime != null">
+        CREATETIME = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.updatetime != null">
+        UPDATETIME = #{record.updatetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HSMRY_PRODUCT_LIST_BUDGET
+    set FID = #{record.fid,jdbcType=DECIMAL},
+      YEARMONTH = #{record.yearmonth,jdbcType=VARCHAR},
+      PRODUCTNAME = #{record.productname,jdbcType=VARCHAR},
+      SALESVOLUME = #{record.salesvolume,jdbcType=DECIMAL},
+      SALESAMOUNT = #{record.salesamount,jdbcType=DECIMAL},
+      CREATETIME = #{record.createtime,jdbcType=DATE},
+      UPDATETIME = #{record.updatetime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudget">
+    update HSMRY_PRODUCT_LIST_BUDGET
+    <set>
+      <if test="yearmonth != null">
+        YEARMONTH = #{yearmonth,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null">
+        PRODUCTNAME = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="salesvolume != null">
+        SALESVOLUME = #{salesvolume,jdbcType=DECIMAL},
+      </if>
+      <if test="salesamount != null">
+        SALESAMOUNT = #{salesamount,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=DATE},
+      </if>
+    </set>
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.roncoo.adminlte.bean.entity.HsmryProductListBudget">
+    update HSMRY_PRODUCT_LIST_BUDGET
+    set YEARMONTH = #{yearmonth,jdbcType=VARCHAR},
+      PRODUCTNAME = #{productname,jdbcType=VARCHAR},
+      SALESVOLUME = #{salesvolume,jdbcType=DECIMAL},
+      SALESAMOUNT = #{salesamount,jdbcType=DECIMAL},
+      CREATETIME = #{createtime,jdbcType=DATE},
+      UPDATETIME = #{updatetime,jdbcType=DATE}
+    where FID = #{fid,jdbcType=DECIMAL}
+  </update>
+
+
+  <!-- 批量新增 -->
+  <insert id="insertBatch"  parameterType="java.util.List">
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" >
+      into HSMRY_PRODUCT_LIST_BUDGET (FID, YEARMONTH, PRODUCTNAME,
+      SALESVOLUME, SALESAMOUNT)
+      values (#{item.fid,jdbcType=DECIMAL}, #{item.yearmonth,jdbcType=VARCHAR}, #{item.productname,jdbcType=VARCHAR},
+      #{item.salesvolume,jdbcType=DECIMAL}, #{item.salesamount,jdbcType=DECIMAL})
+    </foreach>
+    select 1 from dual
+  </insert>
+
+
+</mapper>

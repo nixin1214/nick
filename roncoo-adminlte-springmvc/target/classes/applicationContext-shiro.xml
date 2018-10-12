@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+ default-lazy-init="true">
+
+
+<description>Shiro安全配置</description>
+
+	<!-- 会话Session ID生成器 -->
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<!--cookie的name，我故意取名叫xxxxbaidu -->
+		<constructor-arg value="v_v-s-baidu"/>
+		<property name="httpOnly" value="true"/>
+		<!--cookie的有效时间 -->
+		<property name="maxAge" value="-1"/>
+		<!-- 配置存储Session Cookie的domain为 一级域名
+        <property name="domain" value=".itboy.net"/>
+         -->
+	</bean>
+	<!-- 用户信息记住我功能的相关配置 -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="v_v-re-zk"/>
+		<property name="httpOnly" value="true"/>
+		<!-- 配置存储rememberMe Cookie的domain为 一级域名
+        <property name="domain" value=".itboy.net"/>
+         -->
+		<property name="maxAge" value="2592000"/><!-- 30天时间，记住我30天 -->
+	</bean>
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）-->
+		<property name="cipherKey"
+				  value="#{T(org.apache.shiro.codec.Base64).decode('3AvVhmFLUs0KTA3Kprsdag==')}"/>
+		<property name="cookie" ref="rememberMeCookie"/>
+	</bean>
+
+	<!-- 本地运行时使用 -->
+	<bean id="userRealm" class="com.roncoo.adminlte.controller.realm.UserRealm" />
+
+	<!-- <bean id="userRealm" class="com.roncoo.adminlte.controller.realm.RoncooRealm" 
+		/> -->
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<property name="rememberMeManager" ref="rememberMeManager"/>
+	</bean>
+
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- 相隔多久检查一次session的有效性   -->
+		<property name="sessionValidationInterval" value="1800000"/>
+		<!-- session 有效时间为半小时 （毫秒单位）-->
+		<property name="globalSessionTimeout" value="1800000"/>
+		<!-- 会话Cookie模板 -->
+		<property name="sessionIdCookie" ref="sessionIdCookie"/>
+	</bean>
+	<!-- session 校验单个用户是否多次登录 -->
+	<bean id="kickoutSessionFilter"   class="com.betimes.core.shiro.filter.KickoutSessionFilter">
+		<property name="kickoutUrl" value="/error"/>
+	</bean>
+	<!--
+		自定义角色过滤器 支持多个角色可以访问同一个资源 eg:/home.jsp = authc,roleOR[admin,user]
+		用户有admin或者user角色 就可以访问
+	-->
+	<!-- 认证数据库存储-->
+	<bean id="login" class="com.betimes.core.shiro.filter.LoginFilter"/>
+	<bean id="role" class="com.betimes.core.shiro.filter.RoleFilter"/>
+	<bean id="permission" class="com.betimes.core.shiro.filter.PermissionFilter"/>
+	<bean id="simple" class="com.betimes.core.shiro.filter.SimpleAuthFilter"/>
+
+	<!-- Shiro 过滤器 -->
+	<!--<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+	<bean id="shiroFilter" class="com.roncoo.adminlte.util.interceptor.MyShiroFilterFactoryBean">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 身份认证失败，则跳转到登录页面的配置 -->
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/admin/index" />
+		<property name="unauthorizedUrl" value="/error" />
+		<!-- Shiro连接约束配置,即过滤链的定义 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/login = authc
+				/exit = anon
+				/admin/security/list=authcBasic,perms[user:read]
+				/admin/security/save=authcBasic,perms[user:add]
+				/admin/security/update=authcBasic,perms[user:update]
+				/admin/security/delete=authcBasic,perms[user:delete]
+				<!--/admin/role/list=authcBasic,perms[role:read]
+				/admin/role/save=authcBasic,perms[role:add]
+				/admin/role/update=authcBasic,perms[role:update]
+				/admin/role/delete=authcBasic,perms[role:delete]-->
+				<!--/admin/permission/list=authcBasic,perms[super:read]
+				/admin/permission/save=authcBasic,perms[super:insert]
+				/admin/permission/update=authcBasic,perms[super:update]
+				/admin/permission/delete=authcBasic,perms[super:delete]-->
+				/admin/permission/**=authcBasic,roles[super]
+				<!--/admin/*/list = authcBasic,perms[user:read]-->
+				<!--/admin/*/save = authcBasic,perms[user:insert]-->
+				<!--/admin/*/update = authcBasic,perms[user:update]-->
+				<!--/admin/*/delete = authcBasic,perms[user:delete]-->
+			</value>
+		</property>
+		<property name="filters">
+			<util:map>
+				<entry key="login" value-ref="login"></entry>
+				<entry key="role" value-ref="role"></entry>
+				<entry key="simple" value-ref="simple"></entry>
+				<entry key="permission" value-ref="permission"></entry>
+			</util:map>
+		</property>
+	</bean>
+
+	<!-- 用户授权信息Cache, 采用EhCache -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml" />
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- AOP式方法级权限检查 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+</beans>

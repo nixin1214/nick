@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.roncoo.adminlte.service.impl.dao.TFinaceMainIndices4Dao" >
+  <resultMap id="BaseResultMap" type="com.roncoo.adminlte.bean.entity.TFmainIndices4" >
+    <id column="fid" property="fid"/>
+    <result column="fproject" property="fproject"/>
+    <result column="year_flag_mine" property="year_flag_mine"/>
+    <result column="year_flag_company" property="year_flag_company"/>
+    <result column="year_flag_cost_ratio" property="year_flag_cost_ratio"/>
+    <result column="year_flag_variance" property="year_flag_variance"/>
+    <result column="q1_flag_mine" property="q1_flag_mine"/>
+    <result column="q1_flag_company" property="q1_flag_company"/>
+    <result column="q1_flag_cost_ratio" property="q1_flag_cost_ratio"/>
+    <result column="q1_flag_variance" property="q1_flag_variance"/>
+    <result column="q2_flag_mine" property="q2_flag_mine"/>
+    <result column="q2_flag_company" property="q2_flag_company"/>
+    <result column="q2_flag_cost_ratio" property="q2_flag_cost_ratio"/>
+    <result column="q2_flag_variance" property="q2_flag_variance"/>
+    <result column="q3_flag_mine" property="q3_flag_mine"/>
+    <result column="q3_flag_company" property="q3_flag_company"/>
+    <result column="q3_flag_cost_ratio" property="q3_flag_cost_ratio"/>
+    <result column="q3_flag_variance" property="q3_flag_variance"/>
+    <result column="q4_flag_mine" property="q4_flag_mine"/>
+    <result column="q4_flag_company" property="q4_flag_company"/>
+    <result column="q4_flag_cost_ratio" property="q4_flag_cost_ratio"/>
+    <result column="q4_flag_variance" property="q4_flag_variance"/>
+    <result column="fhead_id" property="fhead_id"  />
+    <result column="frow_index" property="frow_index"  />
+  </resultMap>
+
+  <!--新增数据-->
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="fid" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices4" >
+    insert into t_finance_main_indices4 (fproject,year_flag_mine,year_flag_company,year_flag_cost_ratio,year_flag_variance,
+      q1_flag_mine,q1_flag_company,q1_flag_cost_ratio,q1_flag_variance,
+      q2_flag_mine,q2_flag_company,q2_flag_cost_ratio,q2_flag_variance,
+      q3_flag_mine,q3_flag_company,q3_flag_cost_ratio,q3_flag_variance,
+      q4_flag_mine,q4_flag_company,q4_flag_cost_ratio,q4_flag_variance,
+      fhead_id,frow_index
+      )
+    values (#{fproject},#{year_flag_mine},#{year_flag_company},#{year_flag_cost_ratio},#{q1_flag_variance},
+      #{q1_flag_mine},#{q1_flag_company},#{q1_flag_cost_ratio},#{q1_flag_variance},
+      #{q2_flag_mine},#{q2_flag_company},#{q2_flag_cost_ratio},#{q2_flag_variance},
+      #{q3_flag_mine},#{q3_flag_company},#{q3_flag_cost_ratio},#{q3_flag_variance},
+      #{q4_flag_mine},#{q4_flag_company},#{q4_flag_cost_ratio},#{q4_flag_variance},
+      #{fhead_id}, #{frow_index}
+      )
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch"  parameterType="java.util.List" >
+    INSERT ALL
+    <foreach collection="list" item="item" index="index" >
+    into t_finance_main_indices4 (fproject,year_flag_mine,year_flag_company,year_flag_cost_ratio,year_flag_variance,
+    q1_flag_mine,q1_flag_company,q1_flag_cost_ratio,q1_flag_variance,
+    q2_flag_mine,q2_flag_company,q2_flag_cost_ratio,q2_flag_variance,
+    q3_flag_mine,q3_flag_company,q3_flag_cost_ratio,q3_flag_variance,
+    q4_flag_mine,q4_flag_company,q4_flag_cost_ratio,q4_flag_variance,
+    fhead_id,frow_index
+    )
+    values
+      (#{item.fproject},#{item.year_flag_mine},#{item.year_flag_company},#{item.year_flag_cost_ratio},#{item.year_flag_variance},
+      #{item.q1_flag_mine},#{item.q1_flag_company},#{item.q1_flag_cost_ratio},#{item.q1_flag_variance},
+      #{item.q2_flag_mine},#{item.q2_flag_company},#{item.q2_flag_cost_ratio},#{item.q2_flag_variance},
+      #{item.q3_flag_mine},#{item.q3_flag_company},#{item.q3_flag_cost_ratio},#{item.q3_flag_variance},
+      #{item.q4_flag_mine},#{item.q4_flag_company},#{item.q4_flag_cost_ratio},#{item.q4_flag_variance},
+      #{item.fhead_id}, #{item.frow_index}
+      )
+    </foreach>
+    select 1 from dual
+  </insert>
+
+  <!--主键删除-->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    DELETE FROM t_finance_main_indices4 WHERE fid=#{fid}
+  </delete>
+
+
+  <!--通过属性删除对应数据-->
+  <delete id="deleteByProperty" parameterType="com.roncoo.adminlte.bean.entity.TFmainIndices4">
+    delete from t_finance_main_indices4 WHERE 1=1
+    <if test="fhead_id!=null and fhead_id!=0">
+      and fhead_id=#{fhead_id}
+    </if>
+  </delete>
+
+  <!--通过条件查询列表-->
+  <select id="queryByProperty" parameterType="java.util.Map" resultType="com.roncoo.adminlte.bean.entity.TFmainIndices4" >
+    select * from t_finance_main_indices4 where 1=1
+    <if test="fhead_id != null and fhead_id!=0" >
+       and fhead_id=#{fhead_id}
+    </if>
+    order by frow_index ASC
+  </select>
+
+</mapper>
